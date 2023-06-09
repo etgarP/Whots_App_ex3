@@ -22,4 +22,7 @@
     <string name="upload_your_unique_image">Upload Your Unique Image!</string>
     <string name="already_registered">Already registered?&#160;</string>
     <string name="sign_in_here">Click here to sign in</string>
+    <string name="add">Add</string>
+    <string name="addPerson">Add friend</string>
+    <string name="returnButton">Return</string>
 </resources>
