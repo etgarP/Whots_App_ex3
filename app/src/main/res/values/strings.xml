@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Whots App</string>
+    <string name="signin_welcome_back">Welcome Back!</string>
+    <string name="username">Username</string>
+    <string name="userTemp_hemi_hemi">hemi_hemi</string>
+    <string name="password">Password</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="login">Login</string>
+    <string name="sign_in">Sign In</string>
+    <string name="whotsapp">WhotsApp</string>
+    <string name="whotsappicon">whotsappIcon</string>
+    <string name="not_yet_registered">Not yet registered?&#160;</string>
+    <string name="register_here">Click here to register</string>
+    <string name="register">Register</string>
+    <string name="welcome_aboard">Welcome Aboard!</string>
+    <string name="hemi_hemi">hemi_hemi</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="re_enter_your_password">Re-enter your password</string>
+    <string name="displayname">DisplayName</string>
+    <string name="hemi_hemi_dp">hemi hemi</string>
+    <string name="picture">Picture</string>
+    <string name="upload_your_unique_image">Upload Your Unique Image!</string>
+    <string name="already_registered">Already registered?&#160;</string>
+    <string name="sign_in_here">Click here to sign in</string>
 </resources>
