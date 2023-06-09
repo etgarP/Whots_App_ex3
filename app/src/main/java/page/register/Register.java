@@ -1,15 +1,10 @@
-package sign.up.page;
+package page.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.whotsapp.R;
 import com.example.whotsapp.databinding.ActivityRegisterBinding;
-import com.example.whotsapp.databinding.SignInBinding;
-
-import sign.in.page.SignIn;
 
 public class Register extends AppCompatActivity {
     private ActivityRegisterBinding binding;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sign.up.page.Register">
+    tools:context="page.register.Register">
     <Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"

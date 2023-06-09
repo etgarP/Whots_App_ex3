@@ -1,15 +1,13 @@
-package sign.in.page;
+package page.sign_in;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
-import com.example.whotsapp.R;
 import com.example.whotsapp.databinding.SignInBinding;
 
-import sign.up.page.Register;
+import page.register.Register;
 
 
 public class SignIn extends AppCompatActivity {
