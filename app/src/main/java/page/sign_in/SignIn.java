@@ -1,13 +1,13 @@
 package page.sign_in;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.whotsapp.databinding.SignInBinding;
 
-import page.chat.ContactPage;
+import page.chat.PrivateChat;
 import page.register.Register;
 
 
@@ -23,7 +23,7 @@ public class SignIn extends AppCompatActivity {
             startActivity(intent);
         });
         binding.LoggingIn.setOnClickListener(view -> {
-            Intent intent = new Intent(SignIn.this, ContactPage.class);
+            Intent intent = new Intent(SignIn.this, PrivateChat.class);//todo ContactPage.class
             startActivity(intent);
         });
     }

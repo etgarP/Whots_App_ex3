@@ -4,10 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whotsapp.R;
@@ -15,27 +13,25 @@ import com.example.whotsapp.R;
 import java.util.List;
 
 import page.chat.entities.Message;
-import page.chat.viewmodels.MessageViewModel;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MessageViewHolder>{
     class MessageViewHolder extends RecyclerView.ViewHolder{
-        private final TextView content, sender;
+        private final TextView content;
 
         private MessageViewHolder(View itemView){
             super(itemView);
-            this.content = itemView.findViewById(R.id.content);
-            this.sender = itemView.findViewById(R.id.sender);
+            this.content = itemView.findViewById(R.id.messageContent);
         }
     }
 
     private  final LayoutInflater mInflater;
     private List<Message> messages;
-    public MessagesListAdapter(Context context) {
+    public MessagesAdapter(Context context) {
         this.mInflater=LayoutInflater.from(context);
     }
     @Override
     public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View itemView = mInflater.inflate(R.layout.,message_layout, parent, false);
+        View itemView = mInflater.inflate(R.layout.message_layout, parent, false);
         return new MessageViewHolder(itemView);
     }
 
@@ -43,8 +39,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     public void onBindViewHolder(MessageViewHolder holder, int position){
         if(this.messages != null){
             final Message current = this.messages.get(position);
-            holder.content.setContent(current.getContent());
-            holder.sender.setSender(current.getSender());
+            holder.content.setText(current.getContent());
         }
     }
 

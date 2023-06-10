@@ -17,7 +17,7 @@ public class MessageAdapter extends BaseAdapter {
     List<Message> messages;
 
     private static class ViewHolder{
-        TextView content, sender;
+        TextView content;
         LinearLayout wholeMessage;
     }
 
@@ -48,7 +48,6 @@ public class MessageAdapter extends BaseAdapter {
 
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.content = convertView.findViewById(R.id.messageContent);
-            viewHolder.sender = convertView.findViewById(R.id.messageSender);
             viewHolder.wholeMessage = convertView.findViewById(R.id.wholeMessage);
             convertView.setTag(viewHolder);
         }
@@ -56,7 +55,6 @@ public class MessageAdapter extends BaseAdapter {
         Message message = messages.get(position);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.content.setText(message.getContent());
-        viewHolder.sender.setText(message.getSender());
 
         return convertView;
     }

@@ -5,23 +5,26 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Message {
-    private String content, sender;
+    @PrimaryKey
+    private int id;
+    private String content;
+    private String userName;
 
-    public Message(String content, String sender) {
+    public Message(String content, String username) {
         this.content = content;
-        this.sender = sender;
+        this.userName=username;
     }
 
     public String getContent() {
         return content;
     }
 
-    public String getSender() {
-        return sender;
+    public int getId() {
+        return id;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setContent(String content) {
