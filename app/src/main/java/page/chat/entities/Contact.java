@@ -1,5 +1,7 @@
 package page.chat.entities;
 
+import android.graphics.Bitmap;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -26,7 +28,7 @@ public class Contact {
     public String getDisplayName() {
         return user.getDisplayName();
     }
-    public int getProfileImage() {
+    public Bitmap getProfileImage() {
         return user.getProfilePic();
     }
     public String getLastMessage() {

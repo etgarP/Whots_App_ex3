@@ -44,7 +44,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
             holder.displayName.setText(current.getDisplayName());
             holder.when.setText(current.getWhen());
             holder.lastMessage.setText(current.getLastMessage());
-            holder.profile.setImageResource(current.getProfileImage());
+            holder.profile.setImageBitmap(current.getProfileImage());
         }
     }
     public void setContacts(List<Contact> s) {

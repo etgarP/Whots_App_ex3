@@ -1,6 +1,11 @@
 package page.chat.entities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Base64;
 
 public class User {
     @SerializedName("username")
@@ -10,9 +15,11 @@ public class User {
     private String displayName;
 
     @SerializedName("profilePic")
-    private int profilePic;
+    private String profilePic;
 
-    public User(String username, String displayName, int profilePic) {
+    private Bitmap picture;
+
+    public User(String username, String displayName, String profilePic) {
         this.username = username;
         this.displayName = displayName;
         this.profilePic = profilePic;
@@ -26,7 +33,12 @@ public class User {
         return displayName;
     }
 
-    public int getProfilePic() {
-        return profilePic;
+    public Bitmap getProfilePic() {
+       if (picture == null) {
+           String base64Data = profilePic.substring(profilePic.indexOf(',') + 1);
+           byte[] bytes = Base64.getDecoder().decode(base64Data);
+           picture = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+       }
+       return picture;
     }
 }

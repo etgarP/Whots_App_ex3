@@ -1,4 +1,4 @@
-package page.chat;
+package page;
 
 import android.app.Application;
 import android.content.Context;
