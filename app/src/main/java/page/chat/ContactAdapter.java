@@ -7,11 +7,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.whotsapp.R;
 
 import java.util.List;
+
+import page.chat.entities.Contact;
 
 public class ContactAdapter extends BaseAdapter {
 
