@@ -5,10 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whotsapp.R;
@@ -16,7 +14,6 @@ import com.example.whotsapp.R;
 import java.util.List;
 
 import page.chat.entities.Contact;
-import page.chat.viewmodels.ContactViewModel;
 
 public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapter.ContactViewHolder> {
     class ContactViewHolder extends RecyclerView.ViewHolder {

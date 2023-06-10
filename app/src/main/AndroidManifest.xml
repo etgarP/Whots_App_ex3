@@ -13,6 +13,9 @@
         android:theme="@style/Theme.WhotsApp"
         tools:targetApi="31">
         <activity
+            android:name="page.chat.MyApplication"
+            android:exported="false" />
+        <activity
             android:name="page.chat.ContactPage"
             android:exported="false" />
         <activity
