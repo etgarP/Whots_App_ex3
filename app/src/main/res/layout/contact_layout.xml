@@ -19,56 +19,50 @@
         android:focusable="true"
         android:padding="10dp">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/contactPfp"-->
-<!--            android:layout_width="39dp"-->
-<!--            android:layout_height="39dp"-->
-<!--            android:contentDescription="@string/profilePicture"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <ImageView
+            android:id="@+id/contactPfp"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:contentDescription="@string/profilePicture"
+            app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linearLayout4"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_marginLeft="10dp">-->
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
 
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-<!--                <TextView-->
-<!--                    android:id="@+id/contactDisplayName"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+                <TextView
+                    android:id="@+id/contactDisplayName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/contactWhen"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+                <TextView
+                    android:id="@+id/contactWhen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--            <TextView-->
-<!--                android:id="@+id/contactLastMessage"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"/>-->
+            <TextView
+                android:id="@+id/contactLastMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-<!--        </LinearLayout>-->
+        </LinearLayout>
 
-<!--    </LinearLayout>-->
-
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-
-<!--    </RelativeLayout>-->
+    </LinearLayout>
 
 
 

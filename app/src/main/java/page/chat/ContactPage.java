@@ -1,7 +1,6 @@
 package page.chat;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -14,9 +13,11 @@ import com.example.whotsapp.databinding.ActivityContactPageBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import page.chat.entities.Contact;
+
 public class ContactPage extends AppCompatActivity {
 
-    List<Contact> contacts;
+    List<page.chat.entities.Contact> contacts;
     private ActivityContactPageBinding binding;
 
     @Override
@@ -37,13 +38,13 @@ public class ContactPage extends AppCompatActivity {
 //        });
     }
 
-    private List<Contact> generateContacts() {
-        List<Contact> posts = new ArrayList<>();
+    private List<page.chat.entities.Contact> generateContacts() {
+        List<page.chat.entities.Contact> posts = new ArrayList<>();
 
-        Contact p1 = new Contact("p1", "10:00", "11/11", "hello john", R.drawable.icon);
-        Contact p2 = new Contact("p1", "10:00", "11/11", "hello john", R.drawable.icon);
-        Contact p3 = new Contact("p1", "10:00", "11/11", "hello john", R.drawable.icon);
-        Contact p4 = new Contact("p1", "10:00", "11/11", "hello john", R.drawable.icon);
+        page.chat.entities.Contact p1 = new page.chat.entities.Contact("p1", "10:00", "11/11", "hello john", R.drawable.icon);
+        page.chat.entities.Contact p2 = new page.chat.entities.Contact("p1", "10:00", "11/11", "hello john", R.drawable.icon);
+        page.chat.entities.Contact p3 = new page.chat.entities.Contact("p1", "10:00", "11/11", "hello john", R.drawable.icon);
+        page.chat.entities.Contact p4 = new Contact("p1", "10:00", "11/11", "hello john", R.drawable.icon);
         posts.add(p1);
         posts.add(p2);
         posts.add(p3);

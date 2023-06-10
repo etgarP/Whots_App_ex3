@@ -7,15 +7,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.whotsapp.R;
 
 import java.util.List;
 
+import page.chat.entities.Contact;
+
 public class ContactAdapter extends BaseAdapter {
 
-    List<Contact> contacts;
+    List<page.chat.entities.Contact> contacts;
 
     private static class ViewHolder{
         TextView displayName, when, lastMessage;
@@ -23,7 +24,7 @@ public class ContactAdapter extends BaseAdapter {
         LinearLayout wholeContact;
     }
 
-    public ContactAdapter(List<Contact> contacts) { this.contacts = contacts; }
+    public ContactAdapter(List<page.chat.entities.Contact> contacts) { this.contacts = contacts; }
 
     @Override
     public long getItemId(int position) {
