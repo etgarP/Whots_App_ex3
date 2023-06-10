@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="page.chat.PrivateChat">
+
+    <Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#0e7a6f"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="52dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/whotsappicon"
+                app:srcCompat="@drawable/profileImage" />
+
+
+            <TextView
+                android:layout_width="298dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/username"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <ImageButton
+                android:id="@+id/removeFriendButton"
+                android:layout_width="38dp"
+                android:layout_height="49dp"
+                android:layout_marginEnd="16dp"
+                android:background="color/transparent"
+                android:foregroundGravity="center"
+                android:src="@drawable/ic_remove_person" />
+
+        </LinearLayout>
+
+    </Toolbar>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="429dp"
+        android:layout_height="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/sendMessageBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstMessages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <LinearLayout
+        android:id="@+id/sendMessageBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="UseCompoundDrawables">
+
+        <EditText
+            android:id="@+id/inputEditText"
+            android:layout_width="369dp"
+            android:layout_height="46dp"
+            android:hint="Type a message"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sendButton"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/sendButton"
+            android:layout_width="37dp"
+            android:layout_height="46dp"
+            android:background="color/transparent"
+            android:foregroundGravity="center"
+            android:src="@drawable/ic_send"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
