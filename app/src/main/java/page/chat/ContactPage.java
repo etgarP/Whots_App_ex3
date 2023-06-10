@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whotsapp.R;
 import com.example.whotsapp.databinding.ActivityContactPageBinding;
@@ -47,6 +48,8 @@ public class ContactPage extends AppCompatActivity {
         posts.add(p2);
         posts.add(p3);
         posts.add(p4);
+
+        RecyclerView rv=new RecyclerView(posts);
 
         return posts;
     }
