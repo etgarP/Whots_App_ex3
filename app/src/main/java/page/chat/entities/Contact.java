@@ -37,8 +37,9 @@ public class Contact {
         return "";
     }
     public String getWhen() {
-        if (lastMessage != null)
+        if (lastMessage != null) {
             return lastMessage.getCreated();
+        }
         return "";
     }
 }

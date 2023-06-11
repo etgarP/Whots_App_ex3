@@ -2,6 +2,13 @@ package page.chat.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class LastMessage {
     @SerializedName("id")
     private int id;
@@ -23,8 +30,27 @@ public class LastMessage {
     }
 
     public String getCreated() {
-        return created;
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        ZonedDateTime currentZonedDateTime = currentDateTime.atZone(ZoneId.of("GMT+3"));
+        LocalDate currentDate = currentZonedDateTime.toLocalDate();
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        LocalDateTime dateTime = LocalDateTime.parse(created, formatter);
+        ZonedDateTime zonedDateTime = dateTime.atZone(ZoneId.of("UTC"));
+        ZonedDateTime gmt3DateTime = zonedDateTime.withZoneSameInstant(ZoneId.of("GMT+3"));
+
+        LocalDate messageDate = gmt3DateTime.toLocalDate();
+        LocalTime messageTime = gmt3DateTime.toLocalTime();
+        String date = messageDate.toString();
+        String time = messageTime.format(timeFormatter);
+
+        if (messageDate.equals(currentDate)) {
+            return time;
+        } else {
+            return date;
+        }
     }
+
 
     public String getContent() {
         return content;
