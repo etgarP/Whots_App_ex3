@@ -4,31 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="page.sign_in.SignIn">
-
+    tools:context="page.register.Register">
     <Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:background="#0e7a6f"
-        android:contentInsetStart="0dp"
         app:layout_constraintTop_toTopOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables">
-
-
             <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="186dp"
-                android:layout_height="190dp"
-                app:srcCompat="@drawable/icon"
-                tools:layout_editor_absoluteX="376dp"
-                tools:layout_editor_absoluteY="353dp"
-                android:contentDescription="@string/whotsappicon" />
+            android:id="@+id/imageView2"
+            android:layout_width="52dp"
+            android:layout_height="39dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/whotsappicon"
+            app:srcCompat="@drawable/icon" />
 
             <TextView
                 android:padding="10dp"
@@ -36,9 +30,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/whotsapp"
                 android:textColor="@color/white"
-                android:textSize="30sp"/>
+                android:textSize="22sp"/>
+
 
         </LinearLayout>
+
+
 
     </Toolbar>
 
@@ -56,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
-            android:text="@string/sign_in"
+            android:text="@string/register"
             android:gravity="center"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -67,7 +64,7 @@
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:gravity="center"
-            android:text="@string/signin_welcome_back"
+            android:text="@string/welcome_aboard"
             android:textSize="14sp" />
 
         <TextView
@@ -80,9 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#0e7a6f"
-            android:hint="@string/userTemp_hemi_hemi"
-            android:autofillHints="username"
-            android:inputType="text"/>
+            android:hint="@string/hemi_hemi" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -95,11 +90,50 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#0e7a6f"
             android:inputType="textPassword"
-            android:autofillHints="password"
             android:hint="@string/enter_your_password" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:text="@string/confirm_password" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#0e7a6f"
+            android:inputType="textPassword"
+            android:hint="@string/re_enter_your_password" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:text="@string/displayname" />
+
+        <EditText
+            android:id="@+id/displayName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#0e7a6f"
+            android:hint="@string/hemi_hemi_dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:text="@string/picture" />
+
         <Button
-            android:id="@+id/LoggingIn"
+            android:id="@+id/uploadImageButton"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#38ac94"
+            android:text="@string/upload_your_unique_image" />
+
+        <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp"
@@ -123,15 +157,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/not_yet_registered" />
+            android:text="@string/already_registered" />
 
         <TextView
-            android:id="@+id/to_register"
+            android:id="@+id/toSign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:text="@string/register_here"
+            android:text="@string/sign_in_here"
             android:textStyle="bold" />
 
     </LinearLayout>
