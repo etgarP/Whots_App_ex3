@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whotsapp.databinding.SignInBinding;
 
-import page.chat.ContactPage;
+import page.chat.Messages;
 import page.register.Register;
 
 
@@ -23,7 +23,8 @@ public class SignIn extends AppCompatActivity {
             startActivity(intent);
         });
         binding.LoggingIn.setOnClickListener(view -> {
-            Intent intent = new Intent(SignIn.this, ContactPage.class);
+            Intent intent = new Intent(SignIn.this, Messages.class); 
+            //todo change back to  Intent intent = new Intent(SignIn.this, ContactPage.class);
             startActivity(intent);
         });
     }
