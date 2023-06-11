@@ -31,12 +31,10 @@ public class ContactsRepository {
         @Override
         protected void onActive() {
             super.onActive();
-//
-//            new Thread(() -> {
-//                contactListData.contactValue(dao.get());
-//            }).start();
-            ContactAPI contactApi = new ContactAPI();
-            contactApi.get(this);
+            new Thread(() -> {
+                ContactAPI contactApi = new ContactAPI();
+                contactApi.get(this);
+            }).start();
         }
     }
 

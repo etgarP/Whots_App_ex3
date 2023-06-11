@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.whotsapp.R;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import page.MyApplication;
 import page.chat.entities.Contact;
@@ -23,6 +24,7 @@ public class ContactAPI {
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .callbackExecutor(Executors.newSingleThreadExecutor())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
@@ -36,7 +38,7 @@ public class ContactAPI {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
                 List<Contact> lc = response.body();
-                contactsList.setValue(response.body());
+                contactsList.postValue(response.body());
             }
 
             @Override
