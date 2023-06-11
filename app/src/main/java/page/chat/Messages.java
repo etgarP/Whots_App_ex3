@@ -29,6 +29,7 @@ public class Messages extends AppCompatActivity {
 
         List<Message> messages = new ArrayList<>();
         User user = new User("Hemi", "hemi hemi 34", "1");
+        messages.add(new Message("2",user,"1"));
         messages.add(new Message("2",user,"4"));
         messages.add(new Message("2",user,"4"));
         messages.add(new Message("2",user,"4"));
@@ -38,6 +39,60 @@ public class Messages extends AppCompatActivity {
         messages.add(new Message("2",user,"4"));
         messages.add(new Message("2",user,"4"));
         messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"4"));
+        messages.add(new Message("2",user,"9"));
+        messages.add(new Message("2",user,"9"));
+        messages.add(new Message("2",user,"9"));
+        messages.add(new Message("2",user,"9"));
+        messages.add(new Message("2",user,"9"));
+        messages.add(new Message("2",user,"9"));
+
+
+
+
         adapter.setMessages(messages);
 
     }
