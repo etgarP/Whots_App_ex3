@@ -18,7 +18,7 @@ public class MessageAdapter extends BaseAdapter {
 
     private static class ViewHolder{
         TextView content;
-        LinearLayout wholeMessage;
+        LinearLayout message;
     }
 
     public MessageAdapter(List<Message> messages){
@@ -48,7 +48,7 @@ public class MessageAdapter extends BaseAdapter {
 
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.content = convertView.findViewById(R.id.messageContent);
-            viewHolder.wholeMessage = convertView.findViewById(R.id.wholeMessage);
+            viewHolder.message = convertView.findViewById(R.id.message);
             convertView.setTag(viewHolder);
         }
 
