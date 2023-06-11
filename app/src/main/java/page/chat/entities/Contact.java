@@ -32,9 +32,13 @@ public class Contact {
         return user.getProfilePic();
     }
     public String getLastMessage() {
-        return lastMessage.getContent();
+        if (lastMessage != null)
+            return lastMessage.getContent();
+        return "";
     }
     public String getWhen() {
-        return lastMessage.getCreated();
+        if (lastMessage != null)
+            return lastMessage.getCreated();
+        return "";
     }
 }

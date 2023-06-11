@@ -4,6 +4,7 @@ package page.chat;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,12 +13,13 @@ import com.example.whotsapp.databinding.ActivityContactPageBinding;
 import java.util.List;
 
 import page.chat.adapters.ContactsListAdapter;
-import page.chat.api.ContactAPI;
 import page.chat.entities.Contact;
+import page.chat.viewmodels.ContactsViewModel;
 
 public class ContactPage extends AppCompatActivity {
 
     List<Contact> contacts;
+    private ContactsViewModel viewModel;
     private ActivityContactPageBinding binding;
 
     @Override
@@ -25,12 +27,15 @@ public class ContactPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityContactPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ContactAPI contactApi = new ContactAPI();
-        contactApi.get();
+        viewModel = new ViewModelProvider(this).get(ContactsViewModel.class);
+
+
         RecyclerView lstPosts = binding.lstPosts;
         final ContactsListAdapter adapter = new ContactsListAdapter(this);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setContacts(contacts);
+        viewModel.get().observe(this, contacts -> {
+            adapter.setContacts(contacts);
+        });
     }
 }

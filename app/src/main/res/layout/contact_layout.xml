@@ -18,12 +18,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/contactPfp"
-            android:layout_width="39dp"
-            android:layout_height="39dp"
-            android:contentDescription="@string/profilePicture"
-            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="50dp">
+
+            <ImageView
+                android:id="@+id/contactPfp"
+                android:layout_width="39dp"
+                android:layout_height="39dp"
+                android:contentDescription="@string/profilePicture"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.cardview.widget.CardView>
+
 
         <LinearLayout
             android:id="@+id/linearLayout4"
