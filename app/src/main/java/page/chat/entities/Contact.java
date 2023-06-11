@@ -25,21 +25,39 @@ public class Contact {
         this.user = user;
         this.lastMessage = lastMessage;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     public String getDisplayName() {
         return user.getDisplayName();
     }
     public Bitmap getProfileImage() {
-        return user.getProfilePic();
+        return user.getProfilePicBit();
     }
-    public String getLastMessage() {
+
+    public LastMessage getLastMessage() {
+        return lastMessage;
+    }
+
+    public String getLastMessageText() {
         if (lastMessage != null)
             return lastMessage.getContent();
         return "";
     }
     public String getWhen() {
         if (lastMessage != null) {
-            return lastMessage.getCreated();
+            return lastMessage.getTime();
         }
         return "";
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

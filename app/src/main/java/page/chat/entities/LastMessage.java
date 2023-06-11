@@ -1,5 +1,8 @@
 package page.chat.entities;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDate;
@@ -9,7 +12,9 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Entity
 public class LastMessage {
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     private int id;
 
@@ -30,6 +35,10 @@ public class LastMessage {
     }
 
     public String getCreated() {
+        return created;
+    }
+
+    public String getTime() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         ZonedDateTime currentZonedDateTime = currentDateTime.atZone(ZoneId.of("GMT+3"));
         LocalDate currentDate = currentZonedDateTime.toLocalDate();

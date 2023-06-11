@@ -3,11 +3,18 @@ package page.chat.entities;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Base64;
 
+@Entity
 public class User {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     @SerializedName("username")
     private String username;
 
@@ -16,8 +23,6 @@ public class User {
 
     @SerializedName("profilePic")
     private String profilePic;
-
-    private Bitmap picture;
 
     public User(String username, String displayName, String profilePic) {
         this.username = username;
@@ -29,16 +34,26 @@ public class User {
         return username;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getDisplayName() {
         return displayName;
     }
 
-    public Bitmap getProfilePic() {
-       if (picture == null) {
-           String base64Data = profilePic.substring(profilePic.indexOf(',') + 1);
-           byte[] bytes = Base64.getDecoder().decode(base64Data);
-           picture = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-       }
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public Bitmap getProfilePicBit() {
+       String base64Data = profilePic.substring(profilePic.indexOf(',') + 1);
+       byte[] bytes = Base64.getDecoder().decode(base64Data);
+       Bitmap picture = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
        return picture;
     }
 }

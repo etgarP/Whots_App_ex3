@@ -43,7 +43,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
             final Contact current = contacts.get(position);
             holder.displayName.setText(current.getDisplayName());
             holder.when.setText(current.getWhen());
-            holder.lastMessage.setText(current.getLastMessage());
+            holder.lastMessage.setText(current.getLastMessageText());
             holder.profile.setImageBitmap(current.getProfileImage());
         }
     }
