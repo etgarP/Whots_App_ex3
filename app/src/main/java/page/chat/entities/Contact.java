@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 @Entity
 public class Contact {
     @PrimaryKey(autoGenerate = true)
@@ -59,5 +61,21 @@ public class Contact {
 
     public void setId(int id) {
         this.id = id;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Contact otherContact = (Contact) obj;
+        return id == otherContact.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
