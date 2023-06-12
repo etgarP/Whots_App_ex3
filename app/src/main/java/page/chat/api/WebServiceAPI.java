@@ -17,4 +17,7 @@ public interface WebServiceAPI {
 //    call<Void> deleteContact(@Path("id") int id);
     @GET("Chats")
     Call<List<Contact>> getContacts(@Header("Authorization") String authorizationHeader);
+
+    @GET("Chats/{id}/Messages")
+    Call<List<Contact>> getMessages(@Header("Authorization") String authorizationHeader);
 }
