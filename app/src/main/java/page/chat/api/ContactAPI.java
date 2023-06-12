@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.whotsapp.R;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import page.MyApplication;
 import page.chat.entities.Contact;
+import page.room.ContactDao;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,15 +19,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ContactAPI {
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
-    List<Contact> contacts;
+    private ContactDao dao;
 
-    public ContactAPI() {
-
+    public ContactAPI(ContactDao dao) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .callbackExecutor(Executors.newSingleThreadExecutor())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
+        this.dao = dao;
     }
 
     public void get(MutableLiveData<List<Contact>> contactsList) {
@@ -36,7 +39,18 @@ public class ContactAPI {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
                 List<Contact> lc = response.body();
-                contactsList.setValue(response.body());
+                contactsList.postValue(response.body());
+                if (lc != null) {
+                    for (Contact c: lc) {
+                        dao.insertIfNotExists(c);
+                    }
+                    List<Contact> daoList = dao.index();
+                    for (Contact c: daoList) {
+                        if (!lc.contains(c))
+                            dao.delete(c);
+                    }
+                    daoList = dao.index();
+                }
             }
 
             @Override

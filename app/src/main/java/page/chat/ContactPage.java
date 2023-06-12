@@ -4,10 +4,11 @@ package page.chat;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.whotsapp.R;
 import com.example.whotsapp.databinding.ActivityContactPageBinding;
 
 import java.util.List;
@@ -27,13 +28,17 @@ public class ContactPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityContactPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        viewModel = new ViewModelProvider(this).get(ContactsViewModel.class);
+        viewModel = new ContactsViewModel(getApplicationContext());
 
 
         RecyclerView lstPosts = binding.lstPosts;
         final ContactsListAdapter adapter = new ContactsListAdapter(this);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(this));
+        SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(() -> {
+            viewModel.reload();
+        });
         viewModel.get().observe(this, contacts -> {
             adapter.setContacts(contacts);
         });
