@@ -42,5 +42,12 @@ public class ContactPage extends AppCompatActivity {
         viewModel.get().observe(this, contacts -> {
             adapter.setContacts(contacts);
         });
+
+//        todo
+//        Button listedContactButton=findViewById(id.contact);
+//        listedContactButton.setOnClickListener(()-> {
+//            Intent i = new Intent(this, Messages.class);
+//            startActivity(i);
+//        });
     }
 }

@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="page.chat.Messages"
+            android:name="page.chat.MessagesPage"
             android:exported="false" />
         <activity
             android:name="page.MyApplication"
