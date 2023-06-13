@@ -30,7 +30,9 @@ public class SignInAPI {
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
+    public void PostUser(UserPass userPass) {
 
+    }
     public void getToken(MutableLiveData<String> token, UserPass userPass) {
         Call<ResponseBody> call = webServiceAPI.createToken(userPass);
         call.enqueue(new Callback<ResponseBody>() {
@@ -66,7 +68,7 @@ public class SignInAPI {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
-                userSaver.postValue(user);
+                userSaver.postValue(response.body());
             }
 
             @Override

@@ -1,24 +1,32 @@
 package page.register;
 
+import static page.register.ValidationUtils.validateConfirmPass;
+import static page.register.ValidationUtils.validateDisplayName;
+import static page.register.ValidationUtils.validatePassword;
+import static page.register.ValidationUtils.validatePicture;
+import static page.register.ValidationUtils.validateUsername;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.whotsapp.databinding.ActivityRegisterBinding;
 
 public class Register extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     private EditText usernameEt, passwordEt, cPasswordEt, displayNameEt;
-    private Button pictureBtn;
+    private LinearLayout pictureBtn;
     Uri imageUri;
+    MutableLiveData<String> usernameM, passwordM, pictureM, displayNameM, cPasswordM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,11 @@ public class Register extends AppCompatActivity {
         cPasswordEt = binding.rePassword;
         displayNameEt = binding.displayName;
         pictureBtn = binding.uploadImageButton;
+        usernameM = new MutableLiveData<String>();
+        passwordM = new MutableLiveData<String>();
+        pictureM = new MutableLiveData<String>();
+        displayNameM = new MutableLiveData<String>();
+        cPasswordM = new MutableLiveData<String>();
         imageUri = null;
         binding.toSign.setOnClickListener(view -> {
             finish();
@@ -39,18 +52,48 @@ public class Register extends AppCompatActivity {
             String password = passwordEt.getText().toString();
             String cPassword = cPasswordEt.getText().toString();
             String displayName = displayNameEt.getText().toString();
+            boolean checked = checkValidData(username, password, cPassword, displayName);
         });
         pictureBtn.setOnClickListener(v -> {
             // Create an intent to pick an image from the gallery or take a photo
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.setType("image/*");
-
             // Start the activity to select an image and handle the result using the launcher
             launcher.launch(intent);
             System.out.println(imageUri);
         });
         binding.back.setOnClickListener(v -> {
             finish();
+        });
+        passwordM.observe(this, password -> {
+            if (passwordM.getValue().equals(""))
+                binding.passErr.setText(null);
+            else
+                binding.passErr.setText(passwordM.getValue());
+        });
+        pictureM.observe(this, picture -> {
+            if (pictureM.getValue().equals(""))
+                binding.picErr.setText(null);
+            else
+                binding.picErr.setText(pictureM.getValue());
+        });
+        displayNameM.observe(this, displayName -> {
+            if (displayNameM.getValue().equals(""))
+                binding.displayNameErr.setText(null);
+            else
+                binding.displayNameErr.setText(displayNameM.getValue());
+        });
+        cPasswordM.observe(this, cPassword -> {
+            if (cPasswordM.getValue().equals(""))
+                binding.cPassErr.setText(null);
+            else
+                binding.cPassErr.setText(cPasswordM.getValue());
+        });
+        usernameM.observe(this, username -> {
+            if (usernameM.getValue().equals(""))
+                binding.UserErr.setText(null);
+            else
+                binding.UserErr.setText(usernameM.getValue());
         });
     }
 
@@ -62,4 +105,12 @@ public class Register extends AppCompatActivity {
                 }
             });
 
+    private boolean checkValidData(String username, String password, String cPassword, String displayName) {
+        boolean a = validateUsername(username, usernameM);
+        boolean b = validatePassword(password, passwordM);
+        boolean c = validateConfirmPass(password, cPassword, cPasswordM);
+        boolean d = validateDisplayName(displayName, displayNameM);
+        boolean e = validatePicture(imageUri, pictureM);
+        return  a && b && c && d && e;
+    }
 }

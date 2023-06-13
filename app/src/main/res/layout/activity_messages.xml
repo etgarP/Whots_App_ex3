@@ -104,7 +104,6 @@
             android:background="@drawable/input_message_background"
             android:padding="0.5dp"
             app:layout_constraintStart_toStartOf="parent">
-
             <EditText
                 android:id="@+id/editText5"
                 android:layout_width="match_parent"

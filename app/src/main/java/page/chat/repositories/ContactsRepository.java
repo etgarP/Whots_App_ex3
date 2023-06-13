@@ -20,7 +20,7 @@ public class ContactsRepository {
 
     public ContactsRepository(Context context) {
         AppDB db = Room.databaseBuilder(context,
-                        AppDB.class, "ContactsDB").allowMainThreadQueries()
+                        AppDB.class, "ContactsDB")
                 .build();
 
         dao = db.contactDao();

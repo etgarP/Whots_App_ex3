@@ -32,6 +32,13 @@ public class SignIn extends AppCompatActivity {
         user = new MutableLiveData<>();
         binding.LoggingIn.setOnClickListener(view -> {
             signApi = new SignInAPI();
+            String username = binding.username.getText().toString();
+            String password = binding.password.getText().toString();
+            UserPass up;
+            if (username.equals("") && password.equals(""))
+                up = new UserPass("FFFFf4FFFFf4", "FFFFf4FFFFf4");
+            else
+                up = new UserPass(username, password);
             signApi.getToken(token, new UserPass("FFFFf4FFFFf4", "FFFFf4FFFFf4"));
 
         });
