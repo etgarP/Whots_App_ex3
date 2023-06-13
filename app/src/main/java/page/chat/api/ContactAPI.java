@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 import page.MyApplication;
+import page.WebServiceAPI;
 import page.chat.entities.Contact;
 import page.room.ContactDao;
 import retrofit2.Call;

@@ -2,6 +2,8 @@ package page.chat.entities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -11,7 +13,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Base64;
 
 @Entity
-public class User {
+public class User implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -56,4 +58,33 @@ public class User {
        Bitmap picture = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
        return picture;
     }
+    // Parcelable implementation
+    protected User(Parcel in) {
+        id = in.readInt();
+        username = in.readString();
+        displayName = in.readString();
+        profilePic = in.readString();
+    }
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(username);
+        dest.writeString(displayName);
+        dest.writeString(profilePic);
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }
