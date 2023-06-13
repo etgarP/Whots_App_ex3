@@ -47,15 +47,15 @@ public class MessageAPI {
                 messages.postValue(messagesObject);
                 if (messagesList != null) {
                     dao.insertIfNotExists(messagesObject);
-                    for (Message message : messagesList) {
-                        dao.insertIfNotExists(message);
-                    }
+//                    for (Message message : messagesList) {
+//                        dao.insertIfNotExists(message);
+//                    }
                 }
                 Messages daoList = dao.get(id);
                 for (Message message : daoList.getMessageList()) {
-                    if (!messagesList.contains(message)) {
-                        dao.delete(message);
-                    }
+//                    if (!messagesList.contains(message)) {
+//                        dao.delete(message);
+//                    }
                 }
                 daoList = dao.get(id);
             }

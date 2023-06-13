@@ -2,6 +2,7 @@ package page.chat.entities;
 
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -14,14 +15,12 @@ public class Messages {
     @SerializedName("id")
     private int id;
 
-    @Embedded
     @SerializedName("messageList")
     private List<Message> messageList;
 
-    Messages(){}
-    public Messages(int id, List<Message> messagesList) {
+    public Messages(int id, List<Message> messageList) {
         this.id = id;
-        this.messageList = messagesList;
+        this.messageList = messageList;
     }
 
     public int getId() {

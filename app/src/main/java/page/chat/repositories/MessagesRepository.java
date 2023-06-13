@@ -31,8 +31,8 @@ public class MessagesRepository {
         public MessageListData(){
             super();
             new Thread(() -> {
-                List<Message> messageList = dao.index();
-                postValue(messageList);
+//                List<Message> messageList = dao.index();
+//                postValue(messageList);
             }).start();
         }
 
@@ -40,7 +40,7 @@ public class MessagesRepository {
         protected void onActive() {
             super.onActive();
             new Thread(() -> {
-                api.get(this);
+//                api.get(this);
 
             }).start();
         }
@@ -54,6 +54,6 @@ public LiveData<List<Message>> getAll() { return this.messageListData; }
     }
 
     public void reload() {
-        api.get(messageListData);
+//        api.get(messageListData);
     }
 }
