@@ -8,7 +8,6 @@ import page.TypeConverter.DataConverter;
 import page.TypeConverter.LastMessageTypeConverter;
 import page.TypeConverter.UserTypeConverter;
 import page.chat.entities.Contact;
-import page.chat.entities.Message;
 import page.chat.entities.Messages;
 
 

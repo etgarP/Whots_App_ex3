@@ -10,6 +10,7 @@ import java.util.List;
 
 import page.chat.api.MessageAPI;
 import page.chat.entities.Message;
+import page.chat.entities.Messages;
 import page.room.AppDB;
 import page.room.MessagesDao;
 
@@ -31,8 +32,9 @@ public class MessagesRepository {
         public MessageListData(){
             super();
             new Thread(() -> {
-//                List<Message> messageList = dao.index();
-//                postValue(messageList);
+                int id = 1;//todo delete
+                Messages messages= dao.get(id);
+                postValue(messages.getMessageList());
             }).start();
         }
 
@@ -40,8 +42,9 @@ public class MessagesRepository {
         protected void onActive() {
             super.onActive();
             new Thread(() -> {
-//                api.get(this);
-
+                int id = 1;//todo delete
+                Messages messages= dao.get(id);
+                api.get(messages);
             }).start();
         }
     }
@@ -49,11 +52,8 @@ public class MessagesRepository {
 
 public LiveData<List<Message>> getAll() { return this.messageListData; }
 
-    public void add (final Message message){
-        api.add(message);
-    }
-
     public void reload() {
-//        api.get(messageListData);
+        int id = 1;//todo delete
+        api.get(dao.get(id));
     }
 }

@@ -17,6 +17,5 @@ public class MessagesViewModel {
         this.messages = this.messagesRepository.getAll();
     }
     public LiveData<List<Message>> get() { return this.messages; }
-    public void add(Message message) { this.messagesRepository.add(message); }
     public void reload() { this.messagesRepository.reload(); }
 }
