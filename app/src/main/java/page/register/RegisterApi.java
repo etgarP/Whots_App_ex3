@@ -28,11 +28,14 @@ public class RegisterApi {
     }
 //    @POST("Users")
 //    Call<User> createUser(@Body UserPassName userPassName);
-    public void postUser(UserPassName ups) {
+    public void createUser(UserPassName ups) {
         Call<User> call = webServiceAPI.createUser(ups);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                }
             }
 
             @Override

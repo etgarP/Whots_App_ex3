@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -21,12 +22,19 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.whotsapp.databinding.ActivityRegisterBinding;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import page.sign_in.entities.UserPassName;
+
 public class Register extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     private EditText usernameEt, passwordEt, cPasswordEt, displayNameEt;
     private LinearLayout pictureBtn;
     Uri imageUri;
     MutableLiveData<String> usernameM, passwordM, pictureM, displayNameM, cPasswordM;
+    MutableLiveData<Boolean> goodPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,7 @@ public class Register extends AppCompatActivity {
         pictureM = new MutableLiveData<String>();
         displayNameM = new MutableLiveData<String>();
         cPasswordM = new MutableLiveData<String>();
+        goodPost = new MutableLiveData<>();
         imageUri = null;
         binding.toSign.setOnClickListener(view -> {
             finish();
@@ -53,6 +62,13 @@ public class Register extends AppCompatActivity {
             String cPassword = cPasswordEt.getText().toString();
             String displayName = displayNameEt.getText().toString();
             boolean checked = checkValidData(username, password, cPassword, displayName);
+            if (checked) {
+                String picture64 = getBase64(imageUri);
+                if (picture64 == null) return;
+                String pictureNew = "data:image/png;base64," + picture64;
+                RegisterApi ra = new RegisterApi();
+                ra.createUser(new UserPassName(username, password, displayName, picture64));
+            }
         });
         pictureBtn.setOnClickListener(v -> {
             // Create an intent to pick an image from the gallery or take a photo
@@ -66,34 +82,37 @@ public class Register extends AppCompatActivity {
             finish();
         });
         passwordM.observe(this, password -> {
-            if (passwordM.getValue().equals(""))
+            if (password.equals(""))
                 binding.passErr.setText(null);
             else
                 binding.passErr.setText(passwordM.getValue());
         });
         pictureM.observe(this, picture -> {
-            if (pictureM.getValue().equals(""))
+            if (picture.equals(""))
                 binding.picErr.setText(null);
             else
                 binding.picErr.setText(pictureM.getValue());
         });
         displayNameM.observe(this, displayName -> {
-            if (displayNameM.getValue().equals(""))
+            if (displayName.equals(""))
                 binding.displayNameErr.setText(null);
             else
                 binding.displayNameErr.setText(displayNameM.getValue());
         });
         cPasswordM.observe(this, cPassword -> {
-            if (cPasswordM.getValue().equals(""))
+            if (cPassword.equals(""))
                 binding.cPassErr.setText(null);
             else
                 binding.cPassErr.setText(cPasswordM.getValue());
         });
         usernameM.observe(this, username -> {
-            if (usernameM.getValue().equals(""))
+            if (username.equals(""))
                 binding.UserErr.setText(null);
             else
                 binding.UserErr.setText(usernameM.getValue());
+        });
+        goodPost.observe(this, bool -> {
+            if (bool) finish();
         });
     }
 
@@ -112,5 +131,21 @@ public class Register extends AppCompatActivity {
         boolean d = validateDisplayName(displayName, displayNameM);
         boolean e = validatePicture(imageUri, pictureM);
         return  a && b && c && d && e;
+    }
+    String getBase64(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, bytesRead);
+            }
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            String base64String = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            return base64String;
+        } catch (IOException e) {
+            return null;
+        }
     }
 }
