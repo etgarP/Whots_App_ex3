@@ -65,7 +65,6 @@ public class Register extends AppCompatActivity {
             if (checked) {
                 String picture64 = getBase64(imageUri);
                 if (picture64 == null) return;
-                String pictureNew = "data:image/png;base64," + picture64;
                 RegisterApi ra = new RegisterApi();
                 ra.createUser(new UserPassName(username, password, displayName, picture64));
             }
@@ -143,7 +142,9 @@ public class Register extends AppCompatActivity {
             }
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             String base64String = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            return base64String;
+            String base64Data = base64String.replaceAll("\\s", ""); // Remove whitespace
+            base64Data = base64Data.replaceAll("\\n", ""); // Remove line breaks
+            return base64Data;
         } catch (IOException e) {
             return null;
         }

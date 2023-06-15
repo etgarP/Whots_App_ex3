@@ -2,12 +2,9 @@ package page.chat.api;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.whotsapp.R;
-
 import java.util.List;
 import java.util.concurrent.Executors;
 
-import page.MyApplication;
 import page.WebServiceAPI;
 import page.chat.entities.Contact;
 import page.room.ContactDao;
@@ -22,9 +19,9 @@ public class ContactAPI {
     WebServiceAPI webServiceAPI;
     private ContactDao dao;
 
-    public ContactAPI(ContactDao dao) {
+    public ContactAPI(ContactDao dao, String url) {
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .baseUrl(url)
                 .callbackExecutor(Executors.newSingleThreadExecutor())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

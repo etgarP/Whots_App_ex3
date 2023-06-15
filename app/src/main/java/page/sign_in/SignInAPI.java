@@ -2,13 +2,10 @@ package page.sign_in;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.whotsapp.R;
-
 import java.io.IOException;
 import java.util.concurrent.Executors;
 
 import okhttp3.ResponseBody;
-import page.MyApplication;
 import page.WebServiceAPI;
 import page.chat.entities.User;
 import page.sign_in.entities.UserPass;
@@ -22,9 +19,9 @@ public class SignInAPI {
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
 
-    public SignInAPI() {
+    public SignInAPI(String url) {
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .baseUrl(url)
                 .callbackExecutor(Executors.newSingleThreadExecutor())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

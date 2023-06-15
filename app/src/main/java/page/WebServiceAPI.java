@@ -43,5 +43,5 @@ public interface WebServiceAPI {
     Call<User> getUser(@Header("Authorization") String authorizationHeader, @Path("username") String username);
 
     @POST("Users")
-    Call<User> createUser(@Body UserPassName userPassName);
+    Call<ResponseBody> createUser(@Body UserPassName userPassName);
 }

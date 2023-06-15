@@ -8,6 +8,8 @@ import androidx.room.Room;
 
 import java.util.List;
 
+import page.ServerStringHolder;
+import page.chat.ServerStringRepository;
 import page.chat.api.ContactAPI;
 import page.chat.entities.Contact;
 import page.room.AppDB;
@@ -25,7 +27,13 @@ public class ContactsRepository {
 
         dao = db.contactDao();
         contactListData = new ContactListData();
-        api = new ContactAPI(dao);
+        ServerStringRepository ssh = new ServerStringRepository(context);
+        ServerStringHolder string = null;//ssh.get()
+        if (string == null) {
+            api = new ContactAPI(dao, "http://10.0.2.2:12345/api/");
+        } else {
+            api = new ContactAPI(dao, string.getServerAddress());
+        }
     }
 
     class ContactListData extends MutableLiveData<List<Contact>> {
@@ -43,7 +51,6 @@ public class ContactsRepository {
             super.onActive();
             new Thread(() -> {
                 api.get(this);
-
             }).start();
         }
     }
@@ -55,4 +62,9 @@ public class ContactsRepository {
 //    public void add (final Contact contact) { api.add(contact); }
 //    public void delete (final Contact contact) { api.delete(contact); }
     public void reload() { api.get(contactListData); }
+    public void deleteData() {
+        new Thread(() -> {
+            dao.deleteAllData();
+        }).start();
+    }
 }

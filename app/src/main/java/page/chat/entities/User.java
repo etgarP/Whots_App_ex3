@@ -53,10 +53,14 @@ public class User implements Parcelable {
     }
 
     public Bitmap getProfilePicBit() {
-       String base64Data = profilePic.substring(profilePic.indexOf(',') + 1);
-       byte[] bytes = Base64.getDecoder().decode(base64Data);
-       Bitmap picture = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-       return picture;
+        if (profilePic.startsWith("data:image/png;base64,") || profilePic.startsWith("data:image/jpg;base64,")) {
+            profilePic = profilePic.substring(profilePic.indexOf(',') + 1);
+        }
+        String base64Data = profilePic.replaceAll("\\s", ""); // Remove whitespace
+        base64Data = base64Data.replaceAll("\\n", ""); // Remove line breaks
+        byte[] bytes = Base64.getDecoder().decode(base64Data);
+        Bitmap picture = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        return picture;
     }
     // Parcelable implementation
     protected User(Parcel in) {

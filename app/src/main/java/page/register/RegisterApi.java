@@ -4,9 +4,9 @@ import com.example.whotsapp.R;
 
 import java.util.concurrent.Executors;
 
+import okhttp3.ResponseBody;
 import page.MyApplication;
 import page.WebServiceAPI;
-import page.chat.entities.User;
 import page.sign_in.entities.UserPassName;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,17 +29,21 @@ public class RegisterApi {
 //    @POST("Users")
 //    Call<User> createUser(@Body UserPassName userPassName);
     public void createUser(UserPassName ups) {
-        Call<User> call = webServiceAPI.createUser(ups);
-        call.enqueue(new Callback<User>() {
+        Call<ResponseBody> call = webServiceAPI.createUser(ups);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    User user = response.body();
+                    System.out.println("hello");
+                }
+                // Todo add a mutable that leaves an error
+                if (response.raw().message().equals("Payload Too Large")) {
+                    System.out.println("hello");
                 }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {}
+            public void onFailure(Call<ResponseBody> call, Throwable t) {}
         });
     }
 }
