@@ -72,6 +72,7 @@ public class ContactPage extends Fragment {
         SwipeRefreshLayout refreshLayout = binding.refreshLayout;
         refreshLayout.setOnRefreshListener(() -> {
             viewModel.reload();
+            binding.refreshLayout.setRefreshing(false);
         });
         viewModel.get().observe(getViewLifecycleOwner(), adapter::setContacts);
 

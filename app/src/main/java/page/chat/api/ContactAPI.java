@@ -42,9 +42,11 @@ public class ContactAPI {
                     for (Contact c: lc) {
                         dao.insertIfNotExists(c);
                     }
-                    for (Contact c: oldList) {
-                        if (!lc.contains(c))
-                            dao.delete(c);
+                    if (oldList != null) {
+                        for (Contact c : oldList) {
+                            if (!lc.contains(c))
+                                dao.delete(c);
+                        }
                     }
                 }
             }
