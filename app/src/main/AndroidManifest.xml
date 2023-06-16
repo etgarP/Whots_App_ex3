@@ -24,6 +24,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="page.Settings"
             android:exported="false" />
         <activity
@@ -33,20 +42,8 @@
             android:name="page.MyApplication"
             android:exported="false" />
         <activity
-            android:name="page.chat.ContactPage"
-            android:exported="false" />
-        <activity
             android:name="page.register.Register"
             android:exported="false" />
-        <activity
-            android:name="page.sign_in.SignIn"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

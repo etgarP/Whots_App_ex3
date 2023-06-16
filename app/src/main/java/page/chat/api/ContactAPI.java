@@ -29,25 +29,23 @@ public class ContactAPI {
         this.dao = dao;
     }
 
-    public void get(MutableLiveData<List<Contact>> contactsList) {
-        String bearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkZGRkZmNEZGRkZmNCIsImlhdCI6MTY4NjQxNTU1MH0.5MTRJZLDHKaz_ddrub_Sw6Ey-cI2UVaaK8HO5yNIHuY";
+    public void get(MutableLiveData<List<Contact>> contactsList, String bearerToken) {
         String authorizationHeader = "Bearer " + bearerToken;
         Call<List<Contact>> call = webServiceAPI.getContacts(authorizationHeader);
         call.enqueue(new Callback<List<Contact>>() {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
+                List<Contact> oldList = contactsList.getValue();
                 List<Contact> lc = response.body();
                 contactsList.postValue(response.body());
                 if (lc != null) {
                     for (Contact c: lc) {
                         dao.insertIfNotExists(c);
                     }
-                    List<Contact> daoList = dao.index();
-                    for (Contact c: daoList) {
+                    for (Contact c: oldList) {
                         if (!lc.contains(c))
                             dao.delete(c);
                     }
-                    daoList = dao.index();
                 }
             }
 

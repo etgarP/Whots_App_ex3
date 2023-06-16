@@ -22,20 +22,16 @@ public class UserSignedRepository {
     public void get(MutableLiveData<UserSignedSaver> mutableLiveData) {
         new Thread(() -> {
             UserSignedSaver ssh = dao.get(1);
-            if (ssh != null){
-                mutableLiveData.postValue(ssh);
-            }
+            mutableLiveData.postValue(ssh);
         }).start();
     }
 
     public void insert(UserPass up, User u) {
         new Thread(() -> {
-            dao.insert(new UserSignedSaver(1, u, up));
+            dao.update(new UserSignedSaver(1, u, up));
         }).start();
     }
-    public void deleteData() {
-        new Thread(() -> {
-            dao.deleteAllData();
-        }).start();
+    public void deleteDataMain() {
+        dao.deleteAllData();
     }
 }

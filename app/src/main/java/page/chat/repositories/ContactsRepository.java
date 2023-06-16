@@ -8,8 +8,6 @@ import androidx.room.Room;
 
 import java.util.List;
 
-import page.ServerStringHolder;
-import page.chat.ServerStringRepository;
 import page.chat.api.ContactAPI;
 import page.chat.entities.Contact;
 import page.room.AppDB;
@@ -19,21 +17,17 @@ public class ContactsRepository {
     private ContactDao dao;
     private ContactListData contactListData;
     private ContactAPI api;
+    private String token;
 
-    public ContactsRepository(Context context) {
+    public ContactsRepository(Context context, String url, String token) {
         AppDB db = Room.databaseBuilder(context,
                         AppDB.class, "ContactsDB")
                 .build();
 
         dao = db.contactDao();
         contactListData = new ContactListData();
-        ServerStringRepository ssh = new ServerStringRepository(context);
-        ServerStringHolder string = null;//ssh.get()
-        if (string == null) {
-            api = new ContactAPI(dao, "http://10.0.2.2:12345/api/");
-        } else {
-            api = new ContactAPI(dao, string.getServerAddress());
-        }
+        api = new ContactAPI(dao, url);
+        this.token = token;
     }
 
     class ContactListData extends MutableLiveData<List<Contact>> {
@@ -50,7 +44,7 @@ public class ContactsRepository {
         protected void onActive() {
             super.onActive();
             new Thread(() -> {
-                api.get(this);
+                api.get(this, token);
             }).start();
         }
     }
@@ -61,10 +55,8 @@ public class ContactsRepository {
     // TODO see if these needs adding farther down the line
 //    public void add (final Contact contact) { api.add(contact); }
 //    public void delete (final Contact contact) { api.delete(contact); }
-    public void reload() { api.get(contactListData); }
-    public void deleteData() {
-        new Thread(() -> {
-            dao.deleteAllData();
-        }).start();
+    public void reload() { api.get(contactListData, token); }
+    public void deleteDataMain() {
+        dao.deleteAllData();
     }
 }

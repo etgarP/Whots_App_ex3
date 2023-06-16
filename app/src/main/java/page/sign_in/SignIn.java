@@ -1,9 +1,15 @@
 package page.sign_in;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.whotsapp.databinding.SignInBinding;
@@ -15,10 +21,9 @@ import page.chat.ServerStringRepository;
 import page.chat.entities.User;
 import page.register.Register;
 import page.sign_in.entities.UserPass;
-import page.sign_in.entities.UserSignedSaver;
 
 
-public class SignIn extends AppCompatActivity {
+public class SignIn extends Fragment {
     private SignInBinding binding;
     private SignInAPI signApi;
     private MutableLiveData<String> token;
@@ -27,53 +32,55 @@ public class SignIn extends AppCompatActivity {
     private UserPass up;
     private MutableLiveData<String> ip;
     private MutableLiveData<ServerStringHolder> serverHolder;
+    private SignInInteractionListener interactionListener;
+
+    public interface SignInInteractionListener {
+        void onFragmentEventSign(Bundle info);
+    }
+    public void setFragmentInteractionListener(SignInInteractionListener listener) {
+        this.interactionListener = listener;
+    }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = SignInBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        ServerStringRepository ssr = new ServerStringRepository(getApplicationContext());
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        interactionListener = (SignInInteractionListener) context;
+        setFragmentInteractionListener(interactionListener);
+    }
+    // Call this method when the event occurs in the fragment
+    private void triggerEvent(Bundle info) {
+        if (interactionListener != null) {
+            interactionListener.onFragmentEventSign(info);
+        }
+    }
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = SignInBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ServerStringRepository ssr = new ServerStringRepository(requireContext());
         serverHolder = new MutableLiveData<>();
-        ssr.get(serverHolder);
-        binding.toRegister.setOnClickListener(view -> {
-            Intent intent = new Intent(SignIn.this, Register.class);
+
+        binding.toRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), Register.class);
             startActivity(intent);
         });
-        binding.settings.setOnClickListener(view -> {
-            Intent intent = new Intent(SignIn.this, Settings.class);
+
+        binding.settings.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), Settings.class);
             startActivity(intent);
         });
-        // seeing if im logged in
-        MutableLiveData<UserSignedSaver> userSaver = new MutableLiveData<>();
+
         token = new MutableLiveData<>();
         user = new MutableLiveData<>();
-        UserSignedRepository uss = new UserSignedRepository(getApplicationContext());
-        serverHolder.observe(this, serverObj -> {
-            if (serverObj != null) {
-                signApi = new SignInAPI(serverObj.getServerAddress());
-                uss.get(userSaver);
-            }
-        });
-        userSaver.observe(this, gottenUser -> {
-            if (gottenUser != null) {
-                signApi.getToken(token, gottenUser.getUserPass());
-            }
-        });
-        // after getting the token going in to contacts, if im logged
-        token.observe(this, tokenString -> {
-            if (tokenString != null) {
-                if (userSaver.getValue() != null) {
-                    Intent intent = new Intent(SignIn.this, ContactPage.class);
-                    intent.putExtra("token", tokenString);
-                    intent.putExtra("user", userSaver.getValue().getSavedUser());
-                    startActivity(intent);
-                } else {
-                    signApi.getUserPassName(tokenString, username, user);
-                }
-            }
-        });
-        // if the user isn't connected
-        binding.LoggingIn.setOnClickListener(view -> {
+        UserSignedRepository uss = new UserSignedRepository(requireContext());
+
+        binding.LoggingIn.setOnClickListener(v -> {
             String username1 = binding.username.getText().toString();
             String password = binding.password.getText().toString();
             if (username1.equals("") && password.equals("")) {
@@ -83,17 +90,36 @@ public class SignIn extends AppCompatActivity {
                 up = new UserPass(username1, password);
                 username = username1;
             }
-            if (token.getValue() == null)
-                signApi.getToken(token, up);
-            else signApi.getUserPassName(token.getValue(), username, user);
+            ssr.get(serverHolder);
         });
-        user.observe(this, gottenUser -> {
-            UserSignedSaver userSignedSaver = new UserSignedSaver(1, gottenUser, up);
+
+        serverHolder.observeForever(serverObj -> {
+            if (serverObj != null) {
+                signApi = new SignInAPI(serverObj.getServerAddress());
+                signApi.getToken(token, up);
+            } else {
+                binding.setAddress.setText("Please set a valid server address.");
+            }
+        });
+
+        token.observe(getViewLifecycleOwner(), tokenString -> {
+            if (tokenString != null) {
+                signApi.getUserPassName(tokenString, username, user);
+            }
+        });
+
+        user.observe(getViewLifecycleOwner(), gottenUser -> {
             uss.insert(up, gottenUser);
-            Intent intent = new Intent(SignIn.this, ContactPage.class);
-            intent.putExtra("token", token.getValue());
-            intent.putExtra("user", gottenUser);
-            startActivity(intent);
+            ContactPage contactPageFragment = new ContactPage();
+            Bundle args = new Bundle();
+            args.putString("token", token.getValue());
+            args.putParcelable("user", gottenUser);
+            if (serverHolder.getValue() != null) {
+                args.putString("url", serverHolder.getValue().getServerAddress());
+            } else {
+                args.putString("url", "http://10.0.0.2:12345/api/");
+            }
+            triggerEvent(args);
         });
     }
 }
