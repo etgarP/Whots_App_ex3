@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="page.register.Register">
+    tools:context="page.register.Register"
+    android:background="@color/background">
     <Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentInsetStart="0dp"
-        android:background="#0e7a6f"
+        android:background="@color/toolBar"
         app:layout_constraintTop_toTopOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/whotsapp"
-                android:textColor="@color/white"
+                android:textColor="#FFFFFF"
                 android:textSize="22sp"/>
 
         </LinearLayout>
@@ -56,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
-            android:text="Create Account"
+            android:text="@string/create_account"
             android:gravity="center"
             android:textSize="20sp"
             android:layout_marginBottom="13dp"
@@ -236,7 +237,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:paddingLeft="10dp"
-                android:text="Upload Your Unique Image!"/>
+                android:paddingRight="10dp"
+                android:text="@string/upload_your_unique_image"/>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
@@ -252,7 +254,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp"
-            android:backgroundTint="#38ac94"
+            android:backgroundTint="@color/button"
             android:text="@string/register"
             android:textSize="20sp"
             />

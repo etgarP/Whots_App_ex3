@@ -46,40 +46,25 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         tools:layout_editor_absoluteX="0dp">
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
             android:background="@drawable/background"
-            android:padding="0.5dp"
+            android:padding="8dp"
+            android:text="ive come to talk to you again"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/getting"
-                android:padding="8dp"
-                android:text="ive come to talk to you again" />
-        </LinearLayout>
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/background"
-            android:padding="0.5dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/recieving"
-                android:padding="8dp"
-                android:text="hello darkness my old friend" />
-        </LinearLayout>
+            android:background="@drawable/recieving"
+            android:padding="8dp"
+            android:text="hello darkness my old friend"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -98,12 +83,7 @@
             android:layout_marginEnd="45dp"
             android:padding="6dp"
             app:layout_constraintStart_toStartOf="parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/input_message_background"
-            android:padding="0.5dp"
-            app:layout_constraintStart_toStartOf="parent">
+
             <EditText
                 android:id="@+id/editText5"
                 android:layout_width="match_parent"
@@ -114,35 +94,25 @@
                 android:paddingLeft="25dp"
                 android:background="@drawable/input_message"
                 app:layout_constraintStart_toStartOf="parent" />
-        </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="39dp"
-            android:layout_height="39dp"
-            android:background="@drawable/button_holder_background"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/button_holder"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editTextLinear"
             app:layout_constraintTop_toTopOf="parent">
-            <LinearLayout
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:background="@drawable/button_holder"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editTextLinear"
-                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_send" />
-            </LinearLayout>
-
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_send" />
         </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

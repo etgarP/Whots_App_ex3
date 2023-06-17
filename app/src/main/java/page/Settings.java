@@ -43,7 +43,11 @@ public class Settings extends AppCompatActivity {
         });
         whichCall.get(0).observe(this, num -> {
             if (num == 2) {
-                binding.serverText.setText(serverAddress.get(0).getValue());
+                String originalString = serverAddress.get(0).getValue();
+                String startToRemove = "http://";
+                String endToRemove = "12345:/api/";
+                String modifiedString = originalString.substring(startToRemove.length(), originalString.length() - endToRemove.length());
+                binding.serverText.setText(modifiedString);
             }
         });
         binding.back.setOnClickListener(view -> {

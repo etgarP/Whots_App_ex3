@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="page.chat.ContactPage">
+    tools:context="page.chat.ContactPage"
+    android:background="@color/background">
 
     <Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0e7a6f"
+        android:background="@color/toolBar"
         app:layout_constraintTop_toTopOf="parent"
         android:contentInsetStart="0dp">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="@string/whotsapp"
-                    android:textColor="@color/white"
+                    android:textColor="#FFFFFF"
                     android:textSize="22sp" />
             </LinearLayout>
 
@@ -99,6 +100,5 @@
         android:focusable="true"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

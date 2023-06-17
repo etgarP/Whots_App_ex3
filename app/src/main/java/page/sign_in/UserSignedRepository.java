@@ -28,7 +28,7 @@ public class UserSignedRepository {
 
     public void insert(UserPass up, User u) {
         new Thread(() -> {
-            dao.update(new UserSignedSaver(1, u, up));
+            dao.insert(new UserSignedSaver(1, u, up));
         }).start();
     }
     public void deleteDataMain() {

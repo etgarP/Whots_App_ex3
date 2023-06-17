@@ -2,6 +2,7 @@ package page.chat;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.example.whotsapp.databinding.ActivityContactPageBinding;
 
 import java.util.List;
 
+import page.Settings;
 import page.chat.adapters.ContactsListAdapter;
 import page.chat.entities.Contact;
 import page.chat.entities.User;
@@ -91,6 +93,10 @@ public class ContactPage extends Fragment {
             if (num == 1){
                 triggerEvent();
             }
+        });
+        binding.settingsContacts.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), Settings.class);
+            startActivity(intent);
         });
     }
 
