@@ -20,9 +20,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseCompoundDrawables"
-            android:focusable="true"
-            android:clickable="true">
+            tools:ignore="UseCompoundDrawables">
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="52dp"
@@ -44,29 +42,33 @@
     </Toolbar>
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
+        android:id="@+id/darkMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        android:foreground="?attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="5dp"
             android:src="@drawable/dark_mode" />
-
-        <Switch
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:text="@string/dark_mode"
             android:textSize="15dp"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            android:layout_marginTop="4sp"
+            android:layout_marginBottom="3sp"
+            android:text="@string/dark_mode"/>
+
 
     </LinearLayout>
 
@@ -78,7 +80,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+        app:layout_constraintTop_toBottomOf="@+id/darkMode">
 
         <ImageView
             android:layout_width="30dp"
@@ -115,7 +117,12 @@
                         android:id="@+id/serverText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="10.0.2.2" />
+                        android:background="@drawable/border_input_new"
+                        android:hint="10.0.2.2"
+                        android:layout_margin="5dp"
+                        android:padding="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                     <TextView
                         android:id="@+id/ipErr"
                         android:layout_width="wrap_content"

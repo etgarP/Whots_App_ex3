@@ -19,7 +19,7 @@ public class ContactsRepository {
     private ContactAPI api;
     private String token;
 
-    public ContactsRepository(Context context, String url, String token) {
+    public ContactsRepository(Context context, String url) {
         AppDB db = Room.databaseBuilder(context,
                         AppDB.class, "ContactsDB")
                 .build();
@@ -27,7 +27,12 @@ public class ContactsRepository {
         dao = db.contactDao();
         contactListData = new ContactListData();
         api = new ContactAPI(dao, url);
+        this.token = null;
+    }
+
+    public void setToken(String token) {
         this.token = token;
+        api.get(contactListData, token);
     }
 
     class ContactListData extends MutableLiveData<List<Contact>> {
@@ -44,7 +49,8 @@ public class ContactsRepository {
         protected void onActive() {
             super.onActive();
             new Thread(() -> {
-                api.get(this, token);
+                if (token != null)
+                    api.get(this, token);
             }).start();
         }
     }
@@ -55,7 +61,10 @@ public class ContactsRepository {
     // TODO see if these needs adding farther down the line
 //    public void add (final Contact contact) { api.add(contact); }
 //    public void delete (final Contact contact) { api.delete(contact); }
-    public void reload() { api.get(contactListData, token); }
+    public void reload() {
+        if (token != null)
+            api.get(contactListData, token);
+    }
     public void deleteDataMain() {
         dao.deleteAllData();
     }

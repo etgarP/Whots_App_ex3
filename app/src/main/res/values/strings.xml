@@ -29,4 +29,9 @@
     <string name="change_server_ip">Change Server IP:</string>
     <string name="set_server_address">Set Server Address</string>
     <string name="create_account">Create Account</string>
+    <string name="enter_your_username">Enter Your Username</string>
+    <string name="choose_your_username">Choose Your Username</string>
+    <string name="choose_your_password">Choose Your Password</string>
+    <string name="repeat_your_password">Repeat Your Password</string>
+    <string name="choose_your_display_name">Choose Your Display Name</string>
 </resources>

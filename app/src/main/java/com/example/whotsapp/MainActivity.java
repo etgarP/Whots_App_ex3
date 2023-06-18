@@ -1,14 +1,17 @@
 package com.example.whotsapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
 
 import page.ServerStringHolder;
+import page.WhichModeRep;
 import page.chat.ContactPage;
 import page.chat.ServerStringRepository;
 import page.chat.entities.User;
@@ -28,6 +31,30 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
     private MutableLiveData<ServerStringHolder> serverHolder;
     MutableLiveData<UserSignedSaver> userSaver;
     MutableLiveData<Integer> condition;
+    private void setDarkMode() {
+        SharedPreferences sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
+        boolean isFirstLaunch = sharedPreferences.getBoolean("firstLunch", true);
+        if (isFirstLaunch) {
+            MutableLiveData<String> result = new MutableLiveData<>();
+            WhichModeRep whichModeRep = new WhichModeRep(getApplicationContext());
+            whichModeRep.get(result);
+            result.observe(this, string -> {
+                if (string != null) {
+                    if (string.equals("light"))
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    else if (string.equals("dark"))
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    else if (string.equals("auto")) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    } else { return; }
+                    recreate();
+                }
+            } );
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("firstLunch", false);
+            editor.apply();
+        }
+    }
 
     // Implement the interface method to handle the fragment event
     @Override
@@ -52,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setDarkMode();
         condition = new MutableLiveData<>(-1);
         checkCondition(getApplicationContext()); // Replace with your own condition logic
         condition.observeForever(num -> {
@@ -62,20 +90,19 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
                     ContactPage fragmentB = new ContactPage();
                     Bundle args = new Bundle();
                     String server = serverHolder.getValue().getServerAddress();
-                    String token1 = token.getValue();
                     User user = userSaver.getValue().getSavedUser();
-                    args.putString("url", serverHolder.getValue().getServerAddress());
-                    args.putString("token", token.getValue());
-                    args.putParcelable("user", userSaver.getValue().getSavedUser());
+                    UserPass userPass = userSaver.getValue().getUserPass();
+                    args.putString("url", server);
+                    args.putParcelable("user", user);
+                    args.putParcelable("userPass", userPass);
                     fragmentB.setArguments(args);
 
                     fragmentTransaction.replace(R.id.fragment_container, fragmentB);
-                    fragmentTransaction.addToBackStack(null);
                 } else {
                     SignIn fragmentB = new SignIn();
                     fragmentTransaction.replace(R.id.fragment_container, fragmentB);
                 }
-                fragmentTransaction.commit();
+                fragmentTransaction.commitAllowingStateLoss();
             }
         });
     }
@@ -87,35 +114,20 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
         ssr.get(serverHolder);
 
         userSaver = new MutableLiveData<>();
-        token = new MutableLiveData<>();
         UserSignedRepository uss = new UserSignedRepository(getApplicationContext());
-
+        // getting the server address
         serverHolder.observeForever(serverObj -> {
             if (serverObj != null) {
-                signApi = new SignInAPI(serverObj.getServerAddress());
                 uss.get(userSaver);
             } else {
                 condition.postValue(0);
             }
         });
-
+        // getting the user
         userSaver.observeForever(gottenUser -> {
             if (gottenUser != null) {
-                signApi.getToken(token, gottenUser.getUserPass());
+                condition.postValue(1);
             } else {
-                condition.postValue(0);
-            }
-        });
-
-        token.observeForever(tokenString -> {
-            if (tokenString != null) {
-                if (userSaver.getValue() != null) {
-                    condition.postValue(1);
-                } else {
-                    condition.postValue(0);
-                }
-            }
-            else {
                 condition.postValue(0);
             }
         });

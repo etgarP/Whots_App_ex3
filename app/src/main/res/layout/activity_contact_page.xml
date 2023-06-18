@@ -89,16 +89,26 @@
             android:layout_height="wrap_content"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <ImageView
-        android:id="@+id/logOut"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/logout"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:background="?selectableItemBackgroundBorderless"
-        android:focusable="true"
-        android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/logOut"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+
+            android:focusable="true"
+            android:src="@drawable/logout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

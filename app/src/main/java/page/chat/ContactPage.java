@@ -26,7 +26,9 @@ import page.chat.entities.Contact;
 import page.chat.entities.User;
 import page.chat.repositories.ContactsRepository;
 import page.chat.viewmodels.ContactsViewModel;
+import page.sign_in.SignInAPI;
 import page.sign_in.UserSignedRepository;
+import page.sign_in.entities.UserPass;
 
 public class ContactPage extends Fragment {
 
@@ -34,6 +36,7 @@ public class ContactPage extends Fragment {
     private ContactsViewModel viewModel;
     private ActivityContactPageBinding binding;
     private String url;
+    private UserPass userPass;
     private String token;
     private RegisterInteractionListener interactionListener;
     public interface RegisterInteractionListener {
@@ -66,7 +69,7 @@ public class ContactPage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setDetails();
 
-        viewModel = new ContactsViewModel(requireContext().getApplicationContext(), url, token);
+        viewModel = new ContactsViewModel(requireContext().getApplicationContext(), url);
         RecyclerView lstPosts = binding.lstPosts;
         final ContactsListAdapter adapter = new ContactsListAdapter(requireContext());
         lstPosts.setAdapter(adapter);
@@ -77,12 +80,20 @@ public class ContactPage extends Fragment {
             binding.refreshLayout.setRefreshing(false);
         });
         viewModel.get().observe(getViewLifecycleOwner(), adapter::setContacts);
+        MutableLiveData<String> token = new MutableLiveData<>();
+        SignInAPI api = new SignInAPI(url);
+        api.getToken(token, userPass, null);
+        token.observeForever(tokenString -> {
+            if (tokenString != null) {
+                viewModel.setToken(tokenString);
+            }
+        });
 
         MutableLiveData<Integer> observeDelete = new MutableLiveData<>();
         binding.logOut.setOnClickListener(v -> {
             new Thread(() -> {
                 UserSignedRepository usr = new UserSignedRepository(requireContext().getApplicationContext());
-                ContactsRepository cr = new ContactsRepository(requireContext().getApplicationContext(), url, token);
+                ContactsRepository cr = new ContactsRepository(requireContext().getApplicationContext(), url);
                 cr.deleteDataMain();
                 usr.deleteDataMain();
                 usr.get(new MutableLiveData<>());
@@ -103,8 +114,8 @@ public class ContactPage extends Fragment {
     private void setDetails() {
         if (getArguments() != null) {
             User user = getArguments().getParcelable("user");
+            userPass = getArguments().getParcelable("userPass");
             url = getArguments().getString("url");
-            token = getArguments().getString("token");
             binding.displayNamePlace.setText(user.getDisplayName());
             binding.pfp.setImageBitmap(user.getProfilePicBit());
         }

@@ -30,7 +30,7 @@ public class SignInAPI {
     public void PostUser(UserPass userPass) {
 
     }
-    public void getToken(MutableLiveData<String> token, UserPass userPass) {
+    public void getToken(MutableLiveData<String> token, UserPass userPass, MutableLiveData<String> err) {
         Call<ResponseBody> call = webServiceAPI.createToken(userPass);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -48,28 +48,34 @@ public class SignInAPI {
                     }
                     // Process the token
                 } else {
-                    // Handle error
+                    if (err != null)
+                        err.postValue("Wrong username or password");
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                // Handle failure
+                if (err != null)
+                    err.postValue("No internet connection");
             }
         });
     }
-    public void getUserPassName(String token, String username, MutableLiveData<User> userSaver) {
+    public void getUserPassName(String token, String username, MutableLiveData<User> userSaver, MutableLiveData<String> err) {
         String authorizationHeader = "Bearer " + token;
         Call<User> call = webServiceAPI.getUser(authorizationHeader, username);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                User user = response.body();
-                userSaver.postValue(response.body());
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                    userSaver.postValue(response.body());
+                }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {}
+            public void onFailure(Call<User> call, Throwable t) {
+                err.postValue("No internet connection");
+            }
         });
 
     }

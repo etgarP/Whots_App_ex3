@@ -63,7 +63,6 @@
             android:layout_marginBottom="13dp"
             android:textStyle="bold" />
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="67dp">
@@ -72,24 +71,11 @@
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_input"
-                android:hint="@string/hemi_hemi"
+                android:background="@drawable/border_input_new"
+                android:hint="@string/choose_your_username"
                 android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/whiten"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="22dp"
-                android:text="@string/username"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,6 +84,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/UserErr"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,22 +95,10 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_input"
-                android:hint="@string/enter_your_password"
+                android:background="@drawable/border_input_new"
+                android:hint="@string/choose_your_password"
                 android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/whiten"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="22dp"
-                android:text="@string/password"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:layout_width="wrap_content"
@@ -144,22 +119,10 @@
                 android:id="@+id/rePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_input"
-                android:hint="@string/re_enter_your_password"
+                android:background="@drawable/border_input_new"
+                android:hint="@string/repeat_your_password"
                 android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/whiten"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="22dp"
-                android:text="@string/confirm_password"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:layout_width="wrap_content"
@@ -174,29 +137,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="67dp"
-            android:layout_marginBottom="5dp">
+            android:layout_height="67dp">
 
             <EditText
                 android:id="@+id/displayName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_input"
-                android:hint="@string/hemi_hemi_dp"
+                android:background="@drawable/border_input_new"
+                android:hint="@string/choose_your_display_name"
                 android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/whiten"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="22dp"
-                android:text="@string/displayname"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:layout_width="wrap_content"
@@ -208,13 +158,14 @@
                 android:id="@+id/displayNameErr"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <LinearLayout
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:orientation="horizontal"
                 android:background="@drawable/picture_botton">
                 <LinearLayout

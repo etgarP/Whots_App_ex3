@@ -13,9 +13,12 @@ import page.chat.repositories.ContactsRepository;
 public class ContactsViewModel extends ViewModel {
     private ContactsRepository mRepository;
     private LiveData<List<Contact>> contacts;
-    public ContactsViewModel(Context context, String url, String token) {
-        mRepository = new ContactsRepository(context, url, token);
+    public ContactsViewModel(Context context, String url) {
+        mRepository = new ContactsRepository(context, url);
         contacts = mRepository.getAll();
+    }
+    public void setToken(String token) {
+        mRepository.setToken(token);
     }
     public LiveData<List<Contact>> get() {
         return contacts;

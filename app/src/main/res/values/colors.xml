@@ -6,6 +6,6 @@
     <color name="mainScreen">#212121</color>
     <color name="background">#fffbfe</color>
     <color name="button">#38ac94</color>
-    <color name="inputBorders">#d4dfde</color>
+    <color name="inputBorders">#ecedef</color>
     <color name="icon">#333333</color>
 </resources>

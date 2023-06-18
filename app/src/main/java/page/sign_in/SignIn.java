@@ -33,6 +33,7 @@ public class SignIn extends Fragment {
     private MutableLiveData<String> ip;
     private MutableLiveData<ServerStringHolder> serverHolder;
     private SignInInteractionListener interactionListener;
+    private MutableLiveData<String> err;
 
     public interface SignInInteractionListener {
         void onFragmentEventSign(Bundle info);
@@ -92,11 +93,12 @@ public class SignIn extends Fragment {
             }
             ssr.get(serverHolder);
         });
+        err = new MutableLiveData<>();
 
         serverHolder.observeForever(serverObj -> {
             if (serverObj != null) {
                 signApi = new SignInAPI(serverObj.getServerAddress());
-                signApi.getToken(token, up);
+                signApi.getToken(token, up, err);
             } else {
                 binding.setAddress.setText("Please set a valid server address.");
             }
@@ -104,7 +106,7 @@ public class SignIn extends Fragment {
 
         token.observe(getViewLifecycleOwner(), tokenString -> {
             if (tokenString != null) {
-                signApi.getUserPassName(tokenString, username, user);
+                signApi.getUserPassName(tokenString, username, user, err);
             }
         });
 
@@ -112,14 +114,19 @@ public class SignIn extends Fragment {
             uss.insert(up, gottenUser);
             ContactPage contactPageFragment = new ContactPage();
             Bundle args = new Bundle();
-            args.putString("token", token.getValue());
             args.putParcelable("user", gottenUser);
+            args.putParcelable("userPass", up);
             if (serverHolder.getValue() != null) {
                 args.putString("url", serverHolder.getValue().getServerAddress());
             } else {
                 args.putString("url", "http://10.0.0.2:12345/api/");
             }
             triggerEvent(args);
+        });
+        err.observeForever(string -> {
+            if (!string.equals("")) {
+                binding.setErr.setText(string);
+            }
         });
     }
 }

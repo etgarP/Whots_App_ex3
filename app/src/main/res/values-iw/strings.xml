@@ -10,7 +10,7 @@
     <string name="whotsapp">ווצאפ</string>
     <string name="whotsappicon">אייקון ווצאפ</string>
     <string name="not_yet_registered">עוד לא רשום?</string>
-    <string name="register_here"> הירשם כאן</string>
+    <string name="register_here">&#160;הירשם כאן</string>
     <string name="register">הירשם</string>
     <string name="welcome_aboard">ברוכים הבאים</string>
     <string name="confirm_password">אמת סיסמא</string>
@@ -19,7 +19,7 @@
     <string name="picture">תמונה</string>
     <string name="upload_your_unique_image">הכנס את תמונתך הייחודית</string>
     <string name="already_registered">כבר רשום?</string>
-    <string name="sign_in_here"> התחבר כאן</string>
+    <string name="sign_in_here">&#160;התחבר כאן</string>
     <string name="profilePicture">תמונת פרופיל</string>
     <string name="settings">הגדרות</string>
     <string name="dark_mode">מצב לילה</string>
@@ -28,4 +28,9 @@
     <string name="hemi_hemi">הכנס את שם המשתמש</string>
     <string name="hemi_hemi_dp">הכנס את שם התצוגה</string>
     <string name="create_account">צור חשבון</string>
+    <string name="enter_your_username">הכנס את שם המשתמש שלך</string>
+    <string name="choose_your_username">בחר את שם המשתמש שלך</string>
+    <string name="choose_your_password">בחר את סיסמתך</string>
+    <string name="choose_your_display_name">בחר את שם התצוגה שלך</string>
+    <string name="repeat_your_password">כתוב את סיסמתך בשנית</string>
 </resources>
