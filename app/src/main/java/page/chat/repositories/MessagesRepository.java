@@ -34,7 +34,9 @@ public class MessagesRepository {
             new Thread(() -> {
                 int id = 1;//todo delete
                 Messages messages= dao.get(id);
-                postValue(messages.getMessageList());
+                if(messages!=null){
+                    postValue(messages.getMessageList());
+                }
             }).start();
         }
 
@@ -44,7 +46,9 @@ public class MessagesRepository {
             new Thread(() -> {
                 int id = 1;//todo delete
                 Messages messages= dao.get(id);
-                api.get(messages);
+                if(messages!=null){
+                    api.get(messages);
+                }
             }).start();
         }
     }

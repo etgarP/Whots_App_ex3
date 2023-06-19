@@ -11,7 +11,7 @@ import page.chat.entities.Contact;
 import page.chat.entities.Messages;
 
 
-@Database(entities = {Contact.class, Messages.class}, version = 4)
+@Database(entities = {Contact.class, Messages.class}, version = 1)
 @TypeConverters({LastMessageTypeConverter.class, UserTypeConverter.class, DataConverter.class})
 public abstract class AppDB extends RoomDatabase {
     public abstract ContactDao contactDao();
