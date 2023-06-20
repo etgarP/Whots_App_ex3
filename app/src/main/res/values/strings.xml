@@ -38,4 +38,5 @@
     <string name="enter_your_friend_s_username">Enter Your Friend\'s Username</string>
     <string name="add_contact">Add Contact</string>
     <string name="padding" translatable="false">11dp</string>
+    <string name="iconsend" translatable="false">iconSend</string>
 </resources>
