@@ -22,6 +22,12 @@ public class MessagesPage extends AppCompatActivity {
 
     private MessagesViewModel viewModel;
     private ActivityMessagesBinding binding;
+    RecyclerView recyclerView;
+    MessagesListAdapter adapter;
+    public void setScroll() {
+        int lastPosition = adapter.getItemCount() - 1;
+        recyclerView.scrollToPosition(lastPosition);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
@@ -30,20 +36,15 @@ public class MessagesPage extends AppCompatActivity {
         String url = intent.getStringExtra("url");
         UserPass userPass = intent.getParcelableExtra("userPass");
 
-
-
         super.onCreate(savedInstanceState);
 //        binding = ActivityMessagesBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_messages);
 
-        RecyclerView recyclerView = findViewById(R.id.lstMessages);
+        recyclerView = findViewById(R.id.lstMessages);
 
-        final MessagesListAdapter adapter = new MessagesListAdapter(this);
+        adapter = new MessagesListAdapter(this);
         recyclerView.setAdapter(adapter);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
 
         viewModel = new MessagesViewModel(getApplicationContext(), url, id);
@@ -51,6 +52,8 @@ public class MessagesPage extends AppCompatActivity {
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(() -> {
             viewModel.reload();
+            SwipeRefreshLayout rfr = findViewById(R.id.refreshLayout);
+            rfr.setRefreshing(false);
         });
         viewModel.get().observe(this, messages -> {
             adapter.setMessages(messages);
@@ -64,6 +67,9 @@ public class MessagesPage extends AppCompatActivity {
             if (tokenString != null) {
                 viewModel.setToken(tokenString);
             }
+        });
+        viewModel.get().observe(this, data -> {
+            setScroll();
         });
 
 //        List<Message> lstMessages = new ArrayList<>();

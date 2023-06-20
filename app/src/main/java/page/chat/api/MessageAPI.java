@@ -41,7 +41,6 @@ public class MessageAPI {
                 if(response.isSuccessful()) {
                     List<Message> oldList = messagesList.getValue();
                     List<Message> ml = response.body();
-                    messagesList.postValue(ml);
                     if (ml != null) {
                         for (Message message: ml) {
                             dao.insertIfNotExists(message);
@@ -54,7 +53,7 @@ public class MessageAPI {
                         }
                     }
                     List<Message> messages = dao.index();
-                    System.out.println("hi");
+                    messagesList.postValue(messages);
                 }
             }
             @Override
