@@ -2,7 +2,7 @@
     <string name="app_name">Whots App</string>
     <string name="signin_welcome_back">Welcome Back!</string>
     <string name="username">Username</string>
-    <string name="userTemp_hemi_hemi">hemi_hemi</string>
+    <string name="userTemp_hemi_hemi" translatable="false">hemi_hemi</string>
     <string name="password">Password</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="login">Login</string>
@@ -12,7 +12,7 @@
     <string name="not_yet_registered">Not yet registered?&#160;</string>
     <string name="register_here">Click here to register</string>
     <string name="register">Register</string>
-    <string name="welcome_aboard">Welcome Aboard!</string>
+    <string name="welcome_aboard">Welcome Aboard!</string>/
     <string name="hemi_hemi">hemi_hemi</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="re_enter_your_password">Re-enter your password</string>
@@ -23,5 +23,19 @@
     <string name="already_registered">Already registered?&#160;</string>
     <string name="sign_in_here">Click here to sign in</string>
     <string name="profilePicture">profilePicture</string>
-    <string name="BaseUrl">http://10.0.2.2:12345/api/</string>
+    <string name="BaseUrl" translatable="false">http://192.168.1.108:12345/api/</string>
+    <string name="settings">Settings</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="change_server_ip">Change Server IP:</string>
+    <string name="set_server_address">Set Server Address</string>
+    <string name="create_account">Create Account</string>
+    <string name="enter_your_username">Enter Your Username</string>
+    <string name="choose_your_username">Choose Your Username</string>
+    <string name="choose_your_password">Choose Your Password</string>
+    <string name="repeat_your_password">Repeat Your Password</string>
+    <string name="choose_your_display_name">Choose Your Display Name</string>
+    <string name="add">Add</string>
+    <string name="enter_your_friend_s_username">Enter Your Friend\'s Username</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="padding" translatable="false">11dp</string>
 </resources>

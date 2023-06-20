@@ -31,4 +31,6 @@ public interface ContactDao {
             insert(contact);
         }
     }
+    @Query("DELETE FROM contact")
+    void deleteAllData();
 }

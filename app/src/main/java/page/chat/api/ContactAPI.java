@@ -2,13 +2,13 @@ package page.chat.api;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.whotsapp.R;
-
 import java.util.List;
 import java.util.concurrent.Executors;
 
-import page.MyApplication;
+import okhttp3.ResponseBody;
+import page.WebServiceAPI;
 import page.chat.entities.Contact;
+import page.chat.entities.CreateChatUsername;
 import page.room.ContactDao;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,9 +21,9 @@ public class ContactAPI {
     WebServiceAPI webServiceAPI;
     private ContactDao dao;
 
-    public ContactAPI(ContactDao dao) {
+    public ContactAPI(ContactDao dao, String url) {
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .baseUrl(url)
                 .callbackExecutor(Executors.newSingleThreadExecutor())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -31,30 +31,52 @@ public class ContactAPI {
         this.dao = dao;
     }
 
-    public void get(MutableLiveData<List<Contact>> contactsList) {
-        String bearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkZGRkZmNEZGRkZmNCIsImlhdCI6MTY4NjQxNTU1MH0.5MTRJZLDHKaz_ddrub_Sw6Ey-cI2UVaaK8HO5yNIHuY";
+    public void get(MutableLiveData<List<Contact>> contactsList, String bearerToken) {
+        if (dao == null) return;
         String authorizationHeader = "Bearer " + bearerToken;
         Call<List<Contact>> call = webServiceAPI.getContacts(authorizationHeader);
         call.enqueue(new Callback<List<Contact>>() {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
+                List<Contact> oldList = contactsList.getValue();
                 List<Contact> lc = response.body();
                 contactsList.postValue(response.body());
                 if (lc != null) {
                     for (Contact c: lc) {
                         dao.insertIfNotExists(c);
                     }
-                    List<Contact> daoList = dao.index();
-                    for (Contact c: daoList) {
-                        if (!lc.contains(c))
-                            dao.delete(c);
+                    if (oldList != null) {
+                        for (Contact c : oldList) {
+                            if (!lc.contains(c))
+                                dao.delete(c);
+                        }
                     }
-                    daoList = dao.index();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Contact>> call, Throwable t) {}
+        });
+    }
+    public void addContact(MutableLiveData<String> status, String bearerToken, String username) {
+        String authorizationHeader = "Bearer " + bearerToken;
+        CreateChatUsername username1 = new CreateChatUsername(username);
+        Call<ResponseBody> call = webServiceAPI.createChat(authorizationHeader, username1);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    status.postValue("Friend successfully added :)");
+                }
+                else {
+                    status.postValue("Wrong username or already added");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                status.postValue("No connection to the server");
+            }
         });
     }
 }

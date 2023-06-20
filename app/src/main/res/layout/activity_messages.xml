@@ -119,16 +119,12 @@
                 app:layout_constraintStart_toEndOf="@+id/editTextLinear"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_send" />
-            </LinearLayout>
-
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_send" />
         </LinearLayout>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
