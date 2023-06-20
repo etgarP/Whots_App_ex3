@@ -64,8 +64,8 @@
 
             <ImageView
                 android:id="@+id/settingsContacts"
-                android:layout_width="52dp"
-                android:layout_height="39dp"
+                android:layout_width="45dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/whotsappicon"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -79,8 +79,8 @@
 
             <ImageView
                 android:id="@+id/exit"
-                android:layout_width="52dp"
-                android:layout_height="39dp"
+                android:layout_width="45dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
