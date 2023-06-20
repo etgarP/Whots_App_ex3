@@ -90,7 +90,7 @@ public class ContactPage extends Fragment {
         });
 
         MutableLiveData<Integer> observeDelete = new MutableLiveData<>();
-        binding.logOut.setOnClickListener(v -> {
+        binding.exit.setOnClickListener(v -> {
             new Thread(() -> {
                 UserSignedRepository usr = new UserSignedRepository(requireContext().getApplicationContext());
                 ContactsRepository cr = new ContactsRepository(requireContext().getApplicationContext(), url);
@@ -109,6 +109,11 @@ public class ContactPage extends Fragment {
             Intent intent = new Intent(requireContext(), Settings.class);
             startActivity(intent);
         });
+        binding.add.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), AddPage.class);
+            intent.putExtra("userPass", userPass);
+            startActivity(intent);
+        });
     }
 
     private void setDetails() {
@@ -118,6 +123,14 @@ public class ContactPage extends Fragment {
             url = getArguments().getString("url");
             binding.displayNamePlace.setText(user.getDisplayName());
             binding.pfp.setImageBitmap(user.getProfilePicBit());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewModel != null) {
+            viewModel.reload();
         }
     }
 }

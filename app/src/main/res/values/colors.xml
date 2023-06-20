@@ -8,4 +8,5 @@
     <color name="button">#38ac94</color>
     <color name="inputBorders">#ecedef</color>
     <color name="icon">#333333</color>
+    <color name="red">#FF0000</color>
 </resources>

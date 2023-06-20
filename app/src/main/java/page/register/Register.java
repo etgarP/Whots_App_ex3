@@ -34,7 +34,7 @@ public class Register extends AppCompatActivity {
     private LinearLayout pictureBtn;
     Uri imageUri;
     MutableLiveData<String> usernameM, passwordM, pictureM, displayNameM, cPasswordM;
-    MutableLiveData<Boolean> goodPost;
+    MutableLiveData<String> goodPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class Register extends AppCompatActivity {
                 String picture64 = getBase64(imageUri);
                 if (picture64 == null) return;
                 RegisterApi ra = new RegisterApi();
-                ra.createUser(new UserPassName(username, password, displayName, picture64));
+                ra.createUser(new UserPassName(username, password, displayName, picture64), goodPost);
             }
         });
         pictureBtn.setOnClickListener(v -> {
@@ -90,7 +90,7 @@ public class Register extends AppCompatActivity {
             if (picture.equals(""))
                 binding.picErr.setText(null);
             else
-                binding.picErr.setText(pictureM.getValue());
+                binding.picErr.setText(picture);
         });
         displayNameM.observe(this, displayName -> {
             if (displayName.equals(""))
@@ -110,8 +110,19 @@ public class Register extends AppCompatActivity {
             else
                 binding.UserErr.setText(usernameM.getValue());
         });
-        goodPost.observe(this, bool -> {
-            if (bool) finish();
+        goodPost.observeForever(string -> {
+            if (string != null) {
+                if (string.equals("done")) {
+                    finish();
+                }
+                else if (string.equals("Image too big")) {
+                    binding.picErr.setText("Image too big");
+                } else if (string.equals("No connection")) {
+                    binding.err.setText("No connection");
+                } else if (string.equals("User already exists")) {
+                    binding.err.setText("User already exists");
+                }
+            }
         });
     }
 
@@ -144,7 +155,8 @@ public class Register extends AppCompatActivity {
             String base64String = Base64.encodeToString(byteArray, Base64.DEFAULT);
             String base64Data = base64String.replaceAll("\\s", ""); // Remove whitespace
             base64Data = base64Data.replaceAll("\\n", ""); // Remove line breaks
-            return base64Data;
+
+            return "data:image/png;base64," + base64Data;
         } catch (IOException e) {
             return null;
         }

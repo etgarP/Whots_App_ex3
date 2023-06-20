@@ -1,5 +1,7 @@
 package page.register;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.whotsapp.R;
 
 import java.util.concurrent.Executors;
@@ -28,22 +30,24 @@ public class RegisterApi {
     }
 //    @POST("Users")
 //    Call<User> createUser(@Body UserPassName userPassName);
-    public void createUser(UserPassName ups) {
+    public void createUser(UserPassName ups, MutableLiveData<String> goodPost) {
         Call<ResponseBody> call = webServiceAPI.createUser(ups);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    System.out.println("hello");
+                    goodPost.postValue("done");
                 }
                 // Todo add a mutable that leaves an error
-                if (response.raw().message().equals("Payload Too Large")) {
-                    System.out.println("hello");
-                }
+                else if (response.raw().message().equals("Payload Too Large")) {
+                    goodPost.postValue("Image too big");
+                } else goodPost.postValue("User already exists");
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {}
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                goodPost.postValue("No connection");
+            }
         });
     }
 }

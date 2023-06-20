@@ -33,4 +33,7 @@
     <string name="choose_your_password">בחר את סיסמתך</string>
     <string name="choose_your_display_name">בחר את שם התצוגה שלך</string>
     <string name="repeat_your_password">כתוב את סיסמתך בשנית</string>
+    <string name="add">הוסף</string>
+    <string name="enter_your_friend_s_username">הכנס את שם המשתמש של חברך</string>
+    <string name="add_contact">הוסף איש קשר</string>
 </resources>

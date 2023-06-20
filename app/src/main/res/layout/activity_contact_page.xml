@@ -19,18 +19,21 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:gravity="center_vertical"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="UseCompoundDrawables">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp">
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView"
                         android:layout_width="wrap_content"
@@ -49,6 +52,7 @@
 
 
                 <TextView
+                    android:alpha="0.8"
                     android:id="@+id/displayNamePlace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,6 +77,22 @@
                 android:clickable="true"
                 android:layout_marginRight="10dp"/>
 
+            <ImageView
+                android:id="@+id/exit"
+                android:layout_width="52dp"
+                android:layout_height="39dp"
+                android:layout_gravity="center"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/whotsappicon"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/settingsContacts"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_sign_out" />
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </Toolbar>
@@ -90,22 +110,24 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_margin="15dp"
         app:cardCornerRadius="50dp"
+        android:backgroundTint="@color/button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:id="@+id/logOut"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:id="@+id/add"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
 
             android:focusable="true"
-            android:src="@drawable/logout"
+            android:src="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.cardview.widget.CardView>

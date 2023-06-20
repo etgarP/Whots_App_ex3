@@ -1,7 +1,6 @@
 package com.example.whotsapp;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,30 +30,8 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
     private MutableLiveData<ServerStringHolder> serverHolder;
     MutableLiveData<UserSignedSaver> userSaver;
     MutableLiveData<Integer> condition;
-    private void setDarkMode() {
-        SharedPreferences sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
-        boolean isFirstLaunch = sharedPreferences.getBoolean("firstLunch", true);
-        if (isFirstLaunch) {
-            MutableLiveData<String> result = new MutableLiveData<>();
-            WhichModeRep whichModeRep = new WhichModeRep(getApplicationContext());
-            whichModeRep.get(result);
-            result.observe(this, string -> {
-                if (string != null) {
-                    if (string.equals("light"))
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    else if (string.equals("dark"))
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    else if (string.equals("auto")) {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                    } else { return; }
-                    recreate();
-                }
-            } );
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("firstLunch", false);
-            editor.apply();
-        }
-    }
+    MutableLiveData<String> result;
+    private static boolean alreadyRecreated = false;
 
     // Implement the interface method to handle the fragment event
     @Override
@@ -75,13 +52,36 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
         fragmentTransaction.commit();
     }
 
+    private void observeDarkMode() {
+        result = new MutableLiveData<>();
+
+        WhichModeRep whichModeRep = new WhichModeRep(getApplicationContext());
+        whichModeRep.get(result);
+
+        result.observe(this, string -> {
+            if (string != null) {
+                if (string.equals("light"))
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                else if (string.equals("dark"))
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                else
+                    return;
+                if(!alreadyRecreated){
+                    recreate();
+                    alreadyRecreated = true;
+                }
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setDarkMode();
+        observeDarkMode();
+        checkCondition(getApplicationContext());
         condition = new MutableLiveData<>(-1);
-        checkCondition(getApplicationContext()); // Replace with your own condition logic
+        // Replace with your own condition logic
         condition.observeForever(num -> {
             if (num != null && num != -1) {
                 FragmentManager fragmentManager = getSupportFragmentManager();

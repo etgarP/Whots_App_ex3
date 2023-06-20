@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import okhttp3.ResponseBody;
 import page.WebServiceAPI;
 import page.chat.entities.Contact;
+import page.chat.entities.CreateChatUsername;
 import page.room.ContactDao;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +32,7 @@ public class ContactAPI {
     }
 
     public void get(MutableLiveData<List<Contact>> contactsList, String bearerToken) {
+        if (dao == null) return;
         String authorizationHeader = "Bearer " + bearerToken;
         Call<List<Contact>> call = webServiceAPI.getContacts(authorizationHeader);
         call.enqueue(new Callback<List<Contact>>() {
@@ -53,6 +56,27 @@ public class ContactAPI {
 
             @Override
             public void onFailure(Call<List<Contact>> call, Throwable t) {}
+        });
+    }
+    public void addContact(MutableLiveData<String> status, String bearerToken, String username) {
+        String authorizationHeader = "Bearer " + bearerToken;
+        CreateChatUsername username1 = new CreateChatUsername(username);
+        Call<ResponseBody> call = webServiceAPI.createChat(authorizationHeader, username1);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    status.postValue("Friend successfully added :)");
+                }
+                else {
+                    status.postValue("Wrong username or already added");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                status.postValue("No connection to the server");
+            }
         });
     }
 }

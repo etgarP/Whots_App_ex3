@@ -34,4 +34,8 @@
     <string name="choose_your_password">Choose Your Password</string>
     <string name="repeat_your_password">Repeat Your Password</string>
     <string name="choose_your_display_name">Choose Your Display Name</string>
+    <string name="add">Add</string>
+    <string name="enter_your_friend_s_username">Enter Your Friend\'s Username</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="padding" translatable="false">11dp</string>
 </resources>
