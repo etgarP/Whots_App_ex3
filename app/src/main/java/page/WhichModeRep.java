@@ -23,8 +23,9 @@ public class WhichModeRep {
             if (mode == null) {
                 dao.insert(new WhichMode("auto"));
                 mutableLiveData.postValue("auto");
+            } else {
+                mutableLiveData.postValue(mode.getMode());
             }
-            mutableLiveData.postValue(mode.getMode());
         }).start();
     }
     public void update(String mode) {

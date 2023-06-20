@@ -11,10 +11,11 @@ import page.TypeConverter.UserPassTypeConverter;
 import page.TypeConverter.UserTypeConverter;
 import page.WhichMode;
 import page.chat.entities.Contact;
+import page.chat.entities.Message;
 import page.chat.entities.Messages;
 import page.sign_in.entities.UserSignedSaver;
 
-@Database(entities = {Contact.class, Messages.class, ServerStringHolder.class,
+@Database(entities = {Contact.class, Message.class, ServerStringHolder.class,
         UserSignedSaver.class, WhichMode.class}, version = 1)
 @TypeConverters({LastMessageTypeConverter.class, UserTypeConverter.class,
         UserPassTypeConverter.class, DataConverter.class})
@@ -25,5 +26,5 @@ public abstract class AppDB extends RoomDatabase {
     public abstract UserSignedSaverDao userSignedSaverDao();
     public abstract WhichModeDao whichModeDao();
 
-    public abstract MessagesDao messageDao();
+    public abstract MessageDao messageDao();
 }

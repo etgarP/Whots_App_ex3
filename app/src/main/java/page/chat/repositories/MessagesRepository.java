@@ -12,10 +12,11 @@ import page.chat.api.MessageAPI;
 import page.chat.entities.Message;
 import page.chat.entities.Messages;
 import page.room.AppDB;
-import page.room.MessagesDao;
+import page.room.MessageDao;
+import page.room.MessageDao;
 
 public class MessagesRepository {
-    private MessagesDao dao;
+    private MessageDao dao;
     private MessageListData messageListData;
     private MessageAPI api;
     private String token;
@@ -23,7 +24,7 @@ public class MessagesRepository {
     private String url;
     public MessagesRepository(Context context, String url, int id) { //todo fix
         AppDB db = Room.databaseBuilder(context,
-                        AppDB.class, "MessagesDB").build();
+                        AppDB.class, "MessagesDB" + id).build();
 
         this.id=id;
         this.dao = db.messageDao();
@@ -40,9 +41,9 @@ public class MessagesRepository {
         public MessageListData(){
             super();
             new Thread(() -> {
-                Messages messages= dao.get(id);
+                List<Message> messages = dao.index();
                 if (messages!=null){
-                    postValue(messages.getMessageList());
+                    postValue(messages);
                 }
             }).start();
         }
@@ -51,10 +52,10 @@ public class MessagesRepository {
         protected void onActive() {
             super.onActive();
             new Thread(() -> {
-//                Messages messages= dao.get(id);
-//                if(messages!=null){
-//                    postValue(messages.getMessageList());
-//                }
+                List<Message> messages = dao.index();
+                if(messages!=null){
+                    postValue(messages);
+                }
                 if(token!=null){
                     api.get(this,token, id);
                 }

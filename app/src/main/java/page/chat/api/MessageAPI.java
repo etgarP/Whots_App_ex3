@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 import page.WebServiceAPI;
+import page.chat.entities.Contact;
 import page.chat.entities.Message;
 import page.chat.entities.Messages;
-import page.room.MessagesDao;
+import page.room.MessageDao;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,9 +19,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MessageAPI {
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
-    private MessagesDao dao;
+    private MessageDao dao;
 
-    public MessageAPI(MessagesDao dao, String url) {
+    public MessageAPI(MessageDao dao, String url) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .callbackExecutor(Executors.newSingleThreadExecutor())
@@ -41,14 +42,19 @@ public class MessageAPI {
                     List<Message> oldList = messagesList.getValue();
                     List<Message> ml = response.body();
                     messagesList.postValue(ml);
-                    Messages messages = dao.get(id);
-                    if (messages == null) {
-                        Messages messages1 = new Messages(id, ml);
-                        dao.insert(messages1);
-                    } else {
-                        messages.setMessageList(ml);
-                        dao.update(messages);
+                    if (ml != null) {
+                        for (Message message: ml) {
+                            dao.insertIfNotExists(message);
+                        }
+                        if (oldList != null) {
+                            for (Message message : oldList) {
+                                if (!ml.contains(message))
+                                    dao.delete(message);
+                            }
+                        }
                     }
+                    List<Message> messages = dao.index();
+                    System.out.println("hi");
                 }
             }
             @Override
