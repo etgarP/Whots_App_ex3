@@ -1,11 +1,11 @@
 package page.chat.api;
 
-import com.example.whotsapp.R;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 import java.util.concurrent.Executors;
 
-import page.MyApplication;
+import page.WebServiceAPI;
 import page.chat.entities.Message;
 import page.chat.entities.Messages;
 import page.room.MessagesDao;
@@ -20,9 +20,9 @@ public class MessageAPI {
     WebServiceAPI webServiceAPI;
     private MessagesDao dao;
 
-    public MessageAPI(MessagesDao dao) {
+    public MessageAPI(MessagesDao dao, String url) {
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .baseUrl(url)
                 .callbackExecutor(Executors.newSingleThreadExecutor())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -30,25 +30,24 @@ public class MessageAPI {
         this.dao = dao;
     }
 
-    public void get(Messages messages) {
-        //todo put token and delete
-        String bearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkZGRkZmNEZGRkZmNCIsImlhdCI6MTY4NjQxNTU1MH0.5MTRJZLDHKaz_ddrub_Sw6Ey-cI2UVaaK8HO5yNIHuY";
+    public void get(MutableLiveData<List<Message>> messagesList, String bearerToken, int id) {//todo remove Messages messages
+        if (dao == null) return;
         String authorizationHeader = "Bearer " + bearerToken;
-        //todo put id
-        int id = 1; //todo delete
         Call<List<Message>> call = webServiceAPI.getChatMessages(authorizationHeader, id);
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                List<Message> messagesList = response.body();
-                Messages messagesObject = new Messages(id, messagesList);
-                if (messagesList != null) {
-                    dao.insertIfNotExists(messagesObject);
-                }
-                Messages daoList = dao.get(id);
-                for (Message message : daoList.getMessageList()) {
-                    if (!messagesList.contains(messages)) {
-                        dao.delete(messages);
+                if(response.isSuccessful()) {
+                    List<Message> oldList = messagesList.getValue();
+                    List<Message> ml = response.body();
+                    messagesList.postValue(ml);
+                    Messages messages = dao.get(id);
+                    if (messages == null) {
+                        Messages messages1 = new Messages(id, ml);
+                        dao.insert(messages1);
+                    } else {
+                        messages.setMessageList(ml);
+                        dao.update(messages);
                     }
                 }
             }

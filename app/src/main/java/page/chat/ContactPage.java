@@ -71,7 +71,7 @@ public class ContactPage extends Fragment {
 
         viewModel = new ContactsViewModel(requireContext().getApplicationContext(), url);
         RecyclerView lstPosts = binding.lstPosts;
-        final ContactsListAdapter adapter = new ContactsListAdapter(requireContext());
+        final ContactsListAdapter adapter = new ContactsListAdapter(requireContext(), url, userPass);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(requireContext()));
         SwipeRefreshLayout refreshLayout = binding.refreshLayout;

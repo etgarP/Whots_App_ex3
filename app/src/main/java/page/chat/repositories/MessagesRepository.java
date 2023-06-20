@@ -18,23 +18,30 @@ public class MessagesRepository {
     private MessagesDao dao;
     private MessageListData messageListData;
     private MessageAPI api;
-    public MessagesRepository(Context context) {
+    private String token;
+    private int id;
+    private String url;
+    public MessagesRepository(Context context, String url, int id) { //todo fix
         AppDB db = Room.databaseBuilder(context,
-                        AppDB.class, "MessagesDB").allowMainThreadQueries().build();
+                        AppDB.class, "MessagesDB").build();
 
+        this.id=id;
         this.dao = db.messageDao();
-        this.messageListData = new MessagesRepository.MessageListData();
-        this.api = new MessageAPI(this.dao);
+        this.messageListData = new MessageListData();
+        this.api = new MessageAPI(this.dao, url);
+        this.token = null;
     }
-
+    public void setToken(String token) {
+        this.token = token;
+        api.get(messageListData, token, id);
+    }
     class MessageListData extends MutableLiveData<List<Message>> {
 
         public MessageListData(){
             super();
             new Thread(() -> {
-                int id = 1;//todo delete
                 Messages messages= dao.get(id);
-                if(messages!=null){
+                if (messages!=null){
                     postValue(messages.getMessageList());
                 }
             }).start();
@@ -44,10 +51,12 @@ public class MessagesRepository {
         protected void onActive() {
             super.onActive();
             new Thread(() -> {
-                int id = 1;//todo delete
-                Messages messages= dao.get(id);
-                if(messages!=null){
-                    api.get(messages);
+//                Messages messages= dao.get(id);
+//                if(messages!=null){
+//                    postValue(messages.getMessageList());
+//                }
+                if(token!=null){
+                    api.get(this,token, id);
                 }
             }).start();
         }
@@ -57,7 +66,8 @@ public class MessagesRepository {
 public LiveData<List<Message>> getAll() { return this.messageListData; }
 
     public void reload() {
-        int id = 1;//todo delete
-        api.get(dao.get(id));
+        if (token!=null){
+            api.get(messageListData, token, id);
+        }
     }
 }

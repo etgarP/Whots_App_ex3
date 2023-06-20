@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
         observeDarkMode();
         checkCondition(getApplicationContext());
         condition = new MutableLiveData<>(-1);
-        // Replace with your own condition logic
         condition.observeForever(num -> {
             if (num != null && num != -1) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -106,8 +105,6 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
             }
         });
     }
-
-    // Replace with your own condition logic
     private void checkCondition(Context context) {
         ServerStringRepository ssr = new ServerStringRepository(context);
         serverHolder = new MutableLiveData<>();
