@@ -71,6 +71,9 @@ public class MessagesPage extends AppCompatActivity {
         viewModel.get().observe(this, data -> {
             setScroll();
         });
+        findViewById(R.id.backMessages).setOnClickListener(v -> {
+            finish();
+        });
 
 //        List<Message> lstMessages = new ArrayList<>();
 //        lstMessages.add(new Message("2",user,"1"));
