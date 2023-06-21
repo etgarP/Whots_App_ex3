@@ -109,17 +109,16 @@ public class MessagesPage extends AppCompatActivity {
             EditText et = findViewById(R.id.editTextMessage);
             final String content = et.getText().toString();
             if(content.length()>0){
-
-//                MessagesRepository messagesRepository = new MessagesRepository(getApplicationContext(),url,id);
-
-
                 MessageAPI messageAPI = new MessageAPI(null,url);
                 MutableLiveData<String> done = new MutableLiveData<>();
                 messageAPI.add(token.getValue(),id,content, done);
                 et.setText("");
                 done.observe(this, string -> {
                     if(string.equals("done")) {
+                        et.setHint("Message");
                         viewModel.reload();
+                    } else if (string.equals("No internet connection")) {
+                        et.setHint(string);
                     }
                 });
             }
