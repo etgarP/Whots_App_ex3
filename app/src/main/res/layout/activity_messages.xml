@@ -84,6 +84,7 @@
                 android:layout_height="45dp"
                 android:layout_marginRight="1dp"
                 android:paddingTop="6dp"
+                android:hint="Message"
                 android:paddingBottom="6dp"
                 android:paddingRight="25dp"
                 android:paddingLeft="25dp"
