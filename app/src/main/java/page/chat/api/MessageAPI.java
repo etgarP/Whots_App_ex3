@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import okhttp3.ResponseBody;
 import page.WebServiceAPI;
 import page.chat.entities.Message;
 import page.room.MessageDao;
@@ -27,6 +28,24 @@ public class MessageAPI {
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
         this.dao = dao;
+    }
+
+    public void add(String bearerToken, int id, String newMessage){
+        String authorizationHeader = "Bearer " + bearerToken;
+        Call<ResponseBody> call = webServiceAPI.sendMessage(authorizationHeader, id, newMessage);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    System.out.println();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     public void get(MutableLiveData<List<Message>> messagesList, String bearerToken, int id) {

@@ -2,6 +2,7 @@ package page.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +14,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.whotsapp.R;
 
+import java.util.Date;
+
 import page.chat.adapters.MessagesListAdapter;
+import page.chat.api.MessageAPI;
+import page.chat.entities.Message;
 import page.chat.entities.User;
 import page.chat.viewmodels.MessagesViewModel;
 import page.sign_in.SignInAPI;
@@ -25,21 +30,35 @@ public class MessagesPage extends AppCompatActivity {
 //    private ActivityMessagesBinding binding;
     RecyclerView recyclerView;
     MessagesListAdapter adapter;
+    User user;
     public void setScroll() {
         int lastPosition = adapter.getItemCount() - 1;
         recyclerView.scrollToPosition(lastPosition);
+    }
+
+    public void addMessage(){
+        EditText et = findViewById(R.id.editTextMessage);
+        final String content = et.getText().toString();
+        if(content.length()>0){
+            Date currentDate = new Date();
+            String currentTime = currentDate.toString();
+            Message newMessage = new Message(currentTime,user, content);
+
+
+            viewModel.reload();
+        }
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
         //arguments from contactPage
-        User user = intent.getParcelableExtra("User");
+        this.user = intent.getParcelableExtra("User");
         Integer id = intent.getIntExtra("id", -1);
         String url = intent.getStringExtra("url");
         UserPass userPass = intent.getParcelableExtra("userPass");
 
         super.onCreate(savedInstanceState);
-//        binding = ActivityMessagesBinding.inflate(getLayoutInflater());
 
         setContentView(R.layout.activity_messages);
 
@@ -51,8 +70,6 @@ public class MessagesPage extends AppCompatActivity {
         //set profile picture
         ImageView profilePictureImageView = findViewById(R.id.pfp);
         profilePictureImageView.setImageBitmap(user.getProfilePicBit());
-
-//        String userName = user.getUsername();
 
         recyclerView = findViewById(R.id.lstMessages);
 
@@ -80,10 +97,33 @@ public class MessagesPage extends AppCompatActivity {
                 viewModel.setToken(tokenString);
             }
         });
+
         //set scroll to always start on bottom
         viewModel.get().observe(this, data -> setScroll());
 
+        //go back to ContactsPage
         findViewById(R.id.backMessages).setOnClickListener(v -> finish());
+
+        //send message
+        findViewById(R.id.sendMessageButton).setOnClickListener(v -> {
+            EditText et = findViewById(R.id.editTextMessage);
+            final String content = et.getText().toString();
+            if(content.length()>0){
+
+//                MessagesRepository messagesRepository = new MessagesRepository(getApplicationContext(),url,id);
+
+
+                MessageAPI messageAPI = new MessageAPI(null,url);
+                messageAPI.add(token.getValue(),id,content);
+                et.setText("");
+                viewModel.reload();
+            }
+        });
+
+
+
+
+        //        addMessage()?
 
 //        List<Message> lstMessages = new ArrayList<>();
 //        lstMessages.add(new Message("2",user,"1"));
