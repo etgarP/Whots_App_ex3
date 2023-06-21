@@ -14,28 +14,35 @@ import java.util.List;
 
 import page.chat.entities.Message;
 
+
 public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapter.MessageViewHolder> {
-
-    class MessageViewHolder extends  RecyclerView.ViewHolder{
-        private final TextView tvContent;
-//        private final TextView tvSender;
-
-        public MessageViewHolder(View itemView) {
-            super(itemView);
-            this.tvContent = itemView.findViewById(R.id.tvContent);
-//            this.tvSender = itemView.findViewById(R.id.tvSender);
-        }
-    }
-
     private final LayoutInflater mInflater;
     private List<Message> messages;
-
-    public MessagesListAdapter(Context context) { this.mInflater=LayoutInflater.from(context); }
+    private final String username;
+    public MessagesListAdapter(Context context, String username) {
+        this.mInflater=LayoutInflater.from(context);
+        this.username=username;
+    }
+    private static final int VIEW_TYPE_LEFT = 0;
+    private static final int VIEW_TYPE_RIGHT = 1;
+    @Override
+    public int getItemViewType(int position){
+        Message message = messages.get(position);
+        if(username.equals(message.getSender().getUsername())){
+            return VIEW_TYPE_LEFT;
+        }
+        return VIEW_TYPE_RIGHT;
+    }
 
     @Override
     public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        if(R.id.tvSender == "")//todo if left/right
-        View itemView = this.mInflater.inflate(R.layout.left_message_layout, parent, false);
+        View itemView;
+        if (viewType==VIEW_TYPE_LEFT) {
+            itemView = this.mInflater.inflate(R.layout.left_message_layout, parent, false);
+        }else{
+            itemView = this.mInflater.inflate(R.layout.right_message_layout, parent, false);
+        }
         return new MessageViewHolder(itemView);
     }
 
@@ -60,6 +67,16 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         this.messages = messages;
         notifyDataSetChanged();
     }
-
     private List<Message> getMessages(){ return this.messages;}
+
+    class MessageViewHolder extends  RecyclerView.ViewHolder{
+        private final TextView tvContent;
+//        private final TextView tvSender;
+
+        public MessageViewHolder(View itemView) {
+            super(itemView);
+            this.tvContent = itemView.findViewById(R.id.tvContent);
+//            this.tvSender = itemView.findViewById(R.id.tvSender);
+        }
+    }
 }

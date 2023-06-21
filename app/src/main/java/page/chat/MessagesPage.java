@@ -52,9 +52,11 @@ public class MessagesPage extends AppCompatActivity {
         ImageView profilePictureImageView = findViewById(R.id.pfp);
         profilePictureImageView.setImageBitmap(user.getProfilePicBit());
 
+//        String userName = user.getUsername();
+
         recyclerView = findViewById(R.id.lstMessages);
 
-        adapter = new MessagesListAdapter(this);
+        adapter = new MessagesListAdapter(this, user.getUsername());
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
