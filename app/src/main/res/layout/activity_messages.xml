@@ -10,7 +10,7 @@
         android:id="@+id/toolbarMessages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0e7a6f"
+        android:background="@color/toolBar"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -27,11 +27,13 @@
                 android:contentDescription="@string/whotsappicon" />
 
             <TextView
+                android:alpha="0.8"
+                android:id="@+id/displayNamePlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="hemi hemi"
-                android:textColor="@color/white"
+                android:textColor="#FFFFFF"
+                android:text="hemi"
                 android:textSize="22sp" />
         </LinearLayout>
     </Toolbar>
@@ -76,42 +78,36 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/editText5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginRight="1dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingRight="25dp"
+                android:paddingLeft="25dp"
                 android:background="@drawable/input_message"
-                android:padding="0.5dp"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:paddingRight="25dp"
-                    android:paddingLeft="25dp"
-                    android:background="@drawable/input_message"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:inputType="text"/>
-            </LinearLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                android:inputType="text"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:background="@drawable/button_holder"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editTextLinear"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:contentDescription="@string/iconsend"
-                android:layout_width="17dp"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/iconsend"
                 android:src="@drawable/ic_send" />
         </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

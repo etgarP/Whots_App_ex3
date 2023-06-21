@@ -9,4 +9,8 @@
     <color name="inputBorders">#ecedef</color>
     <color name="icon">#333333</color>
     <color name="red">#FF0000</color>
+    <color name="inputMessage">#FFFFFFFF</color>
+    <color name="borderSend">#cccc</color>
+    <color name="messageBox">#e2ffc8</color>
+    <color name="messageBox2">#FFFFFFFF</color>
 </resources>
