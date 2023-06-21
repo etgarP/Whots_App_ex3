@@ -7,6 +7,7 @@ import page.chat.entities.Chat;
 import page.chat.entities.Contact;
 import page.chat.entities.CreateChatUsername;
 import page.chat.entities.Message;
+import page.chat.entities.MessageRequest;
 import page.chat.entities.User;
 import page.sign_in.entities.UserPass;
 import page.sign_in.entities.UserPassName;
@@ -32,7 +33,7 @@ public interface WebServiceAPI {
     Call<ResponseBody> deleteChat(@Header("Authorization") String authorizationHeader, @Path("id") int id);
 
     @POST("Chats/{id}/Messages")
-    Call<ResponseBody> sendMessage(@Header("Authorization") String authorizationHeader, @Path("id") int id, @Path("msg") String msg);
+    Call<ResponseBody> sendMessage(@Header("Authorization") String authorizationHeader, @Path("id") int id, @Body MessageRequest messageRequest);
 
     @GET("Chats/{id}/Messages")
     Call<List<Message>> getChatMessages(@Header("Authorization") String authorizationHeader, @Path("id") int id);

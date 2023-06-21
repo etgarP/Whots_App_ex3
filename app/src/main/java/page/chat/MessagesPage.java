@@ -114,9 +114,14 @@ public class MessagesPage extends AppCompatActivity {
 
 
                 MessageAPI messageAPI = new MessageAPI(null,url);
-                messageAPI.add(token.getValue(),id,content);
+                MutableLiveData<String> done = new MutableLiveData<>();
+                messageAPI.add(token.getValue(),id,content, done);
                 et.setText("");
-                viewModel.reload();
+                done.observe(this, string -> {
+                    if(string.equals("done")) {
+                        viewModel.reload();
+                    }
+                });
             }
         });
 

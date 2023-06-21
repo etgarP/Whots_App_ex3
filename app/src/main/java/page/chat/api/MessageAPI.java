@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import okhttp3.ResponseBody;
 import page.WebServiceAPI;
 import page.chat.entities.Message;
+import page.chat.entities.MessageRequest;
 import page.room.MessageDao;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,14 +31,15 @@ public class MessageAPI {
         this.dao = dao;
     }
 
-    public void add(String bearerToken, int id, String newMessage){
+    public void add(String bearerToken, int id, String msg, MutableLiveData<String> done){
         String authorizationHeader = "Bearer " + bearerToken;
-        Call<ResponseBody> call = webServiceAPI.sendMessage(authorizationHeader, id, newMessage);
+        MessageRequest messageRequest = new MessageRequest(msg);
+        Call<ResponseBody> call = webServiceAPI.sendMessage(authorizationHeader, id, messageRequest);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
-                    System.out.println();
+                    done.postValue("done");
                 }
             }
 
