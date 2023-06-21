@@ -2,6 +2,8 @@ package page.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
@@ -10,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.whotsapp.R;
-import com.example.whotsapp.databinding.ActivityMessagesBinding;
 
 import page.chat.adapters.MessagesListAdapter;
 import page.chat.entities.User;
@@ -21,7 +22,7 @@ import page.sign_in.entities.UserPass;
 public class MessagesPage extends AppCompatActivity {
 
     private MessagesViewModel viewModel;
-    private ActivityMessagesBinding binding;
+//    private ActivityMessagesBinding binding;
     RecyclerView recyclerView;
     MessagesListAdapter adapter;
     public void setScroll() {
@@ -31,6 +32,7 @@ public class MessagesPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
+        //arguments from contactPage
         User user = intent.getParcelableExtra("User");
         Integer id = intent.getIntExtra("id", -1);
         String url = intent.getStringExtra("url");
@@ -38,7 +40,17 @@ public class MessagesPage extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 //        binding = ActivityMessagesBinding.inflate(getLayoutInflater());
+
         setContentView(R.layout.activity_messages);
+
+        //set display name
+        TextView displayNameTextView = findViewById(R.id.displayNamePlace);
+        String displayName = user.getDisplayName();
+        displayNameTextView.setText(displayName);
+
+        //set profile picture
+        ImageView profilePictureImageView = findViewById(R.id.pfp);
+        profilePictureImageView.setImageBitmap(user.getProfilePicBit());
 
         recyclerView = findViewById(R.id.lstMessages);
 
@@ -55,9 +67,7 @@ public class MessagesPage extends AppCompatActivity {
             SwipeRefreshLayout rfr = findViewById(R.id.refreshLayout);
             rfr.setRefreshing(false);
         });
-        viewModel.get().observe(this, messages -> {
-            adapter.setMessages(messages);
-        });
+        viewModel.get().observe(this, messages -> adapter.setMessages(messages));
 
         // getting token
         MutableLiveData<String> token = new MutableLiveData<>();
@@ -68,12 +78,10 @@ public class MessagesPage extends AppCompatActivity {
                 viewModel.setToken(tokenString);
             }
         });
-        viewModel.get().observe(this, data -> {
-            setScroll();
-        });
-        findViewById(R.id.backMessages).setOnClickListener(v -> {
-            finish();
-        });
+        //set scroll to always start on bottom
+        viewModel.get().observe(this, data -> setScroll());
+
+        findViewById(R.id.backMessages).setOnClickListener(v -> finish());
 
 //        List<Message> lstMessages = new ArrayList<>();
 //        lstMessages.add(new Message("2",user,"1"));

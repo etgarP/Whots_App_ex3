@@ -90,16 +90,14 @@ public class ContactPage extends Fragment {
         });
 
         MutableLiveData<Integer> observeDelete = new MutableLiveData<>();
-        binding.exit.setOnClickListener(v -> {
-            new Thread(() -> {
-                UserSignedRepository usr = new UserSignedRepository(requireContext().getApplicationContext());
-                ContactsRepository cr = new ContactsRepository(requireContext().getApplicationContext(), url);
-                cr.deleteDataMain();
-                usr.deleteDataMain();
-                usr.get(new MutableLiveData<>());
-                observeDelete.postValue(1);
-            }).start();
-        });
+        binding.exit.setOnClickListener(v -> new Thread(() -> {
+            UserSignedRepository usr = new UserSignedRepository(requireContext().getApplicationContext());
+            ContactsRepository cr = new ContactsRepository(requireContext().getApplicationContext(), url);
+            cr.deleteDataMain();
+            usr.deleteDataMain();
+            usr.get(new MutableLiveData<>());
+            observeDelete.postValue(1);
+        }).start());
         observeDelete.observe(getViewLifecycleOwner(), num -> {
             if (num == 1){
                 triggerEvent();
@@ -114,13 +112,6 @@ public class ContactPage extends Fragment {
             intent.putExtra("userPass", userPass);
             startActivity(intent);
         });
-
-//        todo
-//        Button listedContactButton=findViewById(id.contact);
-//        listedContactButton.setOnClickListener(()-> {
-//            Intent i = new Intent(this, Messages.class);
-//            startActivity(i);
-//        });
     }
 
     private void setDetails() {

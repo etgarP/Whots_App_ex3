@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 import page.WebServiceAPI;
-import page.chat.entities.Contact;
 import page.chat.entities.Message;
-import page.chat.entities.Messages;
 import page.room.MessageDao;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +29,7 @@ public class MessageAPI {
         this.dao = dao;
     }
 
-    public void get(MutableLiveData<List<Message>> messagesList, String bearerToken, int id) {//todo remove Messages messages
+    public void get(MutableLiveData<List<Message>> messagesList, String bearerToken, int id) {
         if (dao == null) return;
         String authorizationHeader = "Bearer " + bearerToken;
         Call<List<Message>> call = webServiceAPI.getChatMessages(authorizationHeader, id);
