@@ -11,6 +11,6 @@
     <color name="red">#FF0000</color>
     <color name="inputMessage">#FFFFFFFF</color>
     <color name="borderSend">#cccc</color>
-    <color name="messageBox">#e2ffc8</color>
-    <color name="messageBox2">#FFFFFFFF</color>
+    <color name="messageBox">#FFFFFFFF</color>
+    <color name="messageBox2">#e2ffc8</color>
 </resources>
