@@ -14,11 +14,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.whotsapp.R;
 
-import java.util.Date;
-
 import page.chat.adapters.MessagesListAdapter;
 import page.chat.api.MessageAPI;
-import page.chat.entities.Message;
 import page.chat.entities.User;
 import page.chat.viewmodels.MessagesViewModel;
 import page.sign_in.SignInAPI;
@@ -27,7 +24,6 @@ import page.sign_in.entities.UserPass;
 public class MessagesPage extends AppCompatActivity {
 
     private MessagesViewModel viewModel;
-//    private ActivityMessagesBinding binding;
     RecyclerView recyclerView;
     MessagesListAdapter adapter;
     User user;
@@ -36,19 +32,6 @@ public class MessagesPage extends AppCompatActivity {
         recyclerView.scrollToPosition(lastPosition);
     }
 
-    public void addMessage(){
-        EditText et = findViewById(R.id.editTextMessage);
-        final String content = et.getText().toString();
-        if(content.length()>0){
-            Date currentDate = new Date();
-            String currentTime = currentDate.toString();
-            Message newMessage = new Message(currentTime,user, content);
-
-
-            viewModel.reload();
-        }
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
@@ -107,45 +90,18 @@ public class MessagesPage extends AppCompatActivity {
         //send message
         findViewById(R.id.sendMessageButton).setOnClickListener(v -> {
             EditText et = findViewById(R.id.editTextMessage);
-            final String content = et.getText().toString();
+            final String content = et.getText().toString().trim();
             if(content.length()>0){
-
-//                MessagesRepository messagesRepository = new MessagesRepository(getApplicationContext(),url,id);
-
-
                 MessageAPI messageAPI = new MessageAPI(null,url);
                 MutableLiveData<String> done = new MutableLiveData<>();
                 messageAPI.add(token.getValue(),id,content, done);
-                et.setText("");
                 done.observe(this, string -> {
                     if(string.equals("done")) {
+                        et.setText("");
                         viewModel.reload();
                     }
                 });
             }
         });
-
-
-
-
-        //        addMessage()?
-
-//        List<Message> lstMessages = new ArrayList<>();
-//        lstMessages.add(new Message("2",user,"1"));
-//        lstMessages.add(new Message("2",user,"2"));
-//        lstMessages.add(new Message("2",user,"3"));
-//        lstMessages.add(new Message("2",user,"4"));
-//        lstMessages.add(new Message("2",user,"5"));
-//        lstMessages.add(new Message("2",user,"6"));
-//        lstMessages.add(new Message("2",user,"7"));
-//        lstMessages.add(new Message("2",user,"8"));
-//        lstMessages.add(new Message("2",user,"9"));
-//        adapter.setMessages(lstMessages);
-
-
-
-
-
-
     }
 }

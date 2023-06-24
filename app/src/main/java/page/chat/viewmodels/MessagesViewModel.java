@@ -17,7 +17,7 @@ public class MessagesViewModel {
         this.messages = this.messagesRepository.getAll();
     }
     public void setToken(String token) {
-        messagesRepository.setToken(token);
+        this.messagesRepository.setToken(token);
     }
     public LiveData<List<Message>> get() { return this.messages; }
     public void reload() { this.messagesRepository.reload(); }
