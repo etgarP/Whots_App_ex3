@@ -101,6 +101,7 @@
                     android:background="@drawable/border_input_new"
                     android:hint="@string/enter_your_password"
                     android:padding="10dp"
+                    android:inputType="textPassword"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
