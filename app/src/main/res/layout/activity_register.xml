@@ -104,6 +104,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_input_new"
                     android:hint="@string/choose_your_password"
+                    android:inputType="textPassword"
                     android:padding="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -128,6 +129,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_input_new"
                     android:hint="@string/repeat_your_password"
+                    android:inputType="textPassword"
                     android:padding="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -45,7 +45,7 @@ public class MessageAPI {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                done.postValue("No internet connection");
             }
         });
     }

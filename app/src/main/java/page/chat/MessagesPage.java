@@ -97,8 +97,11 @@ public class MessagesPage extends AppCompatActivity {
                 messageAPI.add(token.getValue(),id,content, done);
                 done.observe(this, string -> {
                     if(string.equals("done")) {
-                        et.setText("");
+                        et.setHint("Message");
+                        //todo check if needed et.setText("");
                         viewModel.reload();
+                    } else if (string.equals("No internet connection")) {
+                        et.setHint(string);
                     }
                 });
             }
