@@ -1,6 +1,7 @@
 package page.chat;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,10 +25,8 @@ import page.chat.viewmodels.MessagesViewModel;
 import page.sign_in.SignInAPI;
 import page.sign_in.entities.UserPass;
 
-public class MessagesPage extends AppCompatActivity {
-
+public class MessagesPage extends AppCompatActivity implements NotificationEventListener {
     private MessagesViewModel viewModel;
-//    private ActivityMessagesBinding binding;
     RecyclerView recyclerView;
     MessagesListAdapter adapter;
     User user;
@@ -43,8 +42,6 @@ public class MessagesPage extends AppCompatActivity {
             Date currentDate = new Date();
             String currentTime = currentDate.toString();
             Message newMessage = new Message(currentTime,user, content);
-
-
             viewModel.reload();
         }
 
@@ -59,6 +56,7 @@ public class MessagesPage extends AppCompatActivity {
         UserPass userPass = intent.getParcelableExtra("userPass");
 
         super.onCreate(savedInstanceState);
+        NotificationEventManager.getInstance().registerListener(this);
 
         setContentView(R.layout.activity_messages);
 
@@ -123,28 +121,21 @@ public class MessagesPage extends AppCompatActivity {
                 });
             }
         });
+    }
 
+    @Override
+    public void onNotificationReceived() {
+        if (viewModel != null) {
+            viewModel.reload();
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Other code in your activity's onDestroy() method
 
-
-        //        addMessage()?
-
-//        List<Message> lstMessages = new ArrayList<>();
-//        lstMessages.add(new Message("2",user,"1"));
-//        lstMessages.add(new Message("2",user,"2"));
-//        lstMessages.add(new Message("2",user,"3"));
-//        lstMessages.add(new Message("2",user,"4"));
-//        lstMessages.add(new Message("2",user,"5"));
-//        lstMessages.add(new Message("2",user,"6"));
-//        lstMessages.add(new Message("2",user,"7"));
-//        lstMessages.add(new Message("2",user,"8"));
-//        lstMessages.add(new Message("2",user,"9"));
-//        adapter.setMessages(lstMessages);
-
-
-
-
-
-
+        // Unregister the activity as the listener for notification events
+        NotificationEventManager.getInstance().unregisterListener(this);
     }
 }
