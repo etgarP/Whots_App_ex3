@@ -12,7 +12,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.whotsapp.MainActivity;
 import com.example.whotsapp.databinding.SignInBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import page.ServerStringHolder;
 import page.Settings;
@@ -64,7 +68,6 @@ public class SignIn extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         ServerStringRepository ssr = new ServerStringRepository(requireContext());
         serverHolder = new MutableLiveData<>();
 

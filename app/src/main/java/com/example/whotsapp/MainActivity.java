@@ -1,13 +1,17 @@
 package com.example.whotsapp;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import page.ServerStringHolder;
 import page.WhichModeRep;
@@ -74,13 +78,30 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
         });
     }
 
+    private void firebaseTest() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+        });
+    }
+
+    private void getPermission() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Permission not granted, request it
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
+        } else {
+            // Permission already granted, proceed with notification
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getPermission();
         observeDarkMode();
         checkCondition(getApplicationContext());
         condition = new MutableLiveData<>(-1);
+        firebaseTest();
         condition.observeForever(num -> {
             if (num != null && num != -1) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
