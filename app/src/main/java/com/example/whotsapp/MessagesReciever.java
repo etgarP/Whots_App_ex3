@@ -1,38 +1,25 @@
 package com.example.whotsapp;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.Service;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.IBinder;
+import android.content.ComponentName;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-public class MessagesReciever extends FirebaseMessagingService {
-    public MessagesReciever() {
-    }
+import java.util.List;
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        if (requestCode == PERMISSION_REQUEST_CODE) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                // Permission granted, proceed with notification
-//                createNotification();
-//            } else {
-//                // Permission denied, handle accordingly
-//                // You may show a message to the user or take any other appropriate action
-//            }
-//        }
-//    }
+import page.chat.MessagesPage;
+import page.chat.NotificationEventManager;
+
+public class MessagesReciever extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
@@ -45,6 +32,7 @@ public class MessagesReciever extends FirebaseMessagingService {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
             notificationManager.notify(1, builder.build());
+            NotificationEventManager.getInstance().dispatchNotificationEvent();
         }
     }
     private void createNotificationChannel() {
