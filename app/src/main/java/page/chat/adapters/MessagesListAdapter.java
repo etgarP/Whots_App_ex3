@@ -36,7 +36,6 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
 
     @Override
     public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        if(R.id.tvSender == "")//todo if left/right
         View itemView;
         if (viewType==VIEW_TYPE_LEFT) {
             itemView = this.mInflater.inflate(R.layout.left_message_layout, parent, false);
@@ -51,7 +50,6 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         if(this.messages!=null){
             final Message current = this.messages.get(position);
             holder.tvContent.setText(current.getContent());
-//            holder.tvSender.setText(current.getSender().getUsername());
         }
     }
 
@@ -71,12 +69,10 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
 
     class MessageViewHolder extends  RecyclerView.ViewHolder{
         private final TextView tvContent;
-//        private final TextView tvSender;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
             this.tvContent = itemView.findViewById(R.id.tvContent);
-//            this.tvSender = itemView.findViewById(R.id.tvSender);
         }
     }
 }

@@ -37,7 +37,7 @@ public class MessagesPage extends AppCompatActivity {
         Intent intent = getIntent();
         //arguments from contactPage
         this.user = intent.getParcelableExtra("User");
-        Integer id = intent.getIntExtra("id", -1);
+        int id = intent.getIntExtra("id", -1);
         String url = intent.getStringExtra("url");
         UserPass userPass = intent.getParcelableExtra("userPass");
 
@@ -66,8 +66,7 @@ public class MessagesPage extends AppCompatActivity {
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(() -> {
             viewModel.reload();
-            SwipeRefreshLayout rfr = findViewById(R.id.refreshLayout);
-            rfr.setRefreshing(false);
+            refreshLayout.setRefreshing(false);
         });
         viewModel.get().observe(this, messages -> adapter.setMessages(messages));
 

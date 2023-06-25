@@ -10,19 +10,17 @@ import java.util.List;
 
 import page.chat.api.MessageAPI;
 import page.chat.entities.Message;
-import page.chat.entities.Messages;
 import page.room.AppDB;
-import page.room.MessageDao;
 import page.room.MessageDao;
 
 public class MessagesRepository {
-    private MessageDao dao;
-    private MessageListData messageListData;
-    private MessageAPI api;
+    private final MessageDao dao;
+    private final MessageListData messageListData;
+    private final MessageAPI api;
     private String token;
-    private int id;
+    private final int id;
     private String url;
-    public MessagesRepository(Context context, String url, int id) { //todo fix
+    public MessagesRepository(Context context, String url, int id) {
         AppDB db = Room.databaseBuilder(context,
                         AppDB.class, "MessagesDB" + id).build();
 
