@@ -60,9 +60,9 @@ public class SignInAPI {
             }
         });
     }
-    public void getUserPassName(String token, String username, MutableLiveData<User> userSaver, MutableLiveData<String> err) {
+    public void getUserPassName(String firebaseToken, String token, String username, MutableLiveData<User> userSaver, MutableLiveData<String> err) {
         String authorizationHeader = "Bearer " + token;
-        Call<User> call = webServiceAPI.getUser(authorizationHeader, username);
+        Call<User> call = webServiceAPI.getUser(firebaseToken, authorizationHeader, username);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

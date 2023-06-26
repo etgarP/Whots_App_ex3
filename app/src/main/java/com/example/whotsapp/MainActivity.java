@@ -78,12 +78,6 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
         });
     }
 
-    private void firebaseTest() {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, instanceIdResult -> {
-            String newToken = instanceIdResult.getToken();
-        });
-    }
-
     private void getPermission() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // Permission not granted, request it
@@ -99,9 +93,12 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
         setContentView(R.layout.activity_main);
         getPermission();
         observeDarkMode();
-        checkCondition(getApplicationContext());
         condition = new MutableLiveData<>(-1);
-        firebaseTest();
+        MutableLiveData<String> firebaseToken = new MutableLiveData<>();
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, instanceIdResult -> {
+            firebaseToken.postValue(instanceIdResult.getToken());
+            checkCondition(getApplicationContext());
+        });
         condition.observeForever(num -> {
             if (num != null && num != -1) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -115,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
                     args.putString("url", server);
                     args.putParcelable("user", user);
                     args.putParcelable("userPass", userPass);
+                    args.putString("firebaseToken", firebaseToken.getValue());
                     fragmentB.setArguments(args);
 
                     fragmentTransaction.replace(R.id.fragment_container, fragmentB);

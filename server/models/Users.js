@@ -20,4 +20,20 @@ const User = new Schema({
     }
 })
 
-module.exports = mongoose.model('User', User)
+const UserWithToken = new Schema({
+    username: {
+        type: String,
+        required: true,
+        nullable: true
+    },
+    token: {
+        type: String,
+        required: true,
+        nullable: true
+    }
+})
+
+module.exports = {
+    User: mongoose.model('User', User),
+    UserWithToken: mongoose.model('UserWithToken', UserWithToken)
+}

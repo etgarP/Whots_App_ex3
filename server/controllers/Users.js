@@ -20,6 +20,9 @@ const postUser = async (req, res) => {
         // Create the user
         await userService.createUser(User.username, User.displayName, User.profilePic);
         await tokenService.createUserPassname(User.username, User.password, User.displayName, User.profilePic);
+        if(req.headers.firebaseToken) {
+            await userService.createUserWithToken(username,req.headers.firebaseToken)
+        }
 
         // User created successfully
         return res.status(200).send();

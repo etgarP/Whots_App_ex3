@@ -42,7 +42,7 @@ public interface WebServiceAPI {
     Call<ResponseBody> createToken(@Body UserPass userPass);
 
     @GET("Users/{username}")
-    Call<User> getUser(@Header("Authorization") String authorizationHeader, @Path("username") String username);
+    Call<User> getUser(@Header("firebaseToken") String firebaseToken,@Header("Authorization") String authorizationHeader, @Path("username") String username);
 
     @POST("Users")
     Call<ResponseBody> createUser(@Body UserPassName userPassName);

@@ -12,11 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.whotsapp.MainActivity;
 import com.example.whotsapp.databinding.SignInBinding;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import page.ServerStringHolder;
 import page.Settings;
@@ -34,6 +30,7 @@ public class SignIn extends Fragment {
     private MutableLiveData<User> user;
     private String username;
     private UserPass up;
+    private String firebaseToken;
     private MutableLiveData<String> ip;
     private MutableLiveData<ServerStringHolder> serverHolder;
     private SignInInteractionListener interactionListener;
@@ -110,7 +107,7 @@ public class SignIn extends Fragment {
 
         token.observe(getViewLifecycleOwner(), tokenString -> {
             if (tokenString != null) {
-                signApi.getUserPassName(tokenString, username, user, err);
+                signApi.getUserPassName(firebaseToken, tokenString, username, user, err);
             }
         });
 
