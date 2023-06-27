@@ -85,7 +85,6 @@ function SendMessage(props) {
                 if (!upContact) return;
                 await applyMessages(user, contactId, setContacts, upContact)
                 setValue("")
-                socket.emit('idmsg', contactId)
             } catch (error) {
                 window.alert("Please log in again.")
                 navigate('/')

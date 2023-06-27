@@ -4,6 +4,8 @@ import Password from "./password"
 import { useNavigate } from 'react-router-dom'
 import { postReq } from '../../../postReq.js'
 import { getReq } from '../../../getReq.js'
+import { socket } from '../../sockets/socket.js'
+
 
 function Form({ setUser, setContacts }) {
     // needed to use navigate in and inner function context
@@ -53,6 +55,7 @@ function Form({ setUser, setContacts }) {
             user = { ...user, token: token };
             if (res2.ok) {
                 setUser(user)
+                socket.emit('username', user.username)
                 navigate('/chat')
                 await getChats();
                 return;
