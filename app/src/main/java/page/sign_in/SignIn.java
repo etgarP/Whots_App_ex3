@@ -86,8 +86,8 @@ public class SignIn extends Fragment {
             String username1 = binding.username.getText().toString();
             String password = binding.password.getText().toString();
             if (username1.equals("") && password.equals("")) {
-                up = new UserPass("FFFFf4FFFFf4", "FFFFf4FFFFf4");
-                username = "FFFFf4FFFFf4";
+                up = new UserPass("Aa123123", "Aa123123");
+                username = "Aa123123";
             } else {
                 up = new UserPass(username1, password);
                 username = username1;
