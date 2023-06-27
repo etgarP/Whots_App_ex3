@@ -119,6 +119,7 @@ public class SignIn extends Fragment {
             Bundle args = new Bundle();
             args.putParcelable("user", gottenUser);
             args.putParcelable("userPass", up);
+            args.putString("firebaseToken", firebaseToken);
             if (serverHolder.getValue() != null) {
                 args.putString("url", serverHolder.getValue().getServerAddress());
             } else {

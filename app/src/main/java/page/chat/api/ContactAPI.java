@@ -31,10 +31,10 @@ public class ContactAPI {
         this.dao = dao;
     }
 
-    public void get(MutableLiveData<List<Contact>> contactsList, String bearerToken) {
+    public void get(MutableLiveData<List<Contact>> contactsList, String bearerToken, String firebaseToken) {
         if (dao == null) return;
         String authorizationHeader = "Bearer " + bearerToken;
-        Call<List<Contact>> call = webServiceAPI.getContacts(authorizationHeader);
+        Call<List<Contact>> call = webServiceAPI.getContacts(firebaseToken, authorizationHeader);
         call.enqueue(new Callback<List<Contact>>() {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {

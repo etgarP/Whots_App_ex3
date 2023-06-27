@@ -1,5 +1,5 @@
 const chatService = require('../services/Chats')
-const userService = require('../services/Users').User
+const userService = require('../services/Users')
 const jwt = require('jsonwebtoken')
 
 //Returns array of the last chats
@@ -20,6 +20,9 @@ const getChats = async (req, res) => {
     try {
         // gets the chats
         let chats = await chatService.getUserChats(decoded.username)
+        if(req.headers.firebasetoken) {
+            await userService.createUserWithToken(decoded.username, req.headers.firebasetoken)
+        }
         return res.status(200).send(chats)
     } catch (error) {
         return res.status(500).send("Internal Server Error");

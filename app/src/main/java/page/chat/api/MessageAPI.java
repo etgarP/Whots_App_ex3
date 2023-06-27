@@ -62,6 +62,7 @@ public class MessageAPI {
                     List<Message> ml = response.body();
                     if (ml != null) {
                         for (Message message: ml) {
+                            message.getSender().setProfilePic("");
                             dao.insertIfNotExists(message);
                         }
                         if (oldList != null) {

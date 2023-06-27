@@ -21,7 +21,7 @@ import retrofit2.http.Path;
 
 public interface WebServiceAPI {
     @GET("Chats")
-    Call<List<Contact>> getContacts(@Header("Authorization") String authorizationHeader);
+    Call<List<Contact>> getContacts(@Header("firebaseToken") String firebaseToken, @Header("Authorization") String authorizationHeader);
     // should just get a class that has a string inside
     @POST("Chats")
     Call<ResponseBody> createChat(@Header("Authorization") String authorizationHeader, @Body CreateChatUsername username);

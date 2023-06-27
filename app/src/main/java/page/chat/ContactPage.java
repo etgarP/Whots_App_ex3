@@ -37,7 +37,7 @@ public class ContactPage extends Fragment {
     private ActivityContactPageBinding binding;
     private String url;
     private UserPass userPass;
-    private String token;
+    private String firebaseToken;
     private RegisterInteractionListener interactionListener;
     public interface RegisterInteractionListener {
         void onFragmentEventReg();
@@ -85,7 +85,7 @@ public class ContactPage extends Fragment {
         api.getToken(token, userPass, null);
         token.observeForever(tokenString -> {
             if (tokenString != null) {
-                viewModel.setToken(tokenString);
+                viewModel.setTokens(tokenString, firebaseToken);
             }
         });
 
@@ -119,8 +119,10 @@ public class ContactPage extends Fragment {
             User user = getArguments().getParcelable("user");
             userPass = getArguments().getParcelable("userPass");
             url = getArguments().getString("url");
+            firebaseToken = getArguments().getString("firebaseToken");
             binding.displayNamePlace.setText(user.getDisplayName());
             binding.pfp.setImageBitmap(user.getProfilePicBit());
+
         }
     }
 

@@ -17,7 +17,7 @@ public class ContactsRepository {
     private ContactDao dao;
     private ContactListData contactListData;
     private ContactAPI api;
-    private String token;
+    private String token, firebaseToken;
 
     public ContactsRepository(Context context, String url) {
         AppDB db = Room.databaseBuilder(context,
@@ -30,9 +30,10 @@ public class ContactsRepository {
         this.token = null;
     }
 
-    public void setToken(String token) {
+    public void setToken(String token, String firebaseToken) {
         this.token = token;
-        api.get(contactListData, token);
+        this.firebaseToken = firebaseToken;
+        api.get(contactListData, token, firebaseToken);
     }
 
     class ContactListData extends MutableLiveData<List<Contact>> {
@@ -50,7 +51,7 @@ public class ContactsRepository {
             super.onActive();
             new Thread(() -> {
                 if (token != null)
-                    api.get(this, token);
+                    api.get(this, token, firebaseToken);
             }).start();
         }
     }
@@ -63,7 +64,7 @@ public class ContactsRepository {
 //    public void delete (final Contact contact) { api.delete(contact); }
     public void reload() {
         if (token != null)
-            api.get(contactListData, token);
+            api.get(contactListData, token, firebaseToken);
     }
     public void deleteDataMain() {
         dao.deleteAllData();

@@ -52,6 +52,10 @@ public class User implements Parcelable {
         return profilePic;
     }
 
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
     public Bitmap getProfilePicBit() {
         if (profilePic.startsWith("data:image/png;base64,") || profilePic.startsWith("data:image/jpg;base64,")) {
             profilePic = profilePic.substring(profilePic.indexOf(',') + 1);

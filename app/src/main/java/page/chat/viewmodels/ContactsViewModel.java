@@ -17,8 +17,9 @@ public class ContactsViewModel extends ViewModel {
         mRepository = new ContactsRepository(context, url);
         contacts = mRepository.getAll();
     }
-    public void setToken(String token) {
-        mRepository.setToken(token);
+    public void setTokens(String token, String firebaseToken) {
+        mRepository.setToken(token, firebaseToken);
+
     }
     public LiveData<List<Contact>> get() {
         return contacts;
