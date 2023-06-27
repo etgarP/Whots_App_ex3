@@ -1,5 +1,5 @@
 const chatService = require('../services/Chats')
-const userService = require('../services/Users')
+const userService = require('../services/Users').User
 const jwt = require('jsonwebtoken')
 
 //Returns array of the last chats

@@ -1,5 +1,5 @@
-const User = require('../models/Users')
-const UserWithToken = require('../models/Users')
+const User = require('../models/Users').User
+const UserWithToken = require('../models/Users').UserWithToken
 
 /*
 gets a valid username, displayName, profilePic
@@ -35,7 +35,7 @@ or updates
 */
 const createUserWithToken = async (username, token) => {
     try {
-        let existingUserWithToken = getUserWithToken(username)
+        let existingUserWithToken = await getUserWithToken(username)
         if(existingUserWithToken == null){
             const userWithToken = new UserWithToken({ username, token })
             await userWithToken.save()

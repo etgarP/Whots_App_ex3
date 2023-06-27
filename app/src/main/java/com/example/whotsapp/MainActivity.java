@@ -118,6 +118,9 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
                     fragmentTransaction.replace(R.id.fragment_container, fragmentB);
                 } else {
                     SignIn fragmentB = new SignIn();
+                    Bundle args = new Bundle();
+                    args.putString("firebaseToken", firebaseToken.getValue());
+                    fragmentB.setArguments(args);
                     fragmentTransaction.replace(R.id.fragment_container, fragmentB);
                 }
                 fragmentTransaction.commitAllowingStateLoss();

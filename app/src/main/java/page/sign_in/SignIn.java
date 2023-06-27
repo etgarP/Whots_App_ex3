@@ -86,8 +86,8 @@ public class SignIn extends Fragment {
             String username1 = binding.username.getText().toString();
             String password = binding.password.getText().toString();
             if (username1.equals("") && password.equals("")) {
-                up = new UserPass("Aa123123", "Aa123123");
-                username = "Aa123123";
+                up = new UserPass("FFFFf4FFFFf4", "FFFFf4FFFFf4");
+                username = "FFFFf4FFFFf4";
             } else {
                 up = new UserPass(username1, password);
                 username = username1;
@@ -107,13 +107,15 @@ public class SignIn extends Fragment {
 
         token.observe(getViewLifecycleOwner(), tokenString -> {
             if (tokenString != null) {
-                signApi.getUserPassName(firebaseToken, tokenString, username, user, err);
+                if (getArguments() != null) {
+                    firebaseToken = getArguments().getString("firebaseToken");
+                    signApi.getUserPassName(firebaseToken, tokenString, username, user, err);
+                }
             }
         });
 
         user.observe(getViewLifecycleOwner(), gottenUser -> {
             uss.insert(up, gottenUser);
-            ContactPage contactPageFragment = new ContactPage();
             Bundle args = new Bundle();
             args.putParcelable("user", gottenUser);
             args.putParcelable("userPass", up);

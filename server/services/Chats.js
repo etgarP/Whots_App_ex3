@@ -1,4 +1,4 @@
-const User = require('../models/Users');
+const User = require('../models/Users').User
 const userService = require('../services/Users')
 const Chat = require('../models/Chats').Chat
 const Message = require('../models/Chats').Message

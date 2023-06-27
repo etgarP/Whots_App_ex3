@@ -20,9 +20,7 @@ const postUser = async (req, res) => {
         // Create the user
         await userService.createUser(User.username, User.displayName, User.profilePic);
         await tokenService.createUserPassname(User.username, User.password, User.displayName, User.profilePic);
-        if(req.headers.firebaseToken) {
-            await userService.createUserWithToken(username,req.headers.firebaseToken)
-        }
+        
 
         // User created successfully
         return res.status(200).send();
@@ -51,6 +49,9 @@ const getUser = async (req, res) => {
         const username = req.params.username;
         const existingUser = await userService.getUser(username)
         if (existingUser) {
+            if(req.headers.firebasetoken) {
+                await userService.createUserWithToken(username,req.headers.firebasetoken)
+            }
             return res.status(200).send(existingUser)
         } else {
             return res.status(404).send("User not found")
