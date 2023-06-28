@@ -63,4 +63,5 @@ const getUserWithToken = async (username) => {
     }
 }
 
+
 module.exports = { getUser, createUser, createUserWithToken, getUserWithToken }

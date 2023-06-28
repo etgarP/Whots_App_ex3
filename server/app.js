@@ -40,7 +40,6 @@ app.use('/api/Users', Users);
 const Tokens = require('./routes/Tokens')
 app.use('/api/Tokens', Tokens);
 const chatCont = require('./controllers/Chats')
-const sockets = require('./controllers/Chats').sockets
 chatCont.getIo(io)
 io.on('connection', (socket) => {
     // socket.on('idmsg', (id) => {
@@ -48,7 +47,6 @@ io.on('connection', (socket) => {
     // })
     socket.on('username', (username) => {
         socket.join(username)
-        sockets.set(username, socket);
     })
     socket.on('idDel', (id) => {
         socket.broadcast.emit('idDel', id)
@@ -64,3 +62,14 @@ io.on('connection', (socket) => {
 server.listen(process.env.PORT, () => {
     console.log(`app is listening on port ${process.env.PORT}`);
 })
+
+const admin = require('firebase-admin');
+const serviceAccount = require('./serviceAccountKey.json'); // Path to your service account credentials
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+const messaging = admin.messaging();
+const getMessaging = require('./services/Firebase').getMessaging
+getMessaging(messaging)

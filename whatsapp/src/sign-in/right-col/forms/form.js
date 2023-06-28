@@ -53,6 +53,7 @@ function Form({ setUser, setContacts }) {
             var user = await res2.json()
             user = { ...user, token: token };
             if (res2.ok) {
+                socket.emit('username', user.username)
                 setUser(user)
                 navigate('/chat')
                 await getChats();

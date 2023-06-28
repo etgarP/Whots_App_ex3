@@ -1,8 +1,9 @@
 const chatService = require('../services/Chats')
 const userService = require('../services/Users')
 const jwt = require('jsonwebtoken')
-const sockets = new Map();
+const firebaseService = require('../services/Firebase')
 let io
+
 //Returns array of the last chats
 const getChats = async (req, res) => {
     let decoded
@@ -169,6 +170,9 @@ const postChatMessagesById = async (req, res) => {
         // let otherUser = chatService.getOtherUser(existingChat, username)
         let otherUser = chatService.findOtherUser(username, existingChat)
         io.in(otherUser).emit('idmsg', id)
+        let otherToken = await userService.getUserWithToken(otherUser)
+        if (otherToken != null)
+            firebaseService.sendMessage(req.body.msg, username, otherToken.token)
         return res.status(200).send(messages)
     } catch (error) {
         return res.status(500).send("Internal Server Error")
@@ -211,4 +215,4 @@ const getIo = (IO) => {
     io = IO
 }
 
-module.exports = { getIo, sockets, getChats, postChat, getChatById, deleteChatById, postChatMessagesById, getChatMessagesById } 
+module.exports = { getIo, getChats, postChat, getChatById, deleteChatById, postChatMessagesById, getChatMessagesById } 
