@@ -1,0 +1,88 @@
+#container-sign {
+  height: calc(100vh - 40px);
+  --bs-gutter-x: 0;
+}
+
+@media (max-width: 1400px) {
+  #container-sign {
+    height: 100vh;
+  }
+}
+
+.row {
+  margin: 0;
+}
+
+div .right-col {
+  margin: auto;
+}
+
+#sign-in-area {
+  left: 0;
+  right: 0;
+}
+
+.backround-img-container {
+  overflow: hidden;
+}
+
+.center-vertically {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.padd {
+  padding: 10px;
+  padding-right: 20px;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+#register-text {
+  text-align: right;
+}
+
+
+.photo {
+  /* makes the image fill the circular container */
+  width: 100%;
+  height: 100%;
+  /* covers the container with the same aspect ratio*/
+  object-fit: cover;
+}
+
+.no-overflow {
+  overflow: hidden;
+}
+
+.left-col {
+  height: 100%;
+}
+
+@media (max-width: 550px) and (min-width: 0px) {
+  #pic-col {
+    width: 0;
+    max-width: 0;
+  }
+
+  .middle-area {
+    height: 100vh;
+    width: 100vw;
+    min-width: 300px;
+  }
+
+  div .left-col {
+    width: 0;
+    overflow: hidden;
+    flex: none;
+  }
+}
+
+#pic-col {
+  width: 50%;
+  height: 100%;
+  position: fixed;
+  padding-right: 0;
+  max-height: 100%;
+}

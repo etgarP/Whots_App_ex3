@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+whatsapp/node_modules
+server/node_modules

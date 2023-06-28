@@ -7,12 +7,18 @@ const Counter = require('../models/Chats').Counter
 // gets an id and searches for a chat
 const getChatById = async (id) => {
     try {
-        const chat = await Chat.findOne({ "id": id }).exec()
+        const chat = await Chat.findOne({ "id": id }).populate('users').exec()
         return chat
     } catch (error) {
         throw error
     }
 };
+
+const findOtherUser = (username, chat) => {
+    otherUser = chat.users.find(user => user.username != username)
+    otherUsername = otherUser.username
+    return otherUsername
+}
 
 // checks if users have a chat
 const findByTwoUsers = async (user1, user2) => {
@@ -165,4 +171,4 @@ const getUserChats = async (username) => {
     }
 };
 
-module.exports = { getChatById, deleteChatById, getUserChats, getChatMessagesById, postChatMessagesById, createByUsername, findByTwoUsers, getNewMessage }
+module.exports = { findOtherUser, getChatById, deleteChatById, getUserChats, getChatMessagesById, postChatMessagesById, createByUsername, findByTwoUsers, getNewMessage }

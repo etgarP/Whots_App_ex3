@@ -105,7 +105,7 @@ public class MessagesPage extends AppCompatActivity implements NotificationEvent
         //send message
         findViewById(R.id.sendMessageButton).setOnClickListener(v -> {
             EditText et = findViewById(R.id.editTextMessage);
-            final String content = et.getText().toString();
+            final String content = et.getText().toString().trim();
             if(content.length()>0){
                 MessageAPI messageAPI = new MessageAPI(null,url);
                 MutableLiveData<String> done = new MutableLiveData<>();

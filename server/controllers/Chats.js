@@ -1,7 +1,8 @@
 const chatService = require('../services/Chats')
 const userService = require('../services/Users')
 const jwt = require('jsonwebtoken')
-
+const sockets = new Map();
+let io
 //Returns array of the last chats
 const getChats = async (req, res) => {
     let decoded
@@ -61,6 +62,8 @@ const postChat = async (req, res) => {
             return res.status(409).send("Chat already exists");
         // adds chat
         await chatService.createByUsername(decoded.username, req.body.username)
+        otherUser = req.body.username
+        io.in(otherUser).emit('usernameAdd', { sender: decoded.username, receiver: otherUser })
         return res.status(200).send("User added")
     } catch (error) {
         return res.status(500).send("Internal Server Error");
@@ -100,6 +103,7 @@ const getChatById = async (req, res) => {
 
 // delets chat and its info by id
 const deleteChatById = async (req, res) => {
+    let username
     try {
         // verifing a user
         if (!req.headers.authorization) {
@@ -108,7 +112,7 @@ const deleteChatById = async (req, res) => {
         let aut = req.headers.authorization
         const words = aut.split(' ')
         const token = words[1]
-        jwt.verify(token, 'hemi-hemi-is-never-gonna-give-you-up')
+        username = jwt.verify(token, 'hemi-hemi-is-never-gonna-give-you-up').username
     } catch (error) {
         return res.status(401).send("Unable to authenticate")
     }
@@ -124,6 +128,8 @@ const deleteChatById = async (req, res) => {
             return res.status(404).send("Chat not found")
         }
         chatService.deleteChatById(chat, id)
+        let otherUser = chatService.findOtherUser(username, chat)
+        io.in(otherUser).emit('idDel', id) 
         return res.status(200).send("Chat successfully deleted")
     } catch (error) {
         return res.status(500).send("Internal Server Error")
@@ -160,6 +166,9 @@ const postChatMessagesById = async (req, res) => {
             return res.status(400).send("Invalid request parameters")
         // sends the message
         const messages = await chatService.postChatMessagesById(id, newMessage, username)
+        // let otherUser = chatService.getOtherUser(existingChat, username)
+        let otherUser = chatService.findOtherUser(username, existingChat)
+        io.in(otherUser).emit('idmsg', id)
         return res.status(200).send(messages)
     } catch (error) {
         return res.status(500).send("Internal Server Error")
@@ -198,5 +207,8 @@ const getChatMessagesById = async (req, res) => {
         return res.status(500).send("Internal Server Error")
     }
 }
+const getIo = (IO) => {
+    io = IO
+}
 
-module.exports = { getChats, postChat, getChatById, deleteChatById, postChatMessagesById, getChatMessagesById } 
+module.exports = { getIo, sockets, getChats, postChat, getChatById, deleteChatById, postChatMessagesById, getChatMessagesById } 

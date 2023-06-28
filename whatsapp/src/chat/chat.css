@@ -1,0 +1,323 @@
+/* adds color and removes rounding */
+#upper-mid-areas {
+  border-radius: 0%;
+  background-color: #f0f2f5;
+}
+
+#person-container {
+  padding: 8px 16px;
+}
+
+#talking-to {
+  border-style: solid;
+  border-width: 1px;
+  height: 100%;
+}
+
+.my-box {
+  border-radius: 0;
+  border-color: #dee2e6;
+  background-color: #f4f4f4;
+}
+
+.my-box-left {
+  border-radius: 0;
+  border: 0px;
+  border-color: #dee2e6;
+  background-color: #f4f4f4;
+  border-right: 1px solid #d1d7db;
+}
+
+.my-box-bottom {
+  border-bottom: 1px solid #d1d7db;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* makes the photo container have needed proparties to have a round shape */
+#photo-container {
+  /* sets the width and height  */
+  padding: 0;
+  max-width: 50px;
+  width: 50px;
+  height: 50px;
+  /* hides overflow from the container */
+  overflow: hidden;
+  /* creates a circular shape  with correct margins*/
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#photo {
+  /* makes the image fill the circular container */
+  width: 100%;
+  height: 100%;
+  /* covers the container with the same aspect ratio*/
+  object-fit: cover;
+}
+
+.list-group-item#active-person {
+  background-color: #f0f2f5;
+  border-color: #eef1f3;
+  border-right: 1px solid #dbe1e6;
+  border-left: 1px solid #dbe1e6;
+  color: black;
+}
+
+
+
+#bottom-left {
+  height: 100%;
+  overflow-wrap: break-word;
+  overflow-y: auto;
+}
+
+#bottom-right {
+  height: 100%;
+  overflow-wrap: break-word;
+}
+
+.person {
+  border-color: #dbe1e6;
+}
+
+.list-group-item:first-child.person {
+  border-radius: 0;
+}
+
+.chat-area {
+  overflow-y: hidden;
+}
+
+/* propraties for peoples names */
+#name {
+  display: inline;
+  font-size: large;
+  margin-top: 0;
+}
+
+.picture-col {
+  width: 80px;
+}
+
+.desc-col {
+  width: calc(100% - 80px);
+  white-space: nowrap;
+}
+
+.background-img {
+  margin: auto;
+  height: 412px;
+  width: 476px;
+  background-color: #f0f2f5;
+}
+
+.whots-container {
+  background-color: #f0f2f5;
+}
+
+/* propraties for peoples messages */
+.description {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: pre-wrap; */
+  white-space: nowrap;
+}
+
+.last-message {
+  min-height: 1.5em;
+  max-height: 1.5em;
+  white-space: nowrap;
+}
+
+/* fits the html object of the messages in its container as well */
+.right-side {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* limits col size */
+.limit-size {
+  width: 90px;
+}
+
+.align-right {
+  margin-top: 0;
+  margin-right: 0;
+  text-align: right;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.no-border {
+  border: none;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.no-margin-top {
+  margin: 0 !important;
+}
+
+.margin-left-3 {
+  margin-left: 3px;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.no-padding-right {
+  padding-right: 0;
+}
+
+.no-padding-left {
+  padding-left: 0;
+}
+
+.padding-right-5 {
+  padding-right: 5px;
+}
+
+.no-rounded {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.center {
+  margin: auto;
+}
+
+.center-vertically {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.col-2 {
+  min-width: 60px;
+}
+
+.no-border-radius {
+  border-radius: 0;
+}
+
+html,
+body,
+.page-within {
+  height: 100%;
+}
+
+#send-text {
+  bottom: 0;
+  background-color: rgb(232, 232, 244);
+}
+
+.message.left {
+  left: 20px;
+  align-self: flex-start;
+  background-color: snow;
+}
+
+.message.right {
+  right: 20px;
+  align-self: flex-end;
+  background-color: #e8fcdc;
+}
+
+.message {
+  border-radius: 10px;
+  border: 1px solid;
+  border-color: #dee2e6;
+  margin-top: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.page-within {
+  height: 100%;
+  /* Set the height of the container div */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  border: 1px solid #ccc;
+  /* Optional: add a border for visual clarity */
+  display: flex;
+  /* Push messages to the bottom */
+  flex-direction: column-reverse;
+  /* Reverse the order of messages */
+  background-image: url('pictures/whatsbackground.png');
+  padding-bottom: 10px;
+}
+
+.message-rapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-inline: 15px;
+  justify-content: flex-end;
+}
+
+.icon-button {
+  height: 50px;
+  width: 55px;
+  border: none;
+  background-color: #f0f2f5;
+}
+
+.message-box {
+  background-color: #f0f2f5 !important;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.write-message-box {
+  border: none;
+  height: 75%;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+.icons-background {
+  background-color: #f4f4f4;
+}
+
+.default-avatar {
+  width: 80px;
+  height: 80px;
+}
+
+.notif {
+  background-color: #24d47c;
+  border-radius: 50%;
+}

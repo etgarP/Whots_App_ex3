@@ -39,10 +39,16 @@ const Users = require('./routes/Users')
 app.use('/api/Users', Users);
 const Tokens = require('./routes/Tokens')
 app.use('/api/Tokens', Tokens);
-
+const chatCont = require('./controllers/Chats')
+const sockets = require('./controllers/Chats').sockets
+chatCont.getIo(io)
 io.on('connection', (socket) => {
-    socket.on('idmsg', (id) => {
-        socket.broadcast.emit('idmsg', id)
+    // socket.on('idmsg', (id) => {
+    //     socket.broadcast.emit('idmsg', id)
+    // })
+    socket.on('username', (username) => {
+        socket.join(username)
+        sockets.set(username, socket);
     })
     socket.on('idDel', (id) => {
         socket.broadcast.emit('idDel', id)
