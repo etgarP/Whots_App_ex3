@@ -20,7 +20,7 @@ console.log(process.env.PORT)
 
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:3000',
+        origin: 'http://localhost:12345',
         methods: ["GET", "POST", "DELETE"],
         credentials: true
     }
