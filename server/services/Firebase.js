@@ -3,7 +3,7 @@ let messaging
 const getMessaging = (gotten) => {
     messaging = gotten
 }
-
+// sends a message to the user that it was sent to
 const sendMessage = (theMessage, sender, token) => {
   const message = {
       token: token, 
@@ -16,13 +16,8 @@ const sendMessage = (theMessage, sender, token) => {
     // Send the message to the device token
     messaging
       .send(message)
-      .then((response) => {
-        console.log('Successfully sent notification:', response);
-      })
-      .catch((error) => {
-        console.error('Error sending notification:', error);
-      });
 }
+// sends that a contact was added
 const addContact = (friend, token) => {
   const message = {
       token: token, 
@@ -36,6 +31,7 @@ const addContact = (friend, token) => {
     messaging
       .send(message)
 }
+// sends that a contact was removed
 const removeContact = (friend, token) => {
   const message = {
       token: token, 

@@ -64,7 +64,10 @@ const postChat = async (req, res) => {
         // adds chat
         await chatService.createByUsername(decoded.username, req.body.username)
         otherUser = req.body.username
-        io.in(otherUser).emit('usernameAdd', { sender: decoded.username, receiver: otherUser })
+        // sends the chat was added to the socket of the other user
+        if (io.in(otherUser) != null)
+            io.in(otherUser).emit('usernameAdd', { sender: decoded.username, receiver: otherUser })
+        // sends in firebase
         let otherToken = await userService.getUserWithToken(otherUser)
         if (otherToken != null)
             firebaseService.addContact(otherUser, otherToken.token)
@@ -134,7 +137,10 @@ const deleteChatById = async (req, res) => {
         }
         chatService.deleteChatById(chat, id)
         let otherUser = chatService.findOtherUser(username, chat)
-        io.in(otherUser).emit('idDel', id) 
+        // sends the chat was deleted to the socket of the other user
+        if (io.in(otherUser) != null)
+            io.in(otherUser).emit('idDel', id) 
+        // sends in firebase
         let otherToken = await userService.getUserWithToken(otherUser)
         if (otherToken != null)
             firebaseService.removeContact(otherUser, otherToken.token)
@@ -174,10 +180,12 @@ const postChatMessagesById = async (req, res) => {
             return res.status(400).send("Invalid request parameters")
         // sends the message
         const messages = await chatService.postChatMessagesById(id, newMessage, username)
-        // let otherUser = chatService.getOtherUser(existingChat, username)
+        // sends the message to the socket of the other user
         let otherUser = chatService.findOtherUser(username, existingChat)
-        io.in(otherUser).emit('idmsg', id)
+        if (io.in(otherUser) != null)
+            io.in(otherUser).emit('idmsg', id)
         let otherToken = await userService.getUserWithToken(otherUser)
+        // sends in firebase
         if (otherToken != null)
             firebaseService.sendMessage(req.body.msg, username, otherToken.token)
         return res.status(200).send(messages)

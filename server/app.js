@@ -42,6 +42,7 @@ app.use('/api/Tokens', Tokens);
 const chatCont = require('./controllers/Chats')
 chatCont.getIo(io)
 io.on('connection', (socket) => {
+    // makes a room that its name is the username that has that socket
     socket.on('username', (username) => {
         socket.join(username)
     })
@@ -69,4 +70,5 @@ admin.initializeApp({
 
 const messaging = admin.messaging();
 const getMessaging = require('./services/Firebase').getMessaging
+// sends the messaging to firebaseService
 getMessaging(messaging)
