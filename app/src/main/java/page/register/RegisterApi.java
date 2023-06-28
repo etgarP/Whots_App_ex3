@@ -28,8 +28,7 @@ public class RegisterApi {
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
-//    @POST("Users")
-//    Call<User> createUser(@Body UserPassName userPassName);
+    // creates a new user
     public void createUser(UserPassName ups, MutableLiveData<String> goodPost) {
         Call<ResponseBody> call = webServiceAPI.createUser(ups);
         call.enqueue(new Callback<ResponseBody>() {
@@ -38,7 +37,7 @@ public class RegisterApi {
                 if (response.isSuccessful()) {
                     goodPost.postValue("done");
                 }
-                // Todo add a mutable that leaves an error
+                // leaves an error if the picture is too big
                 else if (response.raw().message().equals("Payload Too Large")) {
                     goodPost.postValue("Image too big");
                 } else goodPost.postValue("User already exists");

@@ -13,7 +13,7 @@ import page.WhichMode;
 import page.chat.entities.Contact;
 import page.chat.entities.Message;
 import page.sign_in.entities.UserSignedSaver;
-
+// talks to room databases
 @Database(entities = {Contact.class, Message.class, ServerStringHolder.class,
         UserSignedSaver.class, WhichMode.class}, version = 1)
 @TypeConverters({LastMessageTypeConverter.class, UserTypeConverter.class,

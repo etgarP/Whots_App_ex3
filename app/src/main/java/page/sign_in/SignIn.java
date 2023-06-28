@@ -31,7 +31,6 @@ public class SignIn extends Fragment {
     private String username;
     private UserPass up;
     private String firebaseToken;
-    private MutableLiveData<String> ip;
     private MutableLiveData<ServerStringHolder> serverHolder;
     private SignInInteractionListener interactionListener;
     private MutableLiveData<String> err;
@@ -67,11 +66,15 @@ public class SignIn extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ServerStringRepository ssr = new ServerStringRepository(requireContext());
         serverHolder = new MutableLiveData<>();
-
+        MutableLiveData<ServerStringHolder> serverHolder2 = new MutableLiveData<>();
         binding.toRegister.setOnClickListener(v -> {
+            ssr.get(serverHolder2);
+        });
+        serverHolder2.observeForever(holder -> {
             Intent intent = new Intent(requireContext(), Register.class);
-            if (serverHolder.getValue() != null) {
-                intent.putExtra("url", serverHolder.getValue().getServerAddress());
+            if (holder != null) {
+                String ipAddress = holder.getServerAddress();
+                intent.putExtra("url", ipAddress);
             } else {
                 intent.putExtra("url", "http://10.0.0.2:12345/api/");
             }

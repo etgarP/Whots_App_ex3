@@ -57,12 +57,15 @@ public class Register extends AppCompatActivity {
         binding.toSign.setOnClickListener(view -> {
             finish();
         });
+        // registering
         binding.register.setOnClickListener(view -> {
             String username = usernameEt.getText().toString();
             String password = passwordEt.getText().toString();
             String cPassword = cPasswordEt.getText().toString();
             String displayName = displayNameEt.getText().toString();
+            // checking everything is valid
             boolean checked = checkValidData(username, password, cPassword, displayName);
+            // registering in the server
             if (checked) {
                 String picture64 = getBase64(imageUri);
                 if (picture64 == null) return;
@@ -83,7 +86,7 @@ public class Register extends AppCompatActivity {
         binding.back.setOnClickListener(v -> {
             finish();
         });
-        //
+        // putting error messages if needed, or removing them
         passwordM.observe(this, password -> {
             if (password.equals(""))
                 binding.passErr.setText(null);
@@ -129,7 +132,7 @@ public class Register extends AppCompatActivity {
             }
         });
     }
-
+    // lunches the picture intent
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
@@ -137,7 +140,7 @@ public class Register extends AppCompatActivity {
                     imageUri = result.getData().getData();
                 }
             });
-
+    // validating the data
     private boolean checkValidData(String username, String password, String cPassword, String displayName) {
         boolean a = validateUsername(username, usernameM);
         boolean b = validatePassword(password, passwordM);
@@ -146,6 +149,7 @@ public class Register extends AppCompatActivity {
         boolean e = validatePicture(imageUri, pictureM);
         return  a && b && c && d && e;
     }
+    // transforming uril image to base64 that works with the server
     String getBase64(Uri uri) {
         try {
             InputStream inputStream = getContentResolver().openInputStream(uri);
