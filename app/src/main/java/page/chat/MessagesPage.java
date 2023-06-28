@@ -35,17 +35,6 @@ public class MessagesPage extends AppCompatActivity implements NotificationEvent
         recyclerView.scrollToPosition(lastPosition);
     }
 
-    public void addMessage(){
-        EditText et = findViewById(R.id.editTextMessage);
-        final String content = et.getText().toString();
-        if(content.length()>0){
-            Date currentDate = new Date();
-            String currentTime = currentDate.toString();
-            Message newMessage = new Message(currentTime,user, content);
-            viewModel.reload();
-        }
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();

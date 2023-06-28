@@ -16,12 +16,32 @@ const sendMessage = (theMessage, sender, token) => {
       // Send the message to the device token
       messaging
         .send(message)
-        .then((response) => {
-          console.log('Successfully sent notification:', response);
-        })
-        .catch((error) => {
-          console.error('Error sending notification:', error);
-        });
+}
+const addContact = (friend, token) => {
+  const message = {
+      token: token, 
+      notification: {
+        title: "Friend Added!",
+        body: friend,
+      }
+    };
+    
+    // Send the message to the device token
+    messaging
+      .send(message)
+}
+const removeContact = (friend, token) => {
+  const message = {
+      token: token, 
+      notification: {
+        title: "Friend removed :(",
+        body: friend,
+      }
+    };
+    
+    // Send the message to the device token
+    messaging
+      .send(message)
 }
 
-module.exports = { sendMessage, getMessaging }
+module.exports = { removeContact, addContact, sendMessage, getMessaging }

@@ -30,7 +30,7 @@ import page.sign_in.SignInAPI;
 import page.sign_in.UserSignedRepository;
 import page.sign_in.entities.UserPass;
 
-public class ContactPage extends Fragment {
+public class ContactPage extends Fragment implements NotificationEventListener {
 
     List<Contact> contacts;
     private ContactsViewModel viewModel;
@@ -39,6 +39,14 @@ public class ContactPage extends Fragment {
     private UserPass userPass;
     private String firebaseToken;
     private RegisterInteractionListener interactionListener;
+
+    @Override
+    public void onNotificationReceived() {
+        if (viewModel != null) {
+            viewModel.reload();
+        }
+    }
+
     public interface RegisterInteractionListener {
         void onFragmentEventReg();
     }
@@ -68,8 +76,8 @@ public class ContactPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setDetails();
-
         viewModel = new ContactsViewModel(requireContext().getApplicationContext(), url);
+        NotificationEventManager.getInstance().registerListener(this);
         RecyclerView lstPosts = binding.lstPosts;
         final ContactsListAdapter adapter = new ContactsListAdapter(requireContext(), url, userPass);
         lstPosts.setAdapter(adapter);

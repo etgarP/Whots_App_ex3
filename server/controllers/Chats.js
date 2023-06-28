@@ -65,6 +65,10 @@ const postChat = async (req, res) => {
         await chatService.createByUsername(decoded.username, req.body.username)
         otherUser = req.body.username
         io.in(otherUser).emit('usernameAdd', { sender: decoded.username, receiver: otherUser })
+        let otherToken = await userService.getUserWithToken(otherUser)
+        if (otherToken != null)
+            firebaseService.addContact(otherUser, otherToken.token)
+       
         return res.status(200).send("User added")
     } catch (error) {
         return res.status(500).send("Internal Server Error");
@@ -131,6 +135,9 @@ const deleteChatById = async (req, res) => {
         chatService.deleteChatById(chat, id)
         let otherUser = chatService.findOtherUser(username, chat)
         io.in(otherUser).emit('idDel', id) 
+        let otherToken = await userService.getUserWithToken(otherUser)
+        if (otherToken != null)
+            firebaseService.removeContact(otherUser, otherToken.token)
         return res.status(200).send("Chat successfully deleted")
     } catch (error) {
         return res.status(500).send("Internal Server Error")
