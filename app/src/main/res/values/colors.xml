@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="toolBar">#0e7a6f</color>
+    <color name="mainScreen">#212121</color>
+    <color name="background">#fffbfe</color>
+    <color name="button">#38ac94</color>
+    <color name="inputBorders">#ecedef</color>
+    <color name="icon">#333333</color>
+    <color name="red">#FF0000</color>
+    <color name="inputMessage">#FFFFFFFF</color>
+    <color name="borderSend">#cccc</color>
+    <color name="messageBox">#FFFFFFFF</color>
+    <color name="messageBox2">#e2ffc8</color>
 </resources>

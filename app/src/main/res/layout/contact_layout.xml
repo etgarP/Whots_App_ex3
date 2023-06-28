@@ -13,6 +13,7 @@
         android:focusable="true"
         android:orientation="horizontal"
         android:padding="10dp"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,13 +23,12 @@
             android:id="@+id/cardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
             app:cardCornerRadius="50dp">
 
             <ImageView
                 android:id="@+id/contactPfp"
-                android:layout_width="39dp"
-                android:layout_height="39dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:contentDescription="@string/profilePicture"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.cardview.widget.CardView>
@@ -39,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,6 +52,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView

@@ -12,6 +12,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+// stores the last message in a contact
 @Entity
 public class LastMessage {
     @PrimaryKey(autoGenerate = true)
@@ -37,7 +38,7 @@ public class LastMessage {
     public String getCreated() {
         return created;
     }
-
+    // returns the time if the message was from today, else return the date
     public String getTime() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         ZonedDateTime currentZonedDateTime = currentDateTime.atZone(ZoneId.of("GMT+3"));

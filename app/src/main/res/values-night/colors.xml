@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#FF000000</color>
+    <color name="toolBar">#303136</color>
+    <color name="mainScreen">#212121</color>
+    <color name="background">#363940</color>
+    <color name="button">#5860f8</color>
+    <color name="inputBorders">#302c2c</color>
+    <color name="icon">#FFFFFF</color>
+    <color name="inputMessage">#302c2c</color>
+    <color name="borderSend">#302c2c</color>
+    <color name="messageBox">#302c2c</color>
+    <color name="messageBox2">#5860f8</color>
+</resources>

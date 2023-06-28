@@ -10,7 +10,7 @@ import androidx.room.Transaction;
 import java.util.List;
 
 import page.chat.entities.Contact;
-
+// room save for contacts
 @Dao
 public interface ContactDao {
     @Query("SELECT * FROM contact")
@@ -31,4 +31,6 @@ public interface ContactDao {
             insert(contact);
         }
     }
+    @Query("DELETE FROM contact")
+    void deleteAllData();
 }
