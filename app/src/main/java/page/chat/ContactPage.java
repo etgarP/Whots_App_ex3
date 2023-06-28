@@ -48,7 +48,7 @@ public class ContactPage extends Fragment implements NotificationEventListener {
     }
 
     public interface RegisterInteractionListener {
-        void onFragmentEventReg();
+        void onFragmentEventReg(Bundle info);
     }
     public void setFragmentInteractionListener(RegisterInteractionListener listener) {
         this.interactionListener = listener;
@@ -62,7 +62,9 @@ public class ContactPage extends Fragment implements NotificationEventListener {
     // Call this method when the event occurs in the fragment
     private void triggerEvent() {
         if (interactionListener != null) {
-            interactionListener.onFragmentEventReg();
+            Bundle info = new Bundle();
+            info.putString("firebaseToken", firebaseToken);
+            interactionListener.onFragmentEventReg(info);
         }
     }
     @Nullable

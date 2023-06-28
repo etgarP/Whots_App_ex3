@@ -42,9 +42,6 @@ app.use('/api/Tokens', Tokens);
 const chatCont = require('./controllers/Chats')
 chatCont.getIo(io)
 io.on('connection', (socket) => {
-    // socket.on('idmsg', (id) => {
-    //     socket.broadcast.emit('idmsg', id)
-    // })
     socket.on('username', (username) => {
         socket.join(username)
     })

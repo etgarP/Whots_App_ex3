@@ -48,10 +48,11 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
         fragmentTransaction.commit();
     }
     @Override
-    public void onFragmentEventReg() {
+    public void onFragmentEventReg(Bundle info) {
         // Replace the fragment with another fragment or perform any desired action
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         SignIn fragmentSign = new SignIn();
+        fragmentSign.setArguments(info);
         fragmentTransaction.replace(R.id.fragment_container, fragmentSign);
         fragmentTransaction.commit();
     }
