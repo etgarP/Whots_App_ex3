@@ -5,7 +5,7 @@ import androidx.room.TypeConverter;
 import com.google.gson.Gson;
 
 import page.sign_in.entities.UserPass;
-
+// converts UserPass to gson for dao
 public class UserPassTypeConverter {
     private static final Gson gson = new Gson();
 

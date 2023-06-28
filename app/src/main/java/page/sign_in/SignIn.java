@@ -53,6 +53,7 @@ public class SignIn extends Fragment {
             interactionListener.onFragmentEventSign(info);
         }
     }
+    // gets binding
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -66,10 +67,12 @@ public class SignIn extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ServerStringRepository ssr = new ServerStringRepository(requireContext());
         serverHolder = new MutableLiveData<>();
+        // moving to register page first gets the url
         MutableLiveData<ServerStringHolder> serverHolder2 = new MutableLiveData<>();
         binding.toRegister.setOnClickListener(v -> {
             ssr.get(serverHolder2);
         });
+        // moves to the register page
         serverHolder2.observeForever(holder -> {
             Intent intent = new Intent(requireContext(), Register.class);
             if (holder != null) {
@@ -80,7 +83,7 @@ public class SignIn extends Fragment {
             }
             startActivity(intent);
         });
-
+        // go into settings
         binding.settings.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), Settings.class);
             startActivity(intent);
@@ -89,13 +92,12 @@ public class SignIn extends Fragment {
         token = new MutableLiveData<>();
         user = new MutableLiveData<>();
         UserSignedRepository uss = new UserSignedRepository(requireContext());
-
+        // logging in, first getting the url and getting the username and password
         binding.LoggingIn.setOnClickListener(v -> {
             String username1 = binding.username.getText().toString();
             String password = binding.password.getText().toString();
             if (username1.equals("") && password.equals("")) {
-                up = new UserPass("FFFFf4FFFFf4", "FFFFf4FFFFf4");
-                username = "FFFFf4FFFFf4";
+                return;
             } else {
                 up = new UserPass(username1, password);
                 username = username1;
@@ -103,7 +105,7 @@ public class SignIn extends Fragment {
             ssr.get(serverHolder);
         });
         err = new MutableLiveData<>();
-
+        // getting the token
         serverHolder.observeForever(serverObj -> {
             if (serverObj != null) {
                 signApi = new SignInAPI(serverObj.getServerAddress());
@@ -112,7 +114,7 @@ public class SignIn extends Fragment {
                 binding.setAddress.setText("Please set a valid server address.");
             }
         });
-
+        // getting the firebase token and getting the user
         token.observe(getViewLifecycleOwner(), tokenString -> {
             if (tokenString != null) {
                 if (getArguments() != null) {
@@ -121,7 +123,7 @@ public class SignIn extends Fragment {
                 }
             }
         });
-
+        // moving to contacts page through trigger event and passing info
         user.observe(getViewLifecycleOwner(), gottenUser -> {
             uss.insert(up, gottenUser);
             Bundle args = new Bundle();
@@ -135,6 +137,7 @@ public class SignIn extends Fragment {
             }
             triggerEvent(args);
         });
+        // setting error
         err.observeForever(string -> {
             if (!string.equals("")) {
                 binding.setErr.setText(string);

@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import page.chat.entities.Message;
-
+// converts  list of messages
 public class DataConverter {
 
     @TypeConverter

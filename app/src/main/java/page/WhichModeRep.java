@@ -7,7 +7,7 @@ import androidx.room.Room;
 
 import page.room.AppDB;
 import page.room.WhichModeDao;
-
+// gets and saves the theme were in
 public class WhichModeRep {
     private WhichModeDao dao;
     public WhichModeRep(Context context) {
@@ -17,6 +17,7 @@ public class WhichModeRep {
 
         dao = db.whichModeDao();
     }
+    // gets the mode
     public void get(MutableLiveData<String> mutableLiveData) {
         new Thread(() -> {
             WhichMode mode = dao.get(1);
@@ -28,6 +29,7 @@ public class WhichModeRep {
             }
         }).start();
     }
+    // inserts if theres no theme, else updates the theme
     public void update(String mode) {
         new Thread(() -> {
             WhichMode wMode = dao.get(1);

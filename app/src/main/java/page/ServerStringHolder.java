@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
-
+// holds the entered server address
 @Entity
 public class ServerStringHolder {
     @PrimaryKey

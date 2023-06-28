@@ -4,8 +4,8 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import page.TypeConverter.DataConverter;
 import page.ServerStringHolder;
+import page.TypeConverter.DataConverter;
 import page.TypeConverter.LastMessageTypeConverter;
 import page.TypeConverter.UserPassTypeConverter;
 import page.TypeConverter.UserTypeConverter;

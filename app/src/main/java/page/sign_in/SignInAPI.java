@@ -16,7 +16,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+// talks to the server
 public class SignInAPI {
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
@@ -29,9 +29,8 @@ public class SignInAPI {
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
-    public void PostUser(UserPass userPass) {
 
-    }
+    // getting token using username and password and setting error if needed
     public void getToken(MutableLiveData<String> token, UserPass userPass, MutableLiveData<String> err) {
         Call<ResponseBody> call = webServiceAPI.createToken(userPass);
         call.enqueue(new Callback<ResponseBody>() {
@@ -62,6 +61,7 @@ public class SignInAPI {
             }
         });
     }
+    // getting user details and sending the firebase token to the server, setting error on failure
     public void getUserPassName(String firebaseToken, String token, String username, MutableLiveData<User> userSaver, MutableLiveData<String> err) {
         String authorizationHeader = "Bearer " + token;
         Call<User> call = webServiceAPI.getUser(firebaseToken, authorizationHeader, username);

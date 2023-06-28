@@ -5,7 +5,7 @@ import androidx.room.TypeConverter;
 import com.google.gson.Gson;
 
 import page.chat.entities.User;
-
+// converts User to gson for dao
 public class UserTypeConverter {
     private static Gson gson = new Gson();
 

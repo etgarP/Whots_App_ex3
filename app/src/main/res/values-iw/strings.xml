@@ -23,7 +23,7 @@
     <string name="profilePicture">תמונת פרופיל</string>
     <string name="settings">הגדרות</string>
     <string name="dark_mode">מצב לילה</string>
-    <string name="change_server_ip">שנה כתובת IP</string>
+    <string name="change_server_ip">שנה כתובת IP (ניתן לשנות רק לפני ההתחברות)</string>
     <string name="set_server_address">שנה כתובת שרת</string>
     <string name="hemi_hemi">הכנס את שם המשתמש</string>
     <string name="hemi_hemi_dp">הכנס את שם התצוגה</string>

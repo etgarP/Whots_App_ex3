@@ -18,19 +18,13 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-
+// talks to the server
 public interface WebServiceAPI {
     @GET("Chats")
     Call<List<Contact>> getContacts(@Header("firebaseToken") String firebaseToken, @Header("Authorization") String authorizationHeader);
     // should just get a class that has a string inside
     @POST("Chats")
     Call<ResponseBody> createChat(@Header("Authorization") String authorizationHeader, @Body CreateChatUsername username);
-
-    @GET("Chats/{id}")
-    Call<Chat> getChat(@Header("Authorization") String authorizationHeader, @Path("id") int id);
-
-    @DELETE("Chats/{id}")
-    Call<ResponseBody> deleteChat(@Header("Authorization") String authorizationHeader, @Path("id") int id);
 
     @POST("Chats/{id}/Messages")
     Call<ResponseBody> sendMessage(@Header("Authorization") String authorizationHeader, @Path("id") int id, @Body MessageRequest messageRequest);

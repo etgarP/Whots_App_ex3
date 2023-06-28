@@ -19,7 +19,7 @@ import page.chat.ServerStringRepository;
 public class Settings extends AppCompatActivity {
     private ActivitySettingsBinding binding;
     private Dialog dialog;
-
+    // sets the theme
     private void setDarkMode() {
         MutableLiveData<String> result = new MutableLiveData<>();
         WhichModeRep whichModeRep = new WhichModeRep(getApplicationContext());
@@ -37,16 +37,15 @@ public class Settings extends AppCompatActivity {
             }
         } );
     }
-
+    // creates a popup
     private void setPopup() {
-        // Create an instance of AlertDialog.Builder
         binding.darkMode.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             WhichModeRep whichModeRep = new WhichModeRep(getApplicationContext());
-            // Set the title and options
+            // set the title and options
             builder.setTitle("Choose an Option")
                 .setItems(new CharSequence[]{"Light mode", "Dark mode", "Device Default"}, (dialogInterface, which) -> {
-                    // Handle the selected option
+                    // handle the selected option
                     switch (which) {
                         case 0:
                             whichModeRep.update("light");
@@ -59,7 +58,6 @@ public class Settings extends AppCompatActivity {
                             break;
                     }
                 });
-            // Create and show the AlertDialog
             dialog = builder.create();
             dialog.setOnDismissListener(dialogInterface -> {
                 setDarkMode();
@@ -68,7 +66,7 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-
+    // check if an ip is valid
     private boolean checkIp(String ip) {
         String IP_ADDRESS_REGEX =
                 "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
@@ -92,9 +90,11 @@ public class Settings extends AppCompatActivity {
         ServerStringRepository ssh = new ServerStringRepository(getApplicationContext());
         ssh.get(serverAddress.get(0), whichCall.get(0));
         setPopup();
+        // dealing with set address
         binding.setAddress.setOnClickListener(view -> {
             ssh.get(serverAddress.get(1), whichCall.get(1));
         });
+        // first we get the server address, remove everything but the ip and show it
         whichCall.get(0).observe(this, num -> {
             if (serverAddress.get(0).getValue() != null) {
                 if (num == 2) {
@@ -106,9 +106,11 @@ public class Settings extends AppCompatActivity {
                 }
             }
         });
+        // leaving the page
         binding.back.setOnClickListener(view -> {
             finish();
         });
+        // then we check if the string is valid, if so add the start and end to it, and save it
         whichCall.get(1).observe(this, num -> {
             if (num == 2) {
                 if (checkIp(String.valueOf(binding.serverText.getText()))) {
