@@ -44,4 +44,4 @@ To run the Android chat app, follow these steps:
 8. Log in or sign in to start using the app.
 9. Enjoy seamless communication with other users using the Android chat app!
 
-Note: You can run the web application by going in address http://localhost:12345 after youve run the server.
+Note: Once you've run the server you can access and interact with the web application on http://localhost:12345.
