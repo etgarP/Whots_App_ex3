@@ -14,7 +14,7 @@ import page.ServerStringHolder;
 import page.chat.api.ContactAPI;
 import page.sign_in.SignInAPI;
 import page.sign_in.entities.UserPass;
-
+// a page for adding a new friend
 public class AddPage extends AppCompatActivity {
     private ActivityAddPageBinding binding;
     private String username;
@@ -28,10 +28,10 @@ public class AddPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        // on click
         serverHolder = new MutableLiveData<>();
         token = new MutableLiveData<>();
         status = new MutableLiveData<>();
+        // on clicking add we first get the server ip
         binding.add.setOnClickListener(v -> {
             username = binding.username.getText().toString();
             if (!username.equals("")) {
@@ -39,7 +39,7 @@ public class AddPage extends AppCompatActivity {
                 ssr.get(serverHolder);
             }
         });
-        // get server address
+        // then we get the token
         serverHolder.observe(this, serverObj -> {
             if (serverObj != null) {
                 String url = serverObj.getServerAddress();
@@ -50,7 +50,7 @@ public class AddPage extends AppCompatActivity {
                 signInAPI.getToken(token, userPass, status);
             }
         });
-        // get token
+        // we add the contact
         token.observe(this, tokenGotten -> {
             if (tokenGotten != null) {
                 contactAPI.addContact(status, tokenGotten, username);
@@ -71,11 +71,9 @@ public class AddPage extends AppCompatActivity {
             if (!string.equals(""))
                 binding.setErr.setText(string);
         });
+        // go back
         binding.back.setOnClickListener(v -> {
             finish();
         });
-
-
-        // add person
     }
 }

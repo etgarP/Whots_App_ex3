@@ -1,5 +1,5 @@
 package page.sign_in.entities;
-
+// saves all the details of a user
 public class UserPassName {
     private String username;
     private String password;

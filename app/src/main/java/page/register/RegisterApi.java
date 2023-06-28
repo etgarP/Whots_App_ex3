@@ -20,9 +20,9 @@ public class RegisterApi {
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
 
-    public RegisterApi() {
+    public RegisterApi(String url) {
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .baseUrl(url)
                 .callbackExecutor(Executors.newSingleThreadExecutor())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 import com.google.gson.annotations.SerializedName;
 
 import page.TypeConverter.UserPassTypeConverter;
-
+// has the username and password
 @Entity
 @TypeConverters(UserPassTypeConverter.class)
 public class UserPass implements Parcelable {
@@ -55,6 +55,7 @@ public class UserPass implements Parcelable {
         username = in.readString();
         password = in.readString();
     }
+    // makes this parcerable to move it to another intent
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);

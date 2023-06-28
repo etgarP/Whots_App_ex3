@@ -18,7 +18,7 @@ import java.util.List;
 import page.chat.MessagesPage;
 import page.chat.entities.Contact;
 import page.sign_in.entities.UserPass;
-
+// converts the contact list into something that can be displayed by the recycler view
 public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapter.ContactViewHolder> {
     private final String url;
     private UserPass userPass;
@@ -32,11 +32,13 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         this.context = context;
         this.userPass=userPass;
     }
+    // holds the contact view
     class ContactViewHolder extends RecyclerView.ViewHolder {
         private final TextView displayName, when, lastMessage;
         private final ImageView profile;
         private LinearLayout linearLayout;
         private Contact contact;
+        // saves all the elements
 
         private ContactViewHolder (View itemView) {
             super(itemView);
@@ -47,12 +49,13 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
             linearLayout = itemView.findViewById(R.id.wholeContact);
         }
     }
+    // inflates the contact layout
     @Override
     public ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.contact_layout, parent, false);
         return new ContactViewHolder(itemView);
     }
-
+    // sets the details
     @Override
     public void onBindViewHolder(ContactViewHolder holder, int position)  {
         if (contacts != null) {
@@ -72,10 +75,12 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
             });
         }
     }
+    // set contacts
     public void setContacts(List<Contact> s) {
         contacts = s;
         notifyDataSetChanged();
     }
+    // get the amount of contacts
     public int getItemCount() {
         if (contacts != null) {
             return contacts.size();

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-
+// stores a chat
 @Entity
 public class Chat {
     @PrimaryKey(autoGenerate = true)

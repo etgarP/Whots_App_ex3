@@ -23,7 +23,7 @@ import page.sign_in.SignInAPI;
 import page.sign_in.UserSignedRepository;
 import page.sign_in.entities.UserPass;
 import page.sign_in.entities.UserSignedSaver;
-
+// the main page of the program, switches between fragments sign in page and contacts page
 public class MainActivity extends AppCompatActivity implements SignIn.SignInInteractionListener, ContactPage.RegisterInteractionListener {
     private SignInAPI signApi;
     private MutableLiveData<String> token;
@@ -37,16 +37,16 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
     MutableLiveData<String> result;
     private static boolean alreadyRecreated = false;
 
-    // Implement the interface method to handle the fragment event
+    // moves to contacts activity from sign
     @Override
     public void onFragmentEventSign(Bundle info) {
-        // Replace the fragment with another fragment or perform any desired action
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         ContactPage fragmentContacts = new ContactPage();
         fragmentContacts.setArguments(info);
         fragmentTransaction.replace(R.id.fragment_container, fragmentContacts);
         fragmentTransaction.commit();
     }
+    // moves to sign activity from contacts
     @Override
     public void onFragmentEventReg(Bundle info) {
         // Replace the fragment with another fragment or perform any desired action
@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
         fragmentTransaction.commit();
     }
 
+    // checks which mode were in at the start of the program and switches accordingly
     private void observeDarkMode() {
         result = new MutableLiveData<>();
-
         WhichModeRep whichModeRep = new WhichModeRep(getApplicationContext());
         whichModeRep.get(result);
 
@@ -78,13 +78,10 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
             }
         });
     }
-
+    // asks for notifictions permissions if there isnt permission
     private void getPermission() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // Permission not granted, request it
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
-        } else {
-            // Permission already granted, proceed with notification
         }
     }
 
@@ -96,14 +93,18 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
         observeDarkMode();
         condition = new MutableLiveData<>(-1);
         MutableLiveData<String> firebaseToken = new MutableLiveData<>();
+        // gets the token and goes on to check conditions other conditions for going in to contacts or sign
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, instanceIdResult -> {
             firebaseToken.postValue(instanceIdResult.getToken());
             checkCondition(getApplicationContext());
         });
+
         condition.observeForever(num -> {
+            // going in after we get a 0 or a 1 from conditions
             if (num != null && num != -1) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                // going in to the fragment contact page with the user userpass url and firebasetoken
                 if (num == 1) {
                     ContactPage fragmentB = new ContactPage();
                     Bundle args = new Bundle();
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
                     fragmentB.setArguments(args);
 
                     fragmentTransaction.replace(R.id.fragment_container, fragmentB);
+                // go into sign in with the firebase token
                 } else {
                     SignIn fragmentB = new SignIn();
                     Bundle args = new Bundle();
@@ -132,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements SignIn.SignInInte
         ServerStringRepository ssr = new ServerStringRepository(context);
         serverHolder = new MutableLiveData<>();
         ssr.get(serverHolder);
-
         userSaver = new MutableLiveData<>();
         UserSignedRepository uss = new UserSignedRepository(getApplicationContext());
         // getting the server address

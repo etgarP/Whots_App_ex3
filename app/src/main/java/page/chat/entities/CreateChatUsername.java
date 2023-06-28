@@ -1,7 +1,7 @@
 package page.chat.entities;
 
 import com.google.gson.annotations.SerializedName;
-
+// helps transfer the username in the api
 public class CreateChatUsername {
     @SerializedName("username")
     private String username;

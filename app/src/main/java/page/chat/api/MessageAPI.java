@@ -15,7 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+// gets and posts message data to and from the server
 public class MessageAPI {
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
@@ -30,7 +30,8 @@ public class MessageAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
         this.dao = dao;
     }
-
+    // adds a new message using chat id, message string, and a mutable to tell when its done and
+    // if it failed
     public void add(String bearerToken, int id, String msg, MutableLiveData<String> done){
         String authorizationHeader = "Bearer " + bearerToken;
         MessageRequest messageRequest = new MessageRequest(msg);
@@ -49,12 +50,13 @@ public class MessageAPI {
             }
         });
     }
-
+    // gets the list of messages, takes a token and chat id, and mutable to put them in
     public void get(MutableLiveData<List<Message>> messagesList, String bearerToken, int id) {
         if (dao == null) return;
         String authorizationHeader = "Bearer " + bearerToken;
         Call<List<Message>> call = webServiceAPI.getChatMessages(authorizationHeader, id);
         call.enqueue(new Callback<List<Message>>() {
+            // takes the messages, saves them in dao, and removes the unneeded pictures from them
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 if(response.isSuccessful()) {

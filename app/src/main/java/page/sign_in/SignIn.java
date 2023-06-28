@@ -70,6 +70,11 @@ public class SignIn extends Fragment {
 
         binding.toRegister.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), Register.class);
+            if (serverHolder.getValue() != null) {
+                intent.putExtra("url", serverHolder.getValue().getServerAddress());
+            } else {
+                intent.putExtra("url", "http://10.0.0.2:12345/api/");
+            }
             startActivity(intent);
         });
 

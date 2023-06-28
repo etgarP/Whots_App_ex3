@@ -19,8 +19,10 @@ import java.util.List;
 import page.chat.MessagesPage;
 import page.chat.NotificationEventManager;
 
+// handles notifications
 public class MessagesReciever extends FirebaseMessagingService {
 
+    // takes notifications from the server and showcases them in the phone
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         if (remoteMessage.getNotification() != null) {
@@ -35,11 +37,12 @@ public class MessagesReciever extends FirebaseMessagingService {
             NotificationEventManager.getInstance().dispatchNotificationEvent();
         }
     }
+    // creates the notification channel
     private void createNotificationChannel() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("1", "My Channel", importance);
-            channel.setDescription ("Demo channel");
+            channel.setDescription ("Whotsapp notifs");
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);

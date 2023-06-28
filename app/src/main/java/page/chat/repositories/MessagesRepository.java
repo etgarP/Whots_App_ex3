@@ -10,11 +10,11 @@ import java.util.List;
 
 import page.chat.api.MessageAPI;
 import page.chat.entities.Message;
-import page.chat.entities.Messages;
 import page.room.AppDB;
 import page.room.MessageDao;
 import page.room.MessageDao;
 
+// talks to the dao and server api about messages
 public class MessagesRepository {
     private MessageDao dao;
     private MessageListData messageListData;
@@ -26,12 +26,13 @@ public class MessagesRepository {
         AppDB db = Room.databaseBuilder(context,
                         AppDB.class, "MessagesDB" + id).build();
 
-        this.id=id;
+        this.id = id;
         this.dao = db.messageDao();
         this.messageListData = new MessageListData();
         this.api = new MessageAPI(this.dao, url);
         this.token = null;
     }
+    // set token
     public void setToken(String token) {
         this.token = token;
         api.get(messageListData, token, id);
@@ -40,6 +41,7 @@ public class MessagesRepository {
 
         public MessageListData(){
             super();
+            // gets the messages from dao
             new Thread(() -> {
                 List<Message> messages = dao.index();
                 if (messages!=null){
@@ -47,7 +49,7 @@ public class MessagesRepository {
                 }
             }).start();
         }
-
+        // gets the messages from dao then from the api
         @Override
         protected void onActive() {
             super.onActive();
@@ -63,11 +65,11 @@ public class MessagesRepository {
         }
     }
 
-
-public LiveData<List<Message>> getAll() { return this.messageListData; }
-
+    // get the list
+    public LiveData<List<Message>> getAll() { return this.messageListData; }
+    // reloads
     public void reload() {
-        if (token!=null){
+        if (token != null){
             api.get(messageListData, token, id);
         }
     }

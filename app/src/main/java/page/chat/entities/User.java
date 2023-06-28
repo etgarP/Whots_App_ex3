@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Base64;
-
+// stores the user
 @Entity
 public class User implements Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -55,7 +55,7 @@ public class User implements Parcelable {
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
-
+    // returns a bitmap from a base64 string
     public Bitmap getProfilePicBit() {
         if (profilePic.startsWith("data:image/png;base64,") || profilePic.startsWith("data:image/jpg;base64,")) {
             profilePic = profilePic.substring(profilePic.indexOf(',') + 1);

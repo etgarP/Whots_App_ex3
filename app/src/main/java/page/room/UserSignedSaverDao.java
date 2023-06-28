@@ -6,7 +6,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import page.sign_in.entities.UserSignedSaver;
-
+// room save for user and userpass that are signed
 @Dao
 public interface UserSignedSaverDao {
     @Query("SELECT * FROM UserSignedSaver WHERE id = :id")

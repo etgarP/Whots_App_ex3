@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
-
+// stores a contact
 @Entity
 public class Contact {
     @PrimaryKey(autoGenerate = true)
@@ -58,10 +58,10 @@ public class Contact {
         }
         return "";
     }
-
     public void setId(int id) {
         this.id = id;
     }
+    // code to enable contains method on list
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

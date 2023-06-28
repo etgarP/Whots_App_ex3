@@ -15,11 +15,12 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+// talks to the server
 
 public interface WebServiceAPI {
     @GET("Chats")
     Call<List<Contact>> getContacts(@Header("Authorization") String authorizationHeader);
-    // should just get a class that has a string inside
+
     @POST("Chats")
     Call<Void> createChat(@Header("Authorization") String authorizationHeader,
                           @Path("username") String username);

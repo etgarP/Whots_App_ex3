@@ -41,6 +41,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        // setting things up
         usernameEt = binding.username;
         passwordEt = binding.password;
         cPasswordEt = binding.rePassword;
@@ -65,10 +66,11 @@ public class Register extends AppCompatActivity {
             if (checked) {
                 String picture64 = getBase64(imageUri);
                 if (picture64 == null) return;
-                RegisterApi ra = new RegisterApi();
+                RegisterApi ra = new RegisterApi(getIntent().getStringExtra("url"));
                 ra.createUser(new UserPassName(username, password, displayName, picture64), goodPost);
             }
         });
+        // when setting image
         pictureBtn.setOnClickListener(v -> {
             // Create an intent to pick an image from the gallery or take a photo
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -77,9 +79,11 @@ public class Register extends AppCompatActivity {
             launcher.launch(intent);
             System.out.println(imageUri);
         });
+        // listener for going back
         binding.back.setOnClickListener(v -> {
             finish();
         });
+        //
         passwordM.observe(this, password -> {
             if (password.equals(""))
                 binding.passErr.setText(null);

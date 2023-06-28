@@ -1,7 +1,7 @@
 package page.chat.entities;
 
 import com.google.gson.annotations.SerializedName;
-
+// needed to send a message in the api
 public class MessageRequest {
     @SerializedName("msg")
     private String message;

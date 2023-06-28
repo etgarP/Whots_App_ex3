@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import page.chat.entities.User;
-
+// saves the user and userpass
 @Entity
 public class UserSignedSaver {
     @PrimaryKey

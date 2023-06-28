@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+// stores a message
 @Entity
 public class Message {
 
@@ -60,6 +61,7 @@ public class Message {
     public void setContent(String content) {
         this.content = content;
     }
+    // these are needed for contains in a list
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

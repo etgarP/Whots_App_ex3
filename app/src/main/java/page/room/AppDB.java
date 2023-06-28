@@ -12,7 +12,6 @@ import page.TypeConverter.UserTypeConverter;
 import page.WhichMode;
 import page.chat.entities.Contact;
 import page.chat.entities.Message;
-import page.chat.entities.Messages;
 import page.sign_in.entities.UserSignedSaver;
 
 @Database(entities = {Contact.class, Message.class, ServerStringHolder.class,

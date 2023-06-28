@@ -15,7 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+// gets and posts contacts data to and from the server
 public class ContactAPI {
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
@@ -30,12 +30,14 @@ public class ContactAPI {
         webServiceAPI = retrofit.create(WebServiceAPI.class);
         this.dao = dao;
     }
-
+    // takes in a mutable list, tokens, and get the contact list from the server
+    // also the server saves the firebase token
     public void get(MutableLiveData<List<Contact>> contactsList, String bearerToken, String firebaseToken) {
         if (dao == null) return;
         String authorizationHeader = "Bearer " + bearerToken;
         Call<List<Contact>> call = webServiceAPI.getContacts(firebaseToken, authorizationHeader);
         call.enqueue(new Callback<List<Contact>>() {
+            // gets the contact list applies it, saves it in the dao, deletes unneeded from dao
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
                 List<Contact> oldList = contactsList.getValue();
@@ -58,6 +60,7 @@ public class ContactAPI {
             public void onFailure(Call<List<Contact>> call, Throwable t) {}
         });
     }
+    // adds a new contact using the token, and a username
     public void addContact(MutableLiveData<String> status, String bearerToken, String username) {
         String authorizationHeader = "Bearer " + bearerToken;
         CreateChatUsername username1 = new CreateChatUsername(username);

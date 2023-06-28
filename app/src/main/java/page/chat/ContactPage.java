@@ -29,7 +29,7 @@ import page.chat.viewmodels.ContactsViewModel;
 import page.sign_in.SignInAPI;
 import page.sign_in.UserSignedRepository;
 import page.sign_in.entities.UserPass;
-
+// a page for seeing the contacts
 public class ContactPage extends Fragment implements NotificationEventListener {
 
     List<Contact> contacts;
@@ -40,26 +40,29 @@ public class ContactPage extends Fragment implements NotificationEventListener {
     private String firebaseToken;
     private RegisterInteractionListener interactionListener;
 
+    // reloads contacts when we get a notification
     @Override
     public void onNotificationReceived() {
         if (viewModel != null) {
             viewModel.reload();
         }
     }
-
+    // sets interface for main activity
     public interface RegisterInteractionListener {
         void onFragmentEventReg(Bundle info);
     }
+    // sets main activity as a listener
     public void setFragmentInteractionListener(RegisterInteractionListener listener) {
         this.interactionListener = listener;
     }
+    // sets main activity as the interaction listener
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         interactionListener = (RegisterInteractionListener) context;
         setFragmentInteractionListener(interactionListener);
     }
-    // Call this method when the event occurs in the fragment
+    // trigger the event of switching to sign in
     private void triggerEvent() {
         if (interactionListener != null) {
             Bundle info = new Bundle();
@@ -67,6 +70,7 @@ public class ContactPage extends Fragment implements NotificationEventListener {
             interactionListener.onFragmentEventReg(info);
         }
     }
+    // sets binding
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,16 +83,20 @@ public class ContactPage extends Fragment implements NotificationEventListener {
         super.onViewCreated(view, savedInstanceState);
         setDetails();
         viewModel = new ContactsViewModel(requireContext().getApplicationContext(), url);
+        // register this for notifications
         NotificationEventManager.getInstance().registerListener(this);
+        // sets adapter
         RecyclerView lstPosts = binding.lstPosts;
         final ContactsListAdapter adapter = new ContactsListAdapter(requireContext(), url, userPass);
         lstPosts.setAdapter(adapter);
         lstPosts.setLayoutManager(new LinearLayoutManager(requireContext()));
         SwipeRefreshLayout refreshLayout = binding.refreshLayout;
+        // reloads on refresh
         refreshLayout.setOnRefreshListener(() -> {
             viewModel.reload();
             binding.refreshLayout.setRefreshing(false);
         });
+        // gets token
         viewModel.get().observe(getViewLifecycleOwner(), adapter::setContacts);
         MutableLiveData<String> token = new MutableLiveData<>();
         SignInAPI api = new SignInAPI(url);
@@ -98,7 +106,7 @@ public class ContactPage extends Fragment implements NotificationEventListener {
                 viewModel.setTokens(tokenString, firebaseToken);
             }
         });
-
+        // exists into sign
         MutableLiveData<Integer> observeDelete = new MutableLiveData<>();
         binding.exit.setOnClickListener(v -> new Thread(() -> {
             UserSignedRepository usr = new UserSignedRepository(requireContext().getApplicationContext());
@@ -113,17 +121,19 @@ public class ContactPage extends Fragment implements NotificationEventListener {
                 triggerEvent();
             }
         });
+        // goes to settings
         binding.settingsContacts.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), Settings.class);
             startActivity(intent);
         });
+        // goes to add page
         binding.add.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), AddPage.class);
             intent.putExtra("userPass", userPass);
             startActivity(intent);
         });
     }
-
+    // gets the arguments
     private void setDetails() {
         if (getArguments() != null) {
             User user = getArguments().getParcelable("user");
@@ -135,7 +145,7 @@ public class ContactPage extends Fragment implements NotificationEventListener {
 
         }
     }
-
+    // reloads on resume
     @Override
     public void onResume() {
         super.onResume();

@@ -12,7 +12,7 @@ import page.chat.api.ContactAPI;
 import page.chat.entities.Contact;
 import page.room.AppDB;
 import page.room.ContactDao;
-
+// talks to the dao and server api about contacts
 public class ContactsRepository {
     private ContactDao dao;
     private ContactListData contactListData;
@@ -29,15 +29,15 @@ public class ContactsRepository {
         api = new ContactAPI(dao, url);
         this.token = null;
     }
-
+    // sets the token when it arrives
     public void setToken(String token, String firebaseToken) {
         this.token = token;
         this.firebaseToken = firebaseToken;
         api.get(contactListData, token, firebaseToken);
     }
-
+    // saves the live data of the contacts
     class ContactListData extends MutableLiveData<List<Contact>> {
-
+        /// gets the contacts from the dao
         public ContactListData() {
             super();
             new Thread(() -> {
@@ -45,7 +45,7 @@ public class ContactsRepository {
                 postValue(contactList);
             }).start();
         }
-
+        // gets the contacts from the api if we got the token from it
         @Override
         protected void onActive() {
             super.onActive();
@@ -55,17 +55,16 @@ public class ContactsRepository {
             }).start();
         }
     }
-
+    // returns the live data
     public LiveData<List<Contact>> getAll() {
         return contactListData;
     }
-    // TODO see if these needs adding farther down the line
-//    public void add (final Contact contact) { api.add(contact); }
-//    public void delete (final Contact contact) { api.delete(contact); }
+    // reloads the messages
     public void reload() {
         if (token != null)
             api.get(contactListData, token, firebaseToken);
     }
+    // deletes data
     public void deleteDataMain() {
         dao.deleteAllData();
     }

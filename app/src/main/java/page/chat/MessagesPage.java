@@ -30,6 +30,7 @@ public class MessagesPage extends AppCompatActivity implements NotificationEvent
     RecyclerView recyclerView;
     MessagesListAdapter adapter;
     User user;
+    // scrolls down
     public void setScroll() {
         int lastPosition = adapter.getItemCount() - 1;
         recyclerView.scrollToPosition(lastPosition);
@@ -59,15 +60,15 @@ public class MessagesPage extends AppCompatActivity implements NotificationEvent
         profilePictureImageView.setImageBitmap(user.getProfilePicBit());
 
         recyclerView = findViewById(R.id.lstMessages);
-
+        //sets adapter
         adapter = new MessagesListAdapter(this, user.getUsername());
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         viewModel = new MessagesViewModel(getApplicationContext(), url, id);
-
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
+        // on refresh reloads and scrolls down
         refreshLayout.setOnRefreshListener(() -> {
             viewModel.reload();
             SwipeRefreshLayout rfr = findViewById(R.id.refreshLayout);
@@ -111,20 +112,17 @@ public class MessagesPage extends AppCompatActivity implements NotificationEvent
             }
         });
     }
-
+    // reloads on notification
     @Override
     public void onNotificationReceived() {
         if (viewModel != null) {
             viewModel.reload();
         }
     }
-
+    // unregister notification on destroy
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Other code in your activity's onDestroy() method
-
-        // Unregister the activity as the listener for notification events
         NotificationEventManager.getInstance().unregisterListener(this);
     }
 }

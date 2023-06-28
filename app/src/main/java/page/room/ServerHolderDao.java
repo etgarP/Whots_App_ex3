@@ -6,7 +6,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import page.ServerStringHolder;
-
+// room save for server
 @Dao
 public interface ServerHolderDao {
     @Query("SELECT * FROM ServerStringHolder WHERE id = :id")

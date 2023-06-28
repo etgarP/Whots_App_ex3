@@ -9,10 +9,8 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import page.chat.entities.Contact;
 import page.chat.entities.Message;
-import page.chat.entities.Messages;
-
+// room save for messages
 @Dao
 public interface MessageDao {
     @Query("SELECT * FROM Message WHERE id = :id")
